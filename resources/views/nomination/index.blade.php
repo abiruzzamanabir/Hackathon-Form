@@ -115,17 +115,17 @@
                     <!-- <p class="badge bg-danger p-1">⚪ Live</p> -->
                 @endif
 
-                <div class="card-header text-center bg-light rounded-top">
+                {{-- <div class="card-header text-center bg-light rounded-top">
                     <!-- Logo and Link Section -->
-                    {{-- <a href="{{ $theme->url }}">
+                    <a href="{{ $theme->url }}">
                         <img width="150px" src="{{ asset('assets/img/' . $theme->logo) }}" alt="Theme Logo"
                             class="mb-0">
-                    </a> --}}
+                    </a>
                     <!-- Countdown Timer Section -->
-                    {{-- <div class="time py-3 rounded-lg" id="countdown">
+                    <div class="time py-3 rounded-lg" id="countdown">
                         <!-- Countdown content will go here -->
-                    </div> --}}
-                </div>
+                    </div>
+                </div> --}}
 
                 <div class="card shadow">
                     @php
@@ -137,53 +137,52 @@
                         @if (Carbon::now() <= $close)
                             <div class="card-body">
                                 <nav class="navbar navbar-expand-lg navbar-light">
-                                    
-                                        <!-- Brand/Logo or Home link -->
-                                        <a href="{{ $theme->url }}">
-                                            <img width="150px" src="{{ asset('assets/img/' . $theme->logo) }}"
-                                                alt="Theme Logo" class="mb-0">
-                                        </a>
 
-                                        <!-- Toggle for mobile view -->
-                                        
-                                        <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                                            data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
-                                            aria-label="Toggle navigation">
-                                            <span class="navbar-toggler-icon"></span>
-                                        </button>
+                                    <!-- Brand/Logo or Home link -->
+                                    <a href="{{ $theme->url }}">
+                                        <img width="150px" src="{{ asset('assets/img/' . $theme->logo) }}"
+                                            alt="Theme Logo" class="mb-0">
+                                    </a>
 
-                                        <!-- Navbar links and profile section -->
-                                        <div class="collapse navbar-collapse" id="navbarNav">
-                                            <ul class="navbar-nav ms-auto">
-                                                <!-- Check if user is authenticated -->
-                                                @if (Auth::user())
-                                                    <!-- Profile Section -->
-                                                    <li class="nav-item dropdown">
-                                                        <a class="nav-link dropdown-toggle d-flex align-items-center"
-                                                            href="#" id="navbarDropdown" role="button"
-                                                            data-bs-toggle="dropdown" aria-expanded="false">
-                                                            <img src="{{ Auth::user()->avatar }}"
-                                                                alt="User Profile Picture"
-                                                                class="img-fluid rounded-circle border border-info shadow-sm"
-                                                                width="40">
-                                                            <span class="ms-2">{{ Auth::user()->name }}</span>
-                                                        </a>
-                                                        <ul class="dropdown-menu dropdown-menu-end"
-                                                            aria-labelledby="navbarDropdown">
-                                                            <li><a class="dropdown-item" href="#">Profile</a></li>
-                                                            <li><a class="dropdown-item"
-                                                                    href="{{ route('google.logout') }}">Logout</a></li>
-                                                        </ul>
-                                                    </li>
-                                                @else
-                                                    <!-- Optionally, you can add a login link if the user is not authenticated -->
-                                                    <li class="nav-item">
-                                                        <a class="nav-link" href="{{ route('case.index') }}">Login</a>
-                                                    </li>
-                                                @endif
-                                            </ul>
-                                        </div>
-                                    
+                                    <!-- Toggle for mobile view -->
+
+                                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                        data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false"
+                                        aria-label="Toggle navigation">
+                                        <span class="navbar-toggler-icon"></span>
+                                    </button>
+
+                                    <!-- Navbar links and profile section -->
+                                    <div class="collapse navbar-collapse" id="navbarNav">
+                                        <ul class="navbar-nav ms-auto">
+                                            <!-- Check if user is authenticated -->
+                                            @if (Auth::user())
+                                                <!-- Profile Section -->
+                                                <li class="nav-item dropdown">
+                                                    <a class="nav-link dropdown-toggle d-flex align-items-center"
+                                                        href="#" id="navbarDropdown" role="button"
+                                                        data-bs-toggle="dropdown" aria-expanded="false">
+                                                        <img src="{{ Auth::user()->avatar }}" alt="User Profile Picture"
+                                                            class="img-fluid rounded-circle border border-info shadow-sm"
+                                                            width="40">
+                                                        <span class="ms-2">{{ Auth::user()->name }}</span>
+                                                    </a>
+                                                    <ul class="dropdown-menu dropdown-menu-end"
+                                                        aria-labelledby="navbarDropdown">
+                                                        {{-- <li><a class="dropdown-item" href="#">Profile</a></li> --}}
+                                                        <li><a class="dropdown-item"
+                                                                href="{{ route('google.logout') }}">Logout</a></li>
+                                                    </ul>
+                                                </li>
+                                            @else
+                                                <!-- Optionally, you can add a login link if the user is not authenticated -->
+                                                <li class="nav-item">
+                                                    <a class="nav-link" href="{{ route('case.index') }}">Login</a>
+                                                </li>
+                                            @endif
+                                        </ul>
+                                    </div>
+
                                 </nav>
                                 @include('validate')
                                 <form action="{{ route('form.store') }}" method="POST" class="was-validated">
@@ -251,28 +250,54 @@
                                         <div class="my-4">
                                             <div class="form-group order member-btn-opt">
                                                 <div class="member-btn-opt-area">
-                                                    <!-- <div class="btn-section">
-                                                <div class="d-flex justify-content-between">
-                                                    <b>Member 1</b>
-                                                    <span style="cursor: pointer"
-                                                        class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove <i
-                                                            class="fas fa-times"></i></span>
-                                                </div>
-                                                <input name="member_name[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Name">
-                                                <input name="member_designation[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Designation">
-                                                <input name="member_organization[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Organization">
-                                                <input name="member_contact[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Contact">
-                                                <input name="member_email[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Email">
-                                            </div> -->
+                                                    <div class="btn-section">
+                                                        <div class="d-flex justify-content-between">
+                                                            <b>Member 1</b>
+                                                            {{-- <span style="cursor: pointer"
+                                                                class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove
+                                                                <i class="fas fa-times"></i></span> --}}
+                                                        </div>
+                                                        <input name="member_name[]" required class="form-control my-3"
+                                                            type="text" placeholder="Team Member Name">
+                                                        <input name="member_designation[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Designation">
+                                                        <input name="member_organization[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Organization">
+                                                        <input name="member_contact[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Contact">
+                                                        <input name="member_email[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Email">
+                                                    </div>
+                                                    <div class="btn-section">
+                                                        <div class="d-flex justify-content-between">
+                                                            <b>Member 2</b>
+                                                            {{-- <span style="cursor: pointer"
+                                                                class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove
+                                                                <i class="fas fa-times"></i></span> --}}
+                                                        </div>
+                                                        <input name="member_name[]" required class="form-control my-3"
+                                                            type="text" placeholder="Team Member Name">
+                                                        <input name="member_designation[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Designation">
+                                                        <input name="member_organization[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Organization">
+                                                        <input name="member_contact[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Contact">
+                                                        <input name="member_email[]" required
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Email">
+                                                    </div>
 
                                                 </div>
-                                                <a id="add-new-member-button" class="btn btn-sm btn-info">Add
-                                                    member</a>
+                                                {{-- <a id="add-new-member-button" class="btn btn-sm btn-info">Add
+                                                    member</a> --}}
                                             </div>
                                         </div>
                                     </div>

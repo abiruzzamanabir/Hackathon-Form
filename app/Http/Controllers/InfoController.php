@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
-use App\Models\nomination;
+use App\Models\Nomination;
 use App\Models\Theme;
 use App\Models\User;
 use Illuminate\Http\Request;

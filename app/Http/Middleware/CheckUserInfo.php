@@ -23,6 +23,10 @@ class CheckUserInfo
             // Allow the request to proceed if all fields are filled
             return $next($request);
         }
+        if ($user->name == '' && $user->email == '' && $user->designation == '') {
+            // Allow the request to proceed if all fields are filled
+            return redirect()->route('form.index');
+        }
 
         // Redirect to the info page if any field is empty
         return redirect()->route('info.index');

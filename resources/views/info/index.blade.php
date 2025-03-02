@@ -185,7 +185,7 @@
 
                                 </nav>
                                 @include('validate')
-                                <form action="{{ route('info.update',Auth::user()->google_id) }}" method="POST"
+                                <form action="{{ route('info.update', Auth::user()->google_id) }}" method="POST"
                                     class="was-validated">
                                     @csrf
                                     @method('PUT')
@@ -206,7 +206,7 @@
                                                 <b>Designation <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="designation" class="form-control"
-                                                value="{{ Auth::user()->designation }}" required>
+                                                value="{{ old('designation') }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Designation</div>
                                         </div>
                                         <div class="mb-2">
@@ -214,7 +214,7 @@
                                                 <b>Organization <span class="text-danger">*</span></b>
                                             </label>
                                             <input list="organisations" type="text" name="organization"
-                                                class="form-control" value="{{ Auth::user()->organization }} " required>
+                                                class="form-control" value="{{ old('organization') }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Organization Name
                                             </div>
                                         </div>
@@ -231,7 +231,7 @@
                                                 <b>Contact Number <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="phone" class="form-control"
-                                                value="{{  Auth::user()->phone  }}" required>
+                                                value="{{ old('phone') }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Contact Number
                                             </div>
                                         </div>
@@ -240,7 +240,7 @@
                                                 <b>Address <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="address" class="form-control"
-                                                value="{{ Auth::user()->address }}" required>
+                                                value="{{ old('address') }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
                                     </div>

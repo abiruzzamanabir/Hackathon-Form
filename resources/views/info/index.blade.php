@@ -185,7 +185,7 @@
 
                                 </nav>
                                 @include('validate')
-                                <form action="{{ route('info.update', Auth::user()->google_id) }}" method="PUT"
+                                <form action="{{ route('info.update', Auth::user()->google_id) }}" method="PATCH"
                                     class="was-validated">
                                     @csrf
                                     <u>

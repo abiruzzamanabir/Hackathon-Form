@@ -18,7 +18,7 @@ class CaseController extends Controller
     {
         $invoice = Invoice::get()->unique('name');
         $theme = Theme::findOrFail(1);
-        return view('case.index', [
+        return view('login.index', [
             'invoices' => $invoice,
             'theme' => $theme,
         ]);

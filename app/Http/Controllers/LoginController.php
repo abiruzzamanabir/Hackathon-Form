@@ -56,6 +56,6 @@ class LoginController extends Controller
         session()->regenerateToken();
 
         // Redirect to a specific route (for example, the homepage or login page)
-        return redirect()->route('case.index'); // Adjust the route as needed
+        return redirect()->route('login.index'); // Adjust the route as needed
     }
 }

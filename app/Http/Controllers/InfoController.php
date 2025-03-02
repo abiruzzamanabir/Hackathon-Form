@@ -44,7 +44,7 @@ class InfoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request->all();
     }
 
     /**
@@ -76,7 +76,7 @@ class InfoController extends Controller
      * @param  \App\Models\nomination  $nomination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Nomination $nomination, $id)
+    public function update(Request $request, $id)
     {
         return $request->all();
         // Retrieve the user by email, assuming email is unique

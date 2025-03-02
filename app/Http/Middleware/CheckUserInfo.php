@@ -16,15 +16,16 @@ class CheckUserInfo
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
-        // Check if name, email, and designation are filled
-        if ($user->name != '' && $user->email != '' && $user->designation != '') {
-            // Allow the request to proceed if all fields are filled
-            return $next($request);
+        // Check if user information is complete
+        $isComplete = $user->name && $user->designation && $user->organization && $user->phone && $user->address;
+
+        // If the user's information is incomplete and they're not on the /info page, redirect them
+        if (!$isComplete && $request->path() !== 'info') {
+            return redirect()->route('info.index');
         }
 
-        // Redirect to the info page if any field is empty
-        return redirect()->route('info.index');
+        return $next($request);
     }
 }

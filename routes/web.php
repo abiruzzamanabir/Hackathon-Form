@@ -28,8 +28,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/form', NominationController::class); // Only allows access if data is valid
     });
 
+    Route::middleware(['check.user.information'])->group(function () {
+        Route::resource('/info', InfoController::class);
+    });
     // If user's information is incomplete, redirect them to /info
-    Route::resource('/info', InfoController::class);
 });
 
 // Middleware for unauthenticated users

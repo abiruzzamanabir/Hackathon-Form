@@ -8,7 +8,7 @@ use App\Models\Theme;
 use App\Models\User;
 use Illuminate\Http\Request;
 
-class InfoController extends Controller
+class InfoController extends Nomination
 {
     /**
      * Display a listing of the resource.

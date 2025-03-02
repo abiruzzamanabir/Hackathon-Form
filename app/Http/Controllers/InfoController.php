@@ -80,7 +80,6 @@ class InfoController extends Controller
     {
         // Retrieve the user by email, assuming email is unique
         $user = User::where('google_id', $id)->firstOrFail();
-
         // Initialize members array
         $members = [];
 

@@ -26,7 +26,7 @@ Route::middleware(['auth'])->group(function () {
 
 Route::middleware(['redirectIfAuthenticated'])->group(function () {
   // This will ensure that logged-in users cannot access the /case routes
-  Route::resource('/login', CaseController::class);
+  Route::resource('/case', CaseController::class);
 });
 Route::resource('/theme', ThemeController::class);
 Route::get('/', [NominationController::class, 'redirect'])->name('form.redirect');

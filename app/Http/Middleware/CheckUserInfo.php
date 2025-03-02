@@ -16,7 +16,7 @@ class CheckUserInfo
      */
     public function handle(Request $request, Closure $next)
     {
-        $user = Auth::user();
+        $user = auth()->user();
 
         // Check if user information is complete
         $isComplete = $user->name && $user->designation && $user->organization && $user->phone && $user->address;

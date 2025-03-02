@@ -78,39 +78,15 @@ class InfoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        return $request->all();
-        // Retrieve the user by email, assuming email is unique
-        $user = User::where('google_id', $id)->firstOrFail();
 
-        // Initialize members array
-        $members = [];
+        $update_date = User::findOrFail($id);
 
-        if ($request->member_name) {
-            // Loop through member details and build the array
-            foreach ($request->member_name as $key => $name) {
-                $members[] = [
-                    'member_name' => $name,
-                    'member_designation' => $request->member_designation[$key],
-                    'member_organization' => $request->member_organization[$key],
-                    'member_contact' => $request->member_contact[$key],
-                    'member_email' => $request->member_email[$key],
-                ];
-            }
-        }
 
-        // Update the user's data
-        $user->update([
-            'name' => $request->name,
-            'email' => $request->email,
+        $update_date->update([
             'phone' => $request->phone,
-            'designation' => $request->designation,
-            'organization' => $request->organization,
-            'address' => $request->address,
-            'members' => json_encode($members), // Encode members array once
         ]);
 
-        // Redirect back with a success message
-        return redirect()->route('form.index')->with('success', 'Information Updated');
+        return back()->with('success', 'Comment Added');
     }
 
 

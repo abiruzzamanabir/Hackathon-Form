@@ -26,9 +26,10 @@ Route::middleware(['auth'])->group(function () {
     // This ensures that the user cannot access /form without completing their profile first
     Route::middleware(['check.user.info'])->group(function () {
         Route::resource('/form', NominationController::class); // Only allows access if data is valid
-        // If user's information is incomplete, redirect them to /info
-        Route::resource('/info', InfoController::class);
     });
+
+    // If user's information is incomplete, redirect them to /info
+    Route::resource('/info', InfoController::class);
 });
 
 // Middleware for unauthenticated users

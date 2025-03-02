@@ -18,13 +18,13 @@ class CheckUserInfo
     {
         $user = auth()->user();
 
-        // Check if name, email, and designation are null
-        if (is_null($user->name) || is_null($user->email) || is_null($user->designation)) {
-            // Redirect to /info if any of the fields are null
-            return redirect()->route('info.index');
+        // Check if name, email, and designation are filled
+        if ($user->name != '' && $user->email != '' && $user->designation != '') {
+            // Allow the request to proceed if all fields are filled
+            return $next($request);
         }
 
-        // Allow the request to proceed to the /form page if the info is complete
-        return $next($request);
+        // Redirect to the info page if any field is empty
+        return redirect()->route('info.index');
     }
 }

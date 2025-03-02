@@ -185,7 +185,8 @@
 
                                 </nav>
                                 @include('validate')
-                                <form action="{{ route('info.update',Auth::user()->google_id) }}" method="PUT" class="was-validated">
+                                <form action="{{ route('info.update', Auth::user()->google_id) }}" method="PUT"
+                                    class="was-validated">
                                     @csrf
                                     <u>
                                         <h5 class="text-center text-uppercase">Secure Entry Pass</h5>
@@ -273,9 +274,7 @@
                                                     <div class="btn-section">
                                                         <div class="d-flex justify-content-between">
                                                             <b>Member 2</b>
-                                                            {{-- <span style="cursor: pointer"
-                                                                class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove
-                                                                <i class="fas fa-times"></i></span> --}}
+
                                                         </div>
                                                         <input name="member_name[]" required class="form-control my-3"
                                                             type="text" placeholder="Team Member Name">

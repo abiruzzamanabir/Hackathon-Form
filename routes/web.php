@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\CaseController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\InfoController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\LoginController;
 use App\Http\Controllers\NominationController;
@@ -22,11 +23,12 @@ use App\Http\Controllers\ThemeController;
 
 Route::middleware(['auth'])->group(function () {
   Route::resource('/form', NominationController::class);
+  Route::resource('/info', InfoController::class);
 });
 
 Route::middleware(['redirectIfAuthenticated'])->group(function () {
   // This will ensure that logged-in users cannot access the /case routes
-  Route::resource('/case', CaseController::class);
+  Route::resource('/signin', CaseController::class);
 });
 Route::resource('/theme', ThemeController::class);
 Route::get('/', [NominationController::class, 'redirect'])->name('form.redirect');

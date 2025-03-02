@@ -306,6 +306,6 @@ if($request->member_name){
     }
     public function redirect()
     {
-        return redirect()->route('case.index');
+        return redirect()->route('signin.index');
     }
 }

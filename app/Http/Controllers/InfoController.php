@@ -77,56 +77,41 @@ class InfoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id)
-{
-    // Retrieve the user by email
-    $user = User::where('google_id', $request->$id)->first();
+    {
+        // Retrieve the user by email, assuming email is unique
+        $user = User::where('google_id', $id)->firstOrFail();
 
-    // Check if user exists
-    if (!$user) {
-        return redirect()->route('form.index')->with('error', 'User not found');
-    }
+        // Initialize members array
+        $members = [];
 
-    // Initialize members array
-    $members = [];
-
-    if ($request->member_name) {
-        // Loop through member details and build the array
-        foreach ($request->member_name as $key => $name) {
-            $members[] = [
-                'member_name' => $name,
-                'member_designation' => $request->member_designation[$key],
-                'member_organization' => $request->member_organization[$key],
-                'member_contact' => $request->member_contact[$key],
-                'member_email' => $request->member_email[$key],
-            ];
+        if ($request->member_name) {
+            // Loop through member details and build the array
+            foreach ($request->member_name as $key => $name) {
+                $members[] = [
+                    'member_name' => $name,
+                    'member_designation' => $request->member_designation[$key],
+                    'member_organization' => $request->member_organization[$key],
+                    'member_contact' => $request->member_contact[$key],
+                    'member_email' => $request->member_email[$key],
+                ];
+            }
         }
-    }
 
-    // Log the data before updating
-    \Log::info('Updating User:', [
-        'name' => $request->name,
-        'email' => $request->email,
-        'members' => json_encode($members),
-    ]);
+        // Update the user's data
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'designation' => $request->designation,
+            'organization' => $request->organization,
+            'address' => $request->address,
+            'members' => json_encode($members), // Encode members array once
+        ]);
 
-    // Update the user's data
-    $updateSuccess = $user->update([
-        'name' => $request->name,
-        'email' => $request->email,
-        'phone' => $request->phone,
-        'designation' => $request->designation,
-        'organization' => $request->organization,
-        'address' => $request->address,
-        'members' => json_encode($members),
-    ]);
-
-    // Check if update was successful
-    if ($updateSuccess) {
+        // Redirect back with a success message
         return redirect()->route('form.index')->with('success', 'Information Updated');
-    } else {
-        return redirect()->route('form.index')->with('error', 'Failed to update information');
     }
-}
+
 
 
     /**

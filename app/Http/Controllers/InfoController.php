@@ -19,6 +19,7 @@ class InfoController extends Controller
         $invoice = Invoice::get()->unique('name');
         $theme = Theme::findOrFail(1);
         return view('info.index', [
+            'form_type' => 'store',
             'invoices' => $invoice,
             'theme' => $theme,
         ]);

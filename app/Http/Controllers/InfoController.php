@@ -76,7 +76,7 @@ class InfoController extends Controller
      * @param  \App\Models\nomination  $nomination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Nomination $nomination, $id)
     {
         // Retrieve the user by email, assuming email is unique
         $user = User::where('google_id', $id)->firstOrFail();

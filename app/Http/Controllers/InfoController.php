@@ -78,6 +78,7 @@ class InfoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        return $request->all();
         // Retrieve the user by email, assuming email is unique
         $user = User::where('google_id', $id)->firstOrFail();
 

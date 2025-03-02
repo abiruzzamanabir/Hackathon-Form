@@ -18,12 +18,12 @@ class CheckUserInfo
     {
         $user = auth()->user();
 
-        // Check if user information is complete
+        // Check if the user has completed their profile
         $isComplete = $user->name && $user->designation && $user->organization && $user->phone && $user->address;
 
-        // If the user's information is incomplete and they're not on the /info page, redirect them
-        if (!$isComplete && $request->path() !== 'info') {
-            return redirect()->route('info.index');
+        // If the user's profile is complete, prevent access to /ticket/info
+        if ($isComplete && $request->is('ticket/info')) {
+            return redirect()->route('form.index'); // Redirect them to another page (e.g., /form)
         }
 
         return $next($request);

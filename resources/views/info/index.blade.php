@@ -214,7 +214,7 @@
                                                 <b>Organization <span class="text-danger">*</span></b>
                                             </label>
                                             <input list="organisations" type="text" name="organization"
-                                                class="form-control" value="{{ {{ Auth::user()->organization }} }}" required>
+                                                class="form-control" value="{{ Auth::user()->organization }} " required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Organization Name
                                             </div>
                                         </div>

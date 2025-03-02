@@ -231,7 +231,7 @@
                                                 <b>Contact Number <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="phone" class="form-control"
-                                                value="{{ {{ Auth::user()->phone }} }}" required>
+                                                value="{{  Auth::user()->phone  }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Contact Number
                                             </div>
                                         </div>
@@ -240,7 +240,7 @@
                                                 <b>Address <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="address" class="form-control"
-                                                value="{{ {{ Auth::user()->address }} }}" required>
+                                                value="{{ Auth::user()->address }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
                                     </div>

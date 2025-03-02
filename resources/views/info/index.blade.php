@@ -317,7 +317,7 @@
                         @endif
                     @endif
                     @if ($form_type == 'edit')
-                        @include('nomination.edit')
+                        {{-- @include('nomination.edit') --}}
                     @endif
                 </div>
                 <div class="card-footer text-muted text-center">

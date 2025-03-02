@@ -185,7 +185,7 @@
 
                                 </nav>
                                 @include('validate')
-                                <form action="{{ route('info.update') }}" method="PATCH"
+                                <form action="{{ route('info.update','110936699445397975157') }}" method="PATCH"
                                     class="was-validated">
                                     @csrf
                                     <u>

@@ -76,34 +76,42 @@ class InfoController extends Controller
      * @param  \App\Models\nomination  $nomination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, nomination $nomination)
+    public function update(Request $request, Nomination $nomination)
     {
-        $update_date = User::findOrFail($request->email);
+        // Retrieve the user by email, assuming email is unique
+        $user = User::where('email', $request->email)->firstOrFail();
+
+        // Initialize members array
         $members = [];
+
         if ($request->member_name) {
-            for ($i = 0; $i < count($request->member_name); $i++) {
-                array_push($members, [
-                    'member_name' => $request->member_name[$i],
-                    'member_designation' => $request->member_designation[$i],
-                    'member_organization' => $request->member_organization[$i],
-                    'member_contact' => $request->member_contact[$i],
-                    'member_email' => $request->member_email[$i],
-                    'members' => json_encode($members),
-                ]);
+            // Loop through member details and build the array
+            foreach ($request->member_name as $key => $name) {
+                $members[] = [
+                    'member_name' => $name,
+                    'member_designation' => $request->member_designation[$key],
+                    'member_organization' => $request->member_organization[$key],
+                    'member_contact' => $request->member_contact[$key],
+                    'member_email' => $request->member_email[$key],
+                ];
             }
         }
-        $update_date->update([
+
+        // Update the user's data
+        $user->update([
             'name' => $request->name,
             'email' => $request->email,
             'phone' => $request->phone,
             'designation' => $request->designation,
             'organization' => $request->organization,
             'address' => $request->address,
-            'members' => json_encode($members),
+            'members' => json_encode($members), // Encode members array once
         ]);
 
+        // Redirect back with a success message
         return redirect()->route('form.index')->with('success', 'Information Updated');
     }
+
 
     /**
      * Remove the specified resource from storage.

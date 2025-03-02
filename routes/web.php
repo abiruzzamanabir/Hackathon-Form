@@ -21,15 +21,23 @@ use App\Http\Controllers\ThemeController;
 |
 */
 
+// Middleware for authenticated users
 Route::middleware(['auth'])->group(function () {
-  Route::resource('/form', NominationController::class);
-  Route::resource('/info', InfoController::class);
+    // This ensures that the user cannot access /form without completing their profile first
+    Route::middleware(['check.user.info'])->group(function () {
+        Route::resource('/form', NominationController::class); // Only allows access if data is valid
+    });
+
+    // If user's information is incomplete, redirect them to /info
+    Route::resource('/info', InfoController::class);
 });
 
+// Middleware for unauthenticated users
 Route::middleware(['redirectIfAuthenticated'])->group(function () {
-  // This will ensure that logged-in users cannot access the /case routes
-  Route::resource('/signin-signup', CaseController::class);
+    // This will ensure that logged-in users cannot access the /signin-signup routes
+    Route::resource('/signin-signup', CaseController::class);
 });
+
 Route::resource('/theme', ThemeController::class);
 Route::get('/', [NominationController::class, 'redirect'])->name('form.redirect');
 Route::get('/form/hosted/{ukey?}', [NominationController::class, 'hosted'])->name('form.hosted');

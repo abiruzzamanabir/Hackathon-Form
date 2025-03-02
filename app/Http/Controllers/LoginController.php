@@ -44,7 +44,7 @@ class LoginController extends Controller
         Auth::login($user, true);
 
         // Redirect to the form.index route or another desired page
-        return redirect()->route('form.index');
+        return redirect()->route('info.index');
     }
     public function handleLogout()
     {

@@ -242,7 +242,7 @@
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
                                     </div>
-                                    <u>
+                                    {{-- <u>
                                         <h5 class="text-center text-uppercase">Team Member</h5>
                                     </u>
                                     <p class="text-center text-muted">Detail Information About Your Team Member</p>
@@ -253,9 +253,7 @@
                                                     <div class="btn-section">
                                                         <div class="d-flex justify-content-between">
                                                             <b>Member 1</b>
-                                                            {{-- <span style="cursor: pointer"
-                                                                class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove
-                                                                <i class="fas fa-times"></i></span> --}}
+
                                                         </div>
                                                         <input name="member_name[]" required class="form-control my-3"
                                                             type="text" placeholder="Team Member Name">
@@ -296,11 +294,10 @@
                                                     </div>
 
                                                 </div>
-                                                {{-- <a id="add-new-member-button" class="btn btn-sm btn-info">Add
-                                                    member</a> --}}
+
                                             </div>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                     <div class="mt-2 text-center">
                                         <button style="width: 120px;" type="submit"
                                             class="btn btn-primary">Submit</button>

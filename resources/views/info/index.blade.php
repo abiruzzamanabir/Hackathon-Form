@@ -151,23 +151,25 @@
                                                 <b>Full Name <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="name" class="form-control"
-                                                value="{{ Auth::user()->name }}" required>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Full Name</div>
+                                                @if (Auth::user()->name) value="{{ Auth::user()->name }}" required> @endif
+                                                <div class="invalid-feedback text-uppercase">Enter Your Full Name
                                         </div>
-                                        <div class="mb-2">
-                                            <label for="validationName" class="form-label">
-                                                <b>Designation <span class="text-danger">*</span></b>
-                                            </label>
-                                            <input type="text" name="designation" class="form-control"
-                                                value="{{ old('designation') }}" required>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Designation</div>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="validationPhone" class="form-label">
-                                                <b>Organization <span class="text-danger">*</span></b>
-                                            </label>
-                                            <input list="organisations" type="text" name="organization"
-                                                class="form-control" value="{{ old('organization') }}" required>
+                                    </div>
+                                    <div class="mb-2">
+                                        <label for="validationName" class="form-label">
+                                            <b>Designation <span class="text-danger">*</span></b>
+                                        </label>
+                                        <input type="text" name="designation" class="form-control"
+                                            @if (Auth::user()->designation) value="{{ Auth::user()->designation }}" required> @endif
+                                            <div class="invalid-feedback text-uppercase">Enter Your Designation
+                                    </div>
+                            </div>
+                            <div class="mb-2">
+                                <label for="validationPhone" class="form-label">
+                                    <b>Organization <span class="text-danger">*</span></b>
+                                </label>
+                                <input list="organisations" type="text" name="organization" class="form-control"
+                                    @if (Auth::user()->organisations) value="{{ Auth::user()->organisations }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Organization Name
                                             </div>
                                         </div>
@@ -176,7 +178,8 @@
                                                 <b>Email <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="email" readonly name="email" class="form-control"
-                                                value="{{ Auth::user()->email }}" required>
+                                            @if (Auth::user()->email)
+                                            value="{{ Auth::user()->email }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Email</div>
                                         </div>
                                         <div class="mb-2">
@@ -184,7 +187,8 @@
                                                 <b>Contact Number <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="phone" class="form-control"
-                                                value="{{ old('phone') }}" required>
+                                            @if (Auth::user()->phone)
+                                            value="{{ Auth::user()->phone }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Contact Number
                                             </div>
                                         </div>
@@ -193,7 +197,8 @@
                                                 <b>Address <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="address" class="form-control"
-                                                value="{{ old('address') }}" required>
+                                            @if (Auth::user()->address)
+                                            value="{{ Auth::user()->address }}" required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
                                     </div>
@@ -263,35 +268,32 @@
                                 <h3 class="text-center text-danger">
                                     Nomination submission window is now closed.
                                 </h3>
+                            </div> @endif
+                                    @endif
+                                @if ($form_type == 'edit') {{-- @include('nomination.edit') --}} @endif
                             </div>
-                        @endif
-                    @endif
-                    @if ($form_type == 'edit')
-                        {{-- @include('nomination.edit') --}}
-                    @endif
-                </div>
-                <div class="card-footer text-muted text-center">
-                    @include('footer')
+                            <div class="card-footer text-muted text-center">
+                                @include('footer')
+                            </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" </script>
-        < script src = "https://code.jquery.com/jquery-3.6.3.slim.min.js"
-        integrity = "sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo="
-        crossorigin = "anonymous" >
-    </script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" </script>
+            < script src = "https://code.jquery.com/jquery-3.6.3.slim.min.js"
+            integrity = "sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo="
+            crossorigin = "anonymous" >
+        </script>
 
-    <script>
-        $(document).ready(function() {
+        <script>
+            $(document).ready(function() {
 
-            let btn_no = $(".member-btn-opt-area .btn-section").length + 1;
+                let btn_no = $(".member-btn-opt-area .btn-section").length + 1;
 
-            $("#add-new-member-button").click(function(e) {
-                e.preventDefault();
+                $("#add-new-member-button").click(function(e) {
+                    e.preventDefault();
 
-                $(".member-btn-opt-area").append(`
+                    $(".member-btn-opt-area").append(`
     <div class="btn-section">
         <div class="d-flex justify-content-between">
             <b>Member ${btn_no}</b>
@@ -309,141 +311,141 @@
                                                     placeholder="Team Member Email">
     </div>
     `);
-                btn_no++;
-            });
-
-            $(document).on("click", ".remove-btn", function() {
-                $(this).closest(".btn-section").remove();
-                $(".member-btn-opt-area .btn-section").each(function(index) {
-                    $(this).find("b:first-child").text(`Member ${index + 1}`);
+                    btn_no++;
                 });
-                btn_no = $(".member-btn-opt-area .btn-section").length + 1;
-            });
 
-            var sections = [{
-                    id: "#background",
-                    displayId: "#display_backgroundcount",
-                    wordLeftId: "#backgroundword_left",
-                    countId: "#backgroundcount",
-                    maxLength: 50
-                },
-                {
-                    id: "#objective",
-                    displayId: "#display_objectivecount",
-                    wordLeftId: "#objectiveword_left",
-                    countId: "#objectivecount",
-                    maxLength: 50
-                },
-                {
-                    id: "#vision",
-                    displayId: "#display_visioncount",
-                    wordLeftId: "#visionword_left",
-                    countId: "#visioncount",
-                    maxLength: 50
-                },
-                {
-                    id: "#idea",
-                    displayId: "#display_ideacount",
-                    wordLeftId: "#ideaword_left",
-                    countId: "#ideacount",
-                    maxLength: 150
-                },
-                {
-                    id: "#execution",
-                    displayId: "#display_executioncount",
-                    wordLeftId: "#executionword_left",
-                    countId: "#executioncount",
-                    maxLength: 150
-                },
-                {
-                    id: "#value_addition",
-                    displayId: "#display_value_additioncount",
-                    wordLeftId: "#value_additionword_left",
-                    countId: "#value_additioncount",
-                    maxLength: 75
-                },
-                {
-                    id: "#result",
-                    displayId: "#display_resultcount",
-                    wordLeftId: "#resultword_left",
-                    countId: "#resultcount",
-                    maxLength: 100
-                }
-            ];
+                $(document).on("click", ".remove-btn", function() {
+                    $(this).closest(".btn-section").remove();
+                    $(".member-btn-opt-area .btn-section").each(function(index) {
+                        $(this).find("b:first-child").text(`Member ${index + 1}`);
+                    });
+                    btn_no = $(".member-btn-opt-area .btn-section").length + 1;
+                });
 
-            sections.forEach(function(section) {
-                $(section.id).on('input', function() {
-                    var words = this.value.match(/\S+/g).length;
-                    if (words > section.maxLength) {
-                        var trimmed = $(this).val().split(/\s+/, section.maxLength).join(" ");
-                        $(this).val(trimmed + " ");
-                    } else {
-                        $(section.displayId).text(words);
-                        $(section.wordLeftId).text(section.maxLength - words);
-                        if (words > 1) {
-                            $(section.countId).removeClass('d-none');
-                        } else if (words < 1) {
-                            $(section.countId).addClass('d-none');
-                        } else {
-                            $(section.countId).addClass('d-none');
-                        }
+                var sections = [{
+                        id: "#background",
+                        displayId: "#display_backgroundcount",
+                        wordLeftId: "#backgroundword_left",
+                        countId: "#backgroundcount",
+                        maxLength: 50
+                    },
+                    {
+                        id: "#objective",
+                        displayId: "#display_objectivecount",
+                        wordLeftId: "#objectiveword_left",
+                        countId: "#objectivecount",
+                        maxLength: 50
+                    },
+                    {
+                        id: "#vision",
+                        displayId: "#display_visioncount",
+                        wordLeftId: "#visionword_left",
+                        countId: "#visioncount",
+                        maxLength: 50
+                    },
+                    {
+                        id: "#idea",
+                        displayId: "#display_ideacount",
+                        wordLeftId: "#ideaword_left",
+                        countId: "#ideacount",
+                        maxLength: 150
+                    },
+                    {
+                        id: "#execution",
+                        displayId: "#display_executioncount",
+                        wordLeftId: "#executionword_left",
+                        countId: "#executioncount",
+                        maxLength: 150
+                    },
+                    {
+                        id: "#value_addition",
+                        displayId: "#display_value_additioncount",
+                        wordLeftId: "#value_additionword_left",
+                        countId: "#value_additioncount",
+                        maxLength: 75
+                    },
+                    {
+                        id: "#result",
+                        displayId: "#display_resultcount",
+                        wordLeftId: "#resultword_left",
+                        countId: "#resultcount",
+                        maxLength: 100
                     }
+                ];
+
+                sections.forEach(function(section) {
+                    $(section.id).on('input', function() {
+                        var words = this.value.match(/\S+/g).length;
+                        if (words > section.maxLength) {
+                            var trimmed = $(this).val().split(/\s+/, section.maxLength).join(" ");
+                            $(this).val(trimmed + " ");
+                        } else {
+                            $(section.displayId).text(words);
+                            $(section.wordLeftId).text(section.maxLength - words);
+                            if (words > 1) {
+                                $(section.countId).removeClass('d-none');
+                            } else if (words < 1) {
+                                $(section.countId).addClass('d-none');
+                            } else {
+                                $(section.countId).addClass('d-none');
+                            }
+                        }
+                    });
                 });
             });
-        });
 
-        window.setTimeout(function() {
-            $(".alert").fadeTo(500, 0).slideUp(500, function() {
-                $(this).remove();
-            });
-        }, 3000);
-    </script>
-    @php
-        $databaseDatetime = strtotime($theme->close);
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        </script>
+        @php
+            $databaseDatetime = strtotime($theme->close);
 
-        // Calculate time remaining
-        $currentDatetime = time();
-        $timeRemaining = $databaseDatetime - $currentDatetime;
+            // Calculate time remaining
+            $currentDatetime = time();
+            $timeRemaining = $databaseDatetime - $currentDatetime;
 
-        // Send the time remaining to the client-side JavaScript
-        echo '<script>
-            var timeRemaining = ' . $timeRemaining . ';
-        </script>';
-    @endphp
-    {{-- @include('kill') --}}
-    <script>
-        // Receive the time remaining value from the server-side code
-        var timeRemaining = <?php echo $timeRemaining; ?>;
+            // Send the time remaining to the client-side JavaScript
+            echo '<script>
+                var timeRemaining = ' . $timeRemaining . ';
+            </script>';
+        @endphp
+        {{-- @include('kill') --}}
+        <script>
+            // Receive the time remaining value from the server-side code
+            var timeRemaining = <?php echo $timeRemaining; ?>;
 
-        // Function to update the countdown timer
-        function updateCountdown() {
-            if (timeRemaining <= 0) {
-                // The countdown has expired, you can handle this case here
-                if (timeRemaining == 0) {
-                    location.reload();
+            // Function to update the countdown timer
+            function updateCountdown() {
+                if (timeRemaining <= 0) {
+                    // The countdown has expired, you can handle this case here
+                    if (timeRemaining == 0) {
+                        location.reload();
+                    }
+                } else {
+                    var hours = Math.floor(timeRemaining / 3600);
+                    var minutes = Math.floor((timeRemaining % 3600) / 60);
+                    var seconds = timeRemaining % 60;
+                    var h = hours > 1 ? 'hours ' : 'hour ';
+                    var hz = hours < 10 ? '0' : '';
+                    var m = minutes > 1 ? 'minutes ' : 'minute ';
+                    var mz = minutes < 10 ? '0' : '';
+                    var s = seconds > 1 ? 'seconds ' : 'second ';
+                    var sz = seconds < 10 ? '0' : '';
+                    if (timeRemaining <= 86400) {
+                        document.getElementById('countdown').innerHTML = '<p>Time Remain: ' + '<span>' + hz + hours + ' ' +
+                            ': ' + '</span>' + '<span>' + mz + minutes + ' ' + ': ' + '</span>' + '<span>' + sz + seconds +
+                            '</p>';
+                    }
+                    timeRemaining--;
+                    setTimeout(updateCountdown, 1000); // Update the countdown every second
                 }
-            } else {
-                var hours = Math.floor(timeRemaining / 3600);
-                var minutes = Math.floor((timeRemaining % 3600) / 60);
-                var seconds = timeRemaining % 60;
-                var h = hours > 1 ? 'hours ' : 'hour ';
-                var hz = hours < 10 ? '0' : '';
-                var m = minutes > 1 ? 'minutes ' : 'minute ';
-                var mz = minutes < 10 ? '0' : '';
-                var s = seconds > 1 ? 'seconds ' : 'second ';
-                var sz = seconds < 10 ? '0' : '';
-                if (timeRemaining <= 86400) {
-                    document.getElementById('countdown').innerHTML = '<p>Time Remain: ' + '<span>' + hz + hours + ' ' +
-                        ': ' + '</span>' + '<span>' + mz + minutes + ' ' + ': ' + '</span>' + '<span>' + sz + seconds +
-                        '</p>';
-                }
-                timeRemaining--;
-                setTimeout(updateCountdown, 1000); // Update the countdown every second
             }
-        }
 
-        // Start the countdown
-        updateCountdown();
-    </script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+            // Start the countdown
+            updateCountdown();
+        </script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>

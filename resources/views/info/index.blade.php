@@ -152,7 +152,7 @@
                                             </label>
                                             <input type="text" name="name" class="form-control"
                                                 @if (Auth::user()->name) value="{{ Auth::user()->name }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Full Name</div>
                                         </div>
                                         <div class="mb-2">
@@ -161,7 +161,7 @@
                                             </label>
                                             <input type="text" name="designation" class="form-control"
                                                 @if (Auth::user()->designation) value="{{ Auth::user()->designation }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Designation</div>
                                         </div>
                                         <div class="mb-2">
@@ -171,7 +171,7 @@
                                             <input list="organization" type="text" name="organization"
                                                 class="form-control"
                                                 @if (Auth::user()->organization) value="{{ Auth::user()->organization }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Organization Name
                                             </div>
                                         </div>
@@ -181,7 +181,7 @@
                                             </label>
                                             <input type="email" readonly name="email" class="form-control"
                                                 @if (Auth::user()->email) value="{{ Auth::user()->email }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Email</div>
                                         </div>
                                         <div class="mb-2">
@@ -190,7 +190,7 @@
                                             </label>
                                             <input type="text" name="phone" class="form-control"
                                                 @if (Auth::user()->phone) value="{{ Auth::user()->phone }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Contact Number
                                             </div>
                                         </div>
@@ -200,11 +200,11 @@
                                             </label>
                                             <input type="text" name="address" class="form-control"
                                                 @if (Auth::user()->address) value="{{ Auth::user()->address }}" @endif
-                                                required>
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
                                     </div>
-                                    {{-- <u>
+                                    <u>
                                         <h5 class="text-center text-uppercase">Team Member</h5>
                                     </u>
                                     <p class="text-center text-muted">Detail Information About Your Team Member</p>
@@ -217,18 +217,24 @@
                                                             <b>Member 1</b>
 
                                                         </div>
-                                                        <input name="member_name[]" required class="form-control my-3"
-                                                            type="text" placeholder="Team Member Name">
+                                                        <input name="member_name[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Name">
                                                         <input name="member_designation[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Designation">
                                                         <input name="member_organization[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Organization">
                                                         <input name="member_contact[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Contact">
                                                         <input name="member_email[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Email">
                                                     </div>
@@ -237,18 +243,24 @@
                                                             <b>Member 2</b>
 
                                                         </div>
-                                                        <input name="member_name[]" required class="form-control my-3"
-                                                            type="text" placeholder="Team Member Name">
+                                                        <input name="member_name[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
+                                                            class="form-control my-3" type="text"
+                                                            placeholder="Team Member Name">
                                                         <input name="member_designation[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Designation">
                                                         <input name="member_organization[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Organization">
                                                         <input name="member_contact[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Contact">
                                                         <input name="member_email[]" required
+                                                            @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"
                                                             placeholder="Team Member Email">
                                                     </div>
@@ -257,7 +269,7 @@
 
                                             </div>
                                         </div>
-                                    </div> --}}
+                                    </div>
                                     <div class="mt-2 text-center">
                                         <button style="width: 120px;" type="submit"
                                             class="btn btn-primary">Submit</button>

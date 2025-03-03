@@ -105,6 +105,7 @@ class InfoController extends Controller
             'organization' => $request->organization,
             'address' => $request->address,
             'members' => json_encode($members), // Encode members array once
+            'isUpdated' => true,
         ]);
 
         // Redirect back with a success message

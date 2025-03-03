@@ -215,7 +215,7 @@
                                                     @php
                                                         $members = json_decode(Auth::user()->members, true);
                                                     @endphp
-                                                    @if (isset($members) && count($members) > 0)
+                                                    {{-- @if (isset($members) && count($members) > 0) --}}
                                                         @foreach ($members as $index => $member)
                                                             <div class="btn-section">
                                                                 <div class="d-flex justify-content-between">
@@ -258,7 +258,7 @@
                                                                     placeholder="Team Member Email">
                                                             </div>
                                                         @endforeach
-                                                    @endif
+                                                    {{-- @endif --}}
 
 
                                                 </div>

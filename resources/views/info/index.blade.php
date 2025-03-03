@@ -170,7 +170,7 @@
                                             </label>
                                             <input list="organisations" type="text" name="organization"
                                                 class="form-control"
-                                                @if (Auth::user()->organisations) value="{{ Auth::user()->organisations }}" @endif
+                                                @if (Auth::user()->organisation) value="{{ Auth::user()->organisation }}" @endif
                                                 required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Organization Name
                                             </div>

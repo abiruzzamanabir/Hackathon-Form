@@ -217,6 +217,7 @@
                                                             <b>Member 1</b>
 
                                                         </div>
+                                                        {{Auth::user()->members}}
                                                         <input name="member_name[]" required
                                                             @if (Auth::user()->isUpdated == true) disabled @endif
                                                             class="form-control my-3" type="text"

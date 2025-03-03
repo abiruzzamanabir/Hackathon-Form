@@ -143,7 +143,7 @@
                                     @csrf
                                     @method('PUT')
                                     <u>
-                                        <h5 class="text-center text-uppercase">Secure Entry Pass</h5>
+                                        <h5 class="text-center text-uppercase">Update Your Information</h5>
                                     </u>
                                     <div class="border p-3 shadow my-3">
                                         <div class="mb-2">

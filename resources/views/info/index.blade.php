@@ -212,59 +212,45 @@
                                         <div class="my-4">
                                             <div class="form-group order member-btn-opt">
                                                 <div class="member-btn-opt-area">
-                                                    <div class="btn-section">
-                                                        <div class="d-flex justify-content-between">
-                                                            <b>Member 1</b>
+                                                    @for ($i = 1; $i <= 2; $i++)
+                                                        <!-- Loop for Member 1, Member 2, etc. -->
+                                                        <div class="btn-section">
+                                                            <div class="d-flex justify-content-between">
+                                                                <b>Member {{ $i }}</b>
+                                                            </div>
 
-                                                        </div>
-                                                        {{Auth::user()->members}}
-                                                        <input name="member_name[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Name">
-                                                        <input name="member_designation[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Designation">
-                                                        <input name="member_organization[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Organization">
-                                                        <input name="member_contact[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Contact">
-                                                        <input name="member_email[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Email">
-                                                    </div>
-                                                    <div class="btn-section">
-                                                        <div class="d-flex justify-content-between">
-                                                            <b>Member 2</b>
+                                                            <!-- Member Name -->
+                                                            <input name="member_name[]" required
+                                                                @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Name">
 
+                                                            <!-- Member Designation -->
+                                                            <input name="member_designation[]" required
+                                                                @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Designation">
+
+                                                            <!-- Member Organization -->
+                                                            <input name="member_organization[]" required
+                                                                @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Organization">
+
+                                                            <!-- Member Contact -->
+                                                            <input name="member_contact[]" required
+                                                                @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Contact">
+
+                                                            <!-- Member Email -->
+                                                            <input name="member_email[]" required
+                                                                @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Email">
                                                         </div>
-                                                        <input name="member_name[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Name">
-                                                        <input name="member_designation[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Designation">
-                                                        <input name="member_organization[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Organization">
-                                                        <input name="member_contact[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Contact">
-                                                        <input name="member_email[]" required
-                                                            @if (Auth::user()->isUpdated == true) disabled @endif
-                                                            class="form-control my-3" type="text"
-                                                            placeholder="Team Member Email">
-                                                    </div>
+                                                    @endfor
+
 
                                                 </div>
 

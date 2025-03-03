@@ -215,49 +215,83 @@
                                                     @php
                                                         $members = json_decode(Auth::user()->members, true);
                                                     @endphp
-                                                    {{-- @if (isset($members) && count($members) > 0) --}}
-                                                    @foreach ($members as $index => $member)
-                                                        <div class="btn-section">
-                                                            <div class="d-flex justify-content-between">
-                                                                <b>Member {{ $index + 1 }}</b>
-                                                                <!-- Dynamically show Member 1, 2, etc. -->
+                                                    @if ($members->isEmpty())
+                                                        @for ($i = 0; $i < 2; $i++)
+                                                            <div class="btn-section">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <b>Member {{ $i + 1 }}</b>
+                                                                </div>
+
+                                                                <!-- Member Name -->
+                                                                <input name="member_name[]" required
+                                                                    placeholder="Team Member Name" @endif
+                                                                class="form-control my-3" type="text">
+
+                                                                <!-- Member Designation -->
+                                                                <input name="member_designation[]" required
+                                                                    placeholder="Team Member Designation" @endif
+                                                                class="form-control my-3" type="text">
+
+                                                                <!-- Member Organization -->
+                                                                <input name="member_organization[]" required
+                                                                    placeholder="Team Member Organization" @endif
+                                                                class="form-control my-3" type="text">
+
+                                                                <!-- Member Contact -->
+                                                                <input name="member_contact[]" required
+                                                                    placeholder="Team Member Contact" @endif
+                                                                class="form-control my-3" type="text">
+
+                                                                <!-- Member Email -->
+                                                                <input name="member_email[]" required
+                                                                    placeholder="Team Member Email" @endif
+                                                                class="form-control my-3" type="text">
                                                             </div>
-                                                            <!-- Member Name -->
-                                                            <input name="member_name[]" required
-                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_name'] }}" disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Name">
+                                                        @endfor
+                                                    @else
+                                                        @foreach ($members as $index => $member)
+                                                            <div class="btn-section">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <b>Member {{ $index + 1 }}</b>
+                                                                </div>
 
-                                                            <!-- Member Designation -->
-                                                            <input name="member_designation[]" required
-                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_designation'] }}"
-                                                                 disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Designation">
+                                                                <!-- Member Name -->
+                                                                <input name="member_name[]" required
+                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_name'] }}" disabled
+                                                                @else
+                                                                    placeholder="Team Member Name" @endif
+                                                                    class="form-control my-3" type="text">
 
-                                                            <!-- Member Organization -->
-                                                            <input name="member_organization[]" required
-                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_organization'] }}"
-                                                                 disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Organization">
+                                                                <!-- Member Designation -->
+                                                                <input name="member_designation[]" required
+                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_designation'] }}" disabled
+                                                                @else
+                                                                    placeholder="Team Member Designation" @endif
+                                                                    class="form-control my-3" type="text">
 
-                                                            <!-- Member Contact -->
-                                                            <input name="member_contact[]" required
-                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_contact'] }}"
-                                                                 disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Contact">
+                                                                <!-- Member Organization -->
+                                                                <input name="member_organization[]" required
+                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_organization'] }}" disabled
+                                                                @else
+                                                                    placeholder="Team Member Organization" @endif
+                                                                    class="form-control my-3" type="text">
 
-                                                            <!-- Member Email -->
-                                                            <input name="member_email[]" required
-                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_email'] }}"
-                                                                 disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Email">
-                                                        </div>
-                                                    @endforeach
-                                                    {{-- @endif --}}
+                                                                <!-- Member Contact -->
+                                                                <input name="member_contact[]" required
+                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_contact'] }}" disabled
+                                                                @else
+                                                                    placeholder="Team Member Contact" @endif
+                                                                    class="form-control my-3" type="text">
+
+                                                                <!-- Member Email -->
+                                                                <input name="member_email[]" required
+                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_email'] }}" disabled
+                                                                @else
+                                                                    placeholder="Team Member Email" @endif
+                                                                    class="form-control my-3" type="text">
+                                                            </div>
+                                                        @endforeach
+                                                    @endif
 
 
                                                 </div>

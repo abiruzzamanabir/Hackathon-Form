@@ -224,28 +224,28 @@
 
                                                                 <!-- Member Name -->
                                                                 <input name="member_name[]" required
-                                                                    placeholder="Team Member Name" @endif
-                                                                class="form-control my-3" type="text">
+                                                                    placeholder="Team Member Name"
+                                                                    class="form-control my-3" type="text">
 
                                                                 <!-- Member Designation -->
                                                                 <input name="member_designation[]" required
-                                                                    placeholder="Team Member Designation" @endif
-                                                                class="form-control my-3" type="text">
+                                                                    placeholder="Team Member Designation"
+                                                                    class="form-control my-3" type="text">
 
                                                                 <!-- Member Organization -->
                                                                 <input name="member_organization[]" required
-                                                                    placeholder="Team Member Organization" @endif
-                                                                class="form-control my-3" type="text">
+                                                                    placeholder="Team Member Organization"
+                                                                    class="form-control my-3" type="text">
 
                                                                 <!-- Member Contact -->
                                                                 <input name="member_contact[]" required
-                                                                    placeholder="Team Member Contact" @endif
-                                                                class="form-control my-3" type="text">
+                                                                    placeholder="Team Member Contact"
+                                                                    class="form-control my-3" type="text">
 
                                                                 <!-- Member Email -->
                                                                 <input name="member_email[]" required
-                                                                    placeholder="Team Member Email" @endif
-                                                                class="form-control my-3" type="text">
+                                                                    placeholder="Team Member Email"
+                                                                    class="form-control my-3" type="text">
                                                             </div>
                                                         @endfor
                                                     @else

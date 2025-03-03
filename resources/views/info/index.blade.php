@@ -301,7 +301,7 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         @if (Auth::user()->isUpdated)
-                                            <a href="{{ route('form.index') }}"></a>
+                                            <a class="btn btn-primary" href="{{ route('form.index') }}"></a>
                                         @else
                                             <button style="width: 120px;" type="submit"
                                                 class="btn btn-primary">Submit</button>

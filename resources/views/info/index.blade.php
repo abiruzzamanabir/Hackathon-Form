@@ -300,8 +300,13 @@
                                         </div>
                                     </div>
                                     <div class="mt-2 text-center">
-                                        <button style="width: 120px;" type="submit"
-                                            class="btn btn-primary">Submit</button>
+                                        @if (Auth::user()->isUpdated)
+                                            <a href="{{ route('form.index') }}"></a>
+                                        @else
+                                            <button style="width: 120px;" type="submit"
+                                                class="btn btn-primary">Submit</button>
+                                        @endif
+
                                     </div>
 
                                 </form>

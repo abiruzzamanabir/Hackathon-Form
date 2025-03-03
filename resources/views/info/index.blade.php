@@ -216,48 +216,47 @@
                                                         $members = json_decode(Auth::user()->members, true);
                                                     @endphp
                                                     {{-- @if (isset($members) && count($members) > 0) --}}
-                                                        @foreach ($members as $index => $member)
-                                                            <div class="btn-section">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <b>Member {{ $index + 1 }}</b>
-                                                                    <!-- Dynamically show Member 1, 2, etc. -->
-                                                                </div>
-                                                                <!-- Member Name -->
-                                                                <input name="member_name[]" required
-                                                                    value="{{ $member['member_name'] }}"
-                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                    class="form-control my-3" type="text"
-                                                                    placeholder="Team Member Name">
-
-                                                                <!-- Member Designation -->
-                                                                <input name="member_designation[]" required
-                                                                    value="{{ $member['member_designation'] }}"
-                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                    class="form-control my-3" type="text"
-                                                                    placeholder="Team Member Designation">
-
-                                                                <!-- Member Organization -->
-                                                                <input name="member_organization[]" required
-                                                                    value="{{ $member['member_organization'] }}"
-                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                    class="form-control my-3" type="text"
-                                                                    placeholder="Team Member Organization">
-
-                                                                <!-- Member Contact -->
-                                                                <input name="member_contact[]" required
-                                                                    value="{{ $member['member_contact'] }}"
-                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                    class="form-control my-3" type="text"
-                                                                    placeholder="Team Member Contact">
-
-                                                                <!-- Member Email -->
-                                                                <input name="member_email[]" required
-                                                                    value="{{ $member['member_email'] }}"
-                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                    class="form-control my-3" type="text"
-                                                                    placeholder="Team Member Email">
+                                                    @foreach ($members as $index => $member)
+                                                        <div class="btn-section">
+                                                            <div class="d-flex justify-content-between">
+                                                                <b>Member {{ $index + 1 }}</b>
+                                                                <!-- Dynamically show Member 1, 2, etc. -->
                                                             </div>
-                                                        @endforeach
+                                                            <!-- Member Name -->
+                                                            <input name="member_name[]" required
+                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_name'] }}" disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Name">
+
+                                                            <!-- Member Designation -->
+                                                            <input name="member_designation[]" required
+                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_designation'] }}"
+                                                                 disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Designation">
+
+                                                            <!-- Member Organization -->
+                                                            <input name="member_organization[]" required
+                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_organization'] }}"
+                                                                 disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Organization">
+
+                                                            <!-- Member Contact -->
+                                                            <input name="member_contact[]" required
+                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_contact'] }}"
+                                                                 disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Contact">
+
+                                                            <!-- Member Email -->
+                                                            <input name="member_email[]" required
+                                                                @if (Auth::user()->isUpdated == true) value="{{ $member['member_email'] }}"
+                                                                 disabled @endif
+                                                                class="form-control my-3" type="text"
+                                                                placeholder="Team Member Email">
+                                                        </div>
+                                                    @endforeach
                                                     {{-- @endif --}}
 
 

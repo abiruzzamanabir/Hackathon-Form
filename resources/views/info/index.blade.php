@@ -3,7 +3,6 @@
     $theme = Theme::findOrFail(1);
     $rate_2 = getenv('RATE_2');
     $rate_3 = getenv('RATE_3');
-    $members = Auth::user()->members;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -213,8 +212,8 @@
                                         <div class="my-4">
                                             <div class="form-group order member-btn-opt">
                                                 <div class="member-btn-opt-area">
-                                                    @if (isset($members) && count($members) > 0)
-                                                        @foreach ($members as $index => $member)
+                                                    @if (isset(Auth::user()->members) && count(Auth::user()->members) > 0)
+                                                        @foreach (Auth::user()->members as $index => $member)
                                                             <div class="btn-section">
                                                                 <div class="d-flex justify-content-between">
                                                                     <b>Member {{ $index + 1 }}</b>

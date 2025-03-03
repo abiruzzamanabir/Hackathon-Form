@@ -3,6 +3,7 @@
     $theme = Theme::findOrFail(1);
     $rate_2 = getenv('RATE_2');
     $rate_3 = getenv('RATE_3');
+    $members = Auth::user()->members;
 @endphp
 <!DOCTYPE html>
 <html lang="en">
@@ -212,44 +213,50 @@
                                         <div class="my-4">
                                             <div class="form-group order member-btn-opt">
                                                 <div class="member-btn-opt-area">
-                                                    @for ($i = 1; $i <= 2; $i++)
-                                                        <!-- Loop for Member 1, Member 2, etc. -->
-                                                        <div class="btn-section">
-                                                            <div class="d-flex justify-content-between">
-                                                                <b>Member {{ $i }}</b>
+                                                    @if (isset($members) && count($members) > 0)
+                                                        @foreach ($members as $index => $member)
+                                                            <div class="btn-section">
+                                                                <div class="d-flex justify-content-between">
+                                                                    <b>Member {{ $index + 1 }}</b>
+                                                                    <!-- Dynamically show Member 1, 2, etc. -->
+                                                                </div>
+                                                                <!-- Member Name -->
+                                                                <input name="member_name[]" required
+                                                                    value="{{ $member['member_name'] }}"
+                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                    class="form-control my-3" type="text"
+                                                                    placeholder="Team Member Name">
+
+                                                                <!-- Member Designation -->
+                                                                <input name="member_designation[]" required
+                                                                    value="{{ $member['member_designation'] }}"
+                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                    class="form-control my-3" type="text"
+                                                                    placeholder="Team Member Designation">
+
+                                                                <!-- Member Organization -->
+                                                                <input name="member_organization[]" required
+                                                                    value="{{ $member['member_organization'] }}"
+                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                    class="form-control my-3" type="text"
+                                                                    placeholder="Team Member Organization">
+
+                                                                <!-- Member Contact -->
+                                                                <input name="member_contact[]" required
+                                                                    value="{{ $member['member_contact'] }}"
+                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                    class="form-control my-3" type="text"
+                                                                    placeholder="Team Member Contact">
+
+                                                                <!-- Member Email -->
+                                                                <input name="member_email[]" required
+                                                                    value="{{ $member['member_email'] }}"
+                                                                    @if (Auth::user()->isUpdated == true) disabled @endif
+                                                                    class="form-control my-3" type="text"
+                                                                    placeholder="Team Member Email">
                                                             </div>
-
-                                                            <!-- Member Name -->
-                                                            <input name="member_name[]" required
-                                                                @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Name">
-
-                                                            <!-- Member Designation -->
-                                                            <input name="member_designation[]" required
-                                                                @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Designation">
-
-                                                            <!-- Member Organization -->
-                                                            <input name="member_organization[]" required
-                                                                @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Organization">
-
-                                                            <!-- Member Contact -->
-                                                            <input name="member_contact[]" required
-                                                                @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Contact">
-
-                                                            <!-- Member Email -->
-                                                            <input name="member_email[]" required
-                                                                @if (Auth::user()->isUpdated == true) disabled @endif
-                                                                class="form-control my-3" type="text"
-                                                                placeholder="Team Member Email">
-                                                        </div>
-                                                    @endfor
+                                                        @endforeach
+                                                    @endif
 
 
                                                 </div>

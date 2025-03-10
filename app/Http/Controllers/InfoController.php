@@ -76,10 +76,10 @@ class InfoController extends Controller
      * @param  \App\Models\nomination  $nomination
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $email)
     {
         // Retrieve the user by email, assuming email is unique
-        $user = User::where('google_id', $id)->firstOrFail();
+        $user = User::where('email', $email)->firstOrFail();
         // Initialize members array
         $members = [];
 
@@ -89,7 +89,7 @@ class InfoController extends Controller
                 $members[] = [
                     'member_name' => $name,
                     'member_designation' => $request->member_designation[$key],
-                    'member_organization' => $request->member_organization[$key],
+                    // 'member_organization' => $request->member_organization[$key],
                     'member_contact' => $request->member_contact[$key],
                     'member_email' => $request->member_email[$key],
                 ];
@@ -104,6 +104,8 @@ class InfoController extends Controller
             'designation' => $request->designation,
             'organization' => $request->organization,
             'address' => $request->address,
+            'team_name' => $request->team_name,
+            'category' => $request->category,
             'members' => json_encode($members), // Encode members array once
             'isUpdated' => true,
         ]);

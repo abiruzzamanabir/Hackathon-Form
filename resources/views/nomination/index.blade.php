@@ -106,154 +106,150 @@
     <div class="container shadow">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12">
-                <div class="card shadow">
-                    @php
-                        use Carbon\Carbon;
-                        $time = Carbon::parse($theme->close);
-                        $close = $time;
-                    @endphp
-                    @if ($form_type == 'store')
-                        @if (Carbon::now() <= $close)
-                            <div class="card-body">
-                                @include('partials.header')
-                                @include('validate')
-                                <form action="{{ route('form.store') }}" method="POST" class="was-validated">
-                                    @csrf
-                                    <u>
-                                        <h5 class="text-center text-uppercase">Case Submission Form</h5>
-                                    </u>
-                                    <p class="text-center">Please Fill The Form</p>
-                                    <div class="border p-3 shadow my-3">
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Background <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="backgroundcount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_backgroundcount">0</span> | Word Left:
-                                                <span id="backgroundword_left">200</span>
-                                            </p>
-                                            <textarea name="background" id="background" class="form-control" cols="10" rows="3"
-                                                placeholder="A concise description of the context of how the innovation was designed (problem statement). (Not more than 50 words)"
-                                                value="{{ old('background') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Background</div>
-                                        </div>
+                @php
+                    use Carbon\Carbon;
+                    $time = Carbon::parse($theme->close);
+                    $close = $time;
+                @endphp
+                @if (Auth::user()->isSubmitted == true)
+                    <div class="card shadow">
+                        <div class="card-header">
+                            @include('partials.header')
+                            <h2 class="text-center">Thank You <span
+                                    class="text-muted text-capitalize">{{ Auth::user()->name }}</span> !</h2>
+                        </div>
+                        <div class="card-body text-center">
+                            <h4 class="mb-2 text-success">Your submission has been successfully received!</h4>
+                            <p class="text-muted">We appreciate your contribution. Your submission is complete, and
+                                we
+                                will process it shortly.</p>
+                        </div>
 
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Objective <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="objectivecount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_objectivecount">0</span> | Word Left:
-                                                <span id="objectiveword_left">200</span>
-                                            </p>
-                                            <textarea name="objective" id="objective" class="form-control" cols="10" rows="3"
-                                                placeholder="Define specific objectives of the Innovation in the given amount of time and highlight other important factors relative to its success. (Not more than 50 words)"
-                                                value="{{ old('objective') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Objective</div>
-                                        </div>
+                    </div>
+                @else
+                    <div class="card shadow">
 
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Vision <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="visioncount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_visioncount">0</span> | Word Left: <span
-                                                    id="visionword_left">200</span>
-                                            </p>
-                                            <textarea name="vision" id="vision" class="form-control" cols="10" rows="3"
-                                                placeholder="What is the long-term vision of this innovation? (Not more than 50 words)" value="{{ old('vision') }}"
-                                                required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Vision</div>
-                                        </div>
+                        @if ($form_type == 'store')
+                            @if (Carbon::now() <= $close)
+                                <div class="card-body">
+                                    @include('partials.header')
+                                    @include('validate')
+                                    <form action="{{ route('form.update', Auth::user()->email) }}" method="POST"
+                                        class="was-validated">
+                                        @csrf
+                                        @method('PUT')
+                                        <u>
+                                            <h5 class="text-center text-uppercase">Case Submission Form</h5>
+                                        </u>
+                                        <p class="text-center">Please Fill The Form</p>
+                                        <div class="border p-3 shadow my-3">
+                                            <div class="my-2">
+                                                <label for="problem" class="form-label"><b>Problem Statement <span
+                                                            class="text-danger">*</span></b></label>
+                                                <p id="problemcount" class="text-left text-center mb-1 d-none"
+                                                    style="font-size: 10px;">
+                                                    Word Count: <span id="display_problemcount">0</span> | Word Left:
+                                                    <span id="problemword_left">300</span>
+                                                </p>
+                                                <textarea name="problem" id="problem" class="form-control" cols="10" rows="5"
+                                                    placeholder="Describe the problem your AI-based solution aims to solve. (Max 300 words)" required></textarea>
+                                                <div class="invalid-feedback text-uppercase">Enter Problem Statement
+                                                </div>
+                                            </div>
 
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Innovation Idea <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="ideacount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_ideacount">0</span> | Word Left: <span
-                                                    id="ideaword_left">200</span>
-                                            </p>
-                                            <textarea name="idea" id="idea" class="form-control" cols="10" rows="3"
-                                                placeholder="What was the Innovation idea/concept of the innovation? (Not more than 150 words)"
-                                                value="{{ old('idea') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Innovation Idea
+                                            <div class="my-2">
+                                                <label for="solution" class="form-label"><b>AI-Based Solution Brief
+                                                        <span class="text-danger">*</span></b></label>
+                                                <p id="solutioncount" class="text-left text-center mb-1 d-none"
+                                                    style="font-size: 10px;">
+                                                    Word Count: <span id="display_solutioncount">0</span> | Word Left:
+                                                    <span id="solutionword_left">500</span>
+                                                </p>
+                                                <textarea name="solution" id="solution" class="form-control" cols="10" rows="6"
+                                                    placeholder="Provide a brief explanation of your AI-based solution. (Max 500 words)" required></textarea>
+                                                <div class="invalid-feedback text-uppercase">Enter AI-Based Solution
+                                                    Brief
+                                                </div>
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label for="benefits" class="form-label"><b>Expected Outcomes & Benefits
+                                                        <span class="text-danger">*</span></b></label>
+                                                <p id="outcomecount" class="text-left text-center mb-1 d-none"
+                                                    style="font-size: 10px;">
+                                                    Word Count: <span id="display_outcomecount">0</span> | Word Left:
+                                                    <span id="outcomeword_left">300</span>
+                                                </p>
+                                                <textarea name="benefits" id="benefits" class="form-control" cols="10" rows="5"
+                                                    placeholder="Describe the expected outcomes and benefits of your solution. (Max 300 words)" required></textarea>
+                                                <div class="invalid-feedback text-uppercase">Enter Expected Outcomes &
+                                                    Benefits</div>
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label for="file" class="form-label"><b>Additional File Upload
+                                                        <span class="text-danger">*</span></b></label>
+
+                                                <input type="text" name="file" id="file" class="form-control"
+                                                    placeholder="Paste the Google Drive Link containing all required files."
+                                                    required>
+                                                <p class="text-danger mt-1">Upload the necessary materials in a folder
+                                                    and
+                                                    share the link. The contents must include:</p>
+                                                <ul>
+                                                    <li>Presentation Deck (given format)</li>
+                                                    <li>Valid Photo ID card of Each Participant</li>
+                                                </ul>
+                                            </div>
+
+                                            <div class="my-2">
+                                                <label class="form-label"><b>Declaration & Consent <span
+                                                            class="text-danger">*</span></b></label>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="consent1"
+                                                        required>
+                                                    <label class="form-check-label" for="consent1">We confirm that all
+                                                        the
+                                                        information provided is accurate.</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="consent2"
+                                                        required>
+                                                    <label class="form-check-label" for="consent2">We agree to abide
+                                                        by
+                                                        the hackathon rules and guidelines.</label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <input class="form-check-input" type="checkbox" id="consent3"
+                                                        required>
+                                                    <label class="form-check-label" for="consent3">We consent to the
+                                                        use
+                                                        of our data for hackathon-related communications.</label>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-2 text-center">
+                                                <button style="width: 120px;" type="submit"
+                                                    class="btn btn-primary">Submit</button>
                                             </div>
                                         </div>
 
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Execution <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="executioncount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_executioncount">0</span> | Word Left:
-                                                <span id="executionword_left">200</span>
-                                            </p>
-                                            <textarea name="execution" id="execution" class="form-control" cols="10" rows="3"
-                                                placeholder="Describe the strategy implied and how it was executed. What were the challenges in execution and how were they addressed? (Not more than 150 words)"
-                                                value="{{ old('execution') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Execution Plan
-                                            </div>
-                                        </div>
-
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Value Addition <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="value_additioncount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_value_additioncount">0</span> | Word
-                                                Left: <span id="value_additionword_left">200</span>
-                                            </p>
-                                            <textarea name="value_addition" id="value_addition" class="form-control" cols="10" rows="3"
-                                                placeholder="How has the innovation added to the wellbeing of society/organization/nation? (Not more than 75 words)"
-                                                value="{{ old('value_addition') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Value Addition
-                                            </div>
-                                        </div>
-
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Result/Impact <span
-                                                        class="text-danger">*</span></b></label>
-                                            <p id="resultcount" class="text-left text-center mb-1 d-none"
-                                                style="font-size: 10px;">
-                                                Word Count: <span id="display_resultcount">0</span> | Word Left: <span
-                                                    id="resultword_left">200</span>
-                                            </p>
-                                            <textarea name="result" id="result" class="form-control" cols="10" rows="3"
-                                                placeholder="What was/were the result/impact of the innovation? What are some of the measures of success? (Not more than 100 words)"
-                                                value="{{ old('result') }}" required></textarea>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Result/Impact</div>
-                                        </div>
-
-
-                                        <div class="my-2">
-                                            <label for="validationPhone" class="form-label"><b>Supporting Documents
-                                                    Google Drive Link <span class="text-danger">*</span></b></label>
-                                            <textarea name="link" class="form-control" cols="10" rows="3"
-                                                placeholder="Paste the Google Drive Link Here. (Upload the necessary materials in a folder and share the link here. The contents must include: PPT, Visuals, NOC, Innovation AV and any other supporting documents)"
-                                                value="{{ old('link') }}" required></textarea>
-                                            <p class="text-danger mt-1">Disclaimer: Without proper supporting documents
-                                                nomination will be disqualified.</p>
-                                        </div>
-                                        <div class="mt-2 text-center">
-                                            <button style="width: 120px;" type="submit"
-                                                class="btn btn-primary">Submit</button>
-                                        </div>
-                                    </div>
-                                </form>
-                            </div>
-                        @else
-                            <div class="card-body">
-                                <h3 class="text-center text-danger">
-                                    Nomination submission window is now closed.
-                                </h3>
-                            </div>
+                                    </form>
+                                </div>
+                            @else
+                                <div class="card-body">
+                                    <h3 class="text-center text-danger">
+                                        Nomination submission window is now closed.
+                                    </h3>
+                                </div>
+                            @endif
                         @endif
-                    @endif
-                    @if ($form_type == 'edit')
-                        @include('nomination.edit')
-                    @endif
-                </div>
+                        @if ($form_type == 'edit')
+                            @include('nomination.edit')
+                        @endif
+                    </div>
+                @endif
+
                 <div class="card-footer text-muted text-center">
                     @include('footer')
                 </div>
@@ -268,53 +264,25 @@
     <script>
         $(document).ready(function() {
             var sections = [{
-                    id: "#background",
-                    displayId: "#display_backgroundcount",
-                    wordLeftId: "#backgroundword_left",
-                    countId: "#backgroundcount",
-                    maxLength: 50
+                    id: "#problem",
+                    displayId: "#display_problemcount",
+                    wordLeftId: "#problemword_left",
+                    countId: "#problemcount",
+                    maxLength: 300
                 },
                 {
-                    id: "#objective",
-                    displayId: "#display_objectivecount",
-                    wordLeftId: "#objectiveword_left",
-                    countId: "#objectivecount",
-                    maxLength: 50
+                    id: "#solution",
+                    displayId: "#display_solutioncount",
+                    wordLeftId: "#solutionword_left",
+                    countId: "#solutioncount",
+                    maxLength: 500
                 },
                 {
-                    id: "#vision",
-                    displayId: "#display_visioncount",
-                    wordLeftId: "#visionword_left",
-                    countId: "#visioncount",
-                    maxLength: 50
-                },
-                {
-                    id: "#idea",
-                    displayId: "#display_ideacount",
-                    wordLeftId: "#ideaword_left",
-                    countId: "#ideacount",
-                    maxLength: 150
-                },
-                {
-                    id: "#execution",
-                    displayId: "#display_executioncount",
-                    wordLeftId: "#executionword_left",
-                    countId: "#executioncount",
-                    maxLength: 150
-                },
-                {
-                    id: "#value_addition",
-                    displayId: "#display_value_additioncount",
-                    wordLeftId: "#value_additionword_left",
-                    countId: "#value_additioncount",
-                    maxLength: 75
-                },
-                {
-                    id: "#result",
-                    displayId: "#display_resultcount",
-                    wordLeftId: "#resultword_left",
-                    countId: "#resultcount",
-                    maxLength: 100
+                    id: "#benefits",
+                    displayId: "#display_outcomecount",
+                    wordLeftId: "#outcomeword_left",
+                    countId: "#outcomecount",
+                    maxLength: 300
                 }
             ];
 

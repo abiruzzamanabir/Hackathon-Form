@@ -138,7 +138,7 @@
                             <div class="card-body">
                                 @include('partials.header')
                                 @include('validate')
-                                <form action="{{ route('info.update', Auth::user()->google_id) }}" method="POST"
+                                <form action="{{ route('info.update', Auth::user()->email) }}" method="POST"
                                     class="was-validated">
                                     @csrf
                                     @method('PUT')
@@ -147,6 +147,86 @@
                                     </u>
                                     <div class="border p-3 shadow my-3">
                                         <div class="mb-2">
+                                            <label for="validationPhone" class="form-label">
+                                                <b>Team Name <span class="text-danger">*</span></b>
+                                            </label>
+                                            <input type="text" name="team_name" class="form-control"
+                                                @if (Auth::user()->team_name) value="{{ Auth::user()->team_name }}" @endif
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
+                                            <div class="invalid-feedback text-uppercase">Enter Your Team Name</div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="category" class="form-label">
+                                                <b>Category <span class="text-danger">*</span></b>
+                                            </label>
+                                            <select name="category" class="form-control" id="category" required
+                                                @if (Auth::user()->isUpdated) disabled @endif>
+                                                <option value="" disabled selected>Select Your Category</option>
+
+                                                <option
+                                                    value="City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure (Only For Students)"
+                                                    @if (Auth::user()->category ==
+                                                            'City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure (Only For Students)') selected @endif>
+                                                    City Problems – Traffic Congestion, Waste Management, Pollution
+                                                    Control, Smart Infrastructure (Only For Students)
+                                                </option>
+
+                                                <option
+                                                    value="Manufacturing – Process Optimization, Automation, Quality Control, Supply Chain Efficiency"
+                                                    @if (Auth::user()->category ==
+                                                            'Manufacturing – Process Optimization, Automation, Quality Control, Supply Chain Efficiency') selected @endif>
+                                                    Manufacturing – Process Optimization, Automation, Quality Control,
+                                                    Supply Chain Efficiency
+                                                </option>
+
+                                                <option
+                                                    value="Education – AI-Driven Personalized Learning, Accessibility, Content Curation, Skill Development"
+                                                    @if (Auth::user()->category ==
+                                                            'Education – AI-Driven Personalized Learning, Accessibility, Content Curation, Skill Development') selected @endif>
+                                                    Education – AI-Driven Personalized Learning, Accessibility, Content
+                                                    Curation, Skill Development
+                                                </option>
+
+                                                <option
+                                                    value="Agriculture – Smart Farming, Predictive Analytics, Irrigation Solutions, Pest Control"
+                                                    @if (Auth::user()->category == 'Agriculture – Smart Farming, Predictive Analytics, Irrigation Solutions, Pest Control') selected @endif>
+                                                    Agriculture – Smart Farming, Predictive Analytics, Irrigation
+                                                    Solutions, Pest Control
+                                                </option>
+
+                                                <option
+                                                    value="Fintech – Financial Inclusion, Fraud Detection, AI-Driven Credit Scoring, Secure Transactions"
+                                                    @if (Auth::user()->category ==
+                                                            'Fintech – Financial Inclusion, Fraud Detection, AI-Driven Credit Scoring, Secure Transactions') selected @endif>
+                                                    Fintech – Financial Inclusion, Fraud Detection, AI-Driven Credit
+                                                    Scoring, Secure Transactions
+                                                </option>
+
+                                                <option
+                                                    value="Healthcare – AI-Driven Diagnosis, Remote Patient Monitoring, Predictive Analytics, and Smart Healthcare Systems"
+                                                    @if (Auth::user()->category ==
+                                                            'Healthcare – AI-Driven Diagnosis, Remote Patient Monitoring, Predictive Analytics, and Smart Healthcare Systems') selected @endif>
+                                                    Healthcare – AI-Driven Diagnosis, Remote Patient Monitoring,
+                                                    Predictive Analytics, and Smart Healthcare Systems
+                                                </option>
+
+                                            </select>
+
+                                            <div class="invalid-feedback text-uppercase">Enter Your Team Name</div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="validationPhone" class="form-label">
+                                                <b>Institution / Organization <span class="text-danger">*</span></b>
+                                            </label>
+                                            <input list="organization" type="text" name="organization"
+                                                class="form-control"
+                                                @if (Auth::user()->organization) value="{{ Auth::user()->organization }}" @endif
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
+                                            <div class="invalid-feedback text-uppercase">Enter Your Institution /
+                                                Organization Name
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
                                             <label for="validationName" class="form-label">
                                                 <b>Full Name <span class="text-danger">*</span></b>
                                             </label>
@@ -154,26 +234,6 @@
                                                 @if (Auth::user()->name) value="{{ Auth::user()->name }}" @endif
                                                 @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Full Name</div>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="validationName" class="form-label">
-                                                <b>Designation <span class="text-danger">*</span></b>
-                                            </label>
-                                            <input type="text" name="designation" class="form-control"
-                                                @if (Auth::user()->designation) value="{{ Auth::user()->designation }}" @endif
-                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Designation</div>
-                                        </div>
-                                        <div class="mb-2">
-                                            <label for="validationPhone" class="form-label">
-                                                <b>Organization <span class="text-danger">*</span></b>
-                                            </label>
-                                            <input list="organization" type="text" name="organization"
-                                                class="form-control"
-                                                @if (Auth::user()->organization) value="{{ Auth::user()->organization }}" @endif
-                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Organization Name
-                                            </div>
                                         </div>
                                         <div class="mb-2">
                                             <label for="validationEmail" class="form-label">
@@ -186,12 +246,22 @@
                                         </div>
                                         <div class="mb-2">
                                             <label for="validationPhone" class="form-label">
-                                                <b>Contact Number <span class="text-danger">*</span></b>
+                                                <b>Phone Number <span class="text-danger">*</span></b>
                                             </label>
                                             <input type="text" name="phone" class="form-control"
                                                 @if (Auth::user()->phone) value="{{ Auth::user()->phone }}" @endif
                                                 @if (Auth::user()->isUpdated == true) disabled @endif required>
-                                            <div class="invalid-feedback text-uppercase">Enter Your Contact Number
+                                            <div class="invalid-feedback text-uppercase">Enter Your Phone Number
+                                            </div>
+                                        </div>
+                                        <div class="mb-2">
+                                            <label for="validationName" class="form-label">
+                                                <b>Role / Designation <span class="text-danger">*</span></b>
+                                            </label>
+                                            <input type="text" name="designation" class="form-control"
+                                                @if (Auth::user()->designation) value="{{ Auth::user()->designation }}" @endif
+                                                @if (Auth::user()->isUpdated == true) disabled @endif required>
+                                            <div class="invalid-feedback text-uppercase">Enter Your Role / Designation
                                             </div>
                                         </div>
                                         <div class="mb-2">
@@ -203,6 +273,7 @@
                                                 @if (Auth::user()->isUpdated == true) disabled @endif required>
                                             <div class="invalid-feedback text-uppercase">Enter Your Address</div>
                                         </div>
+
                                     </div>
                                     <u>
                                         <h5 class="text-center text-uppercase">Team Member</h5>
@@ -226,71 +297,78 @@
                                                                 <input name="member_name[]" required
                                                                     @if (Auth::user()->isUpdated) value="{{ $member['member_name'] }}" disabled
                                                         @else
-                                                            placeholder="Team Member Name" @endif
+                                                            placeholder="Full Name" @endif
                                                                     class="form-control my-3" type="text">
-
-                                                                <!-- Member Designation -->
-                                                                <input name="member_designation[]" required
-                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_designation'] }}" disabled
-                                                        @else
-                                                            placeholder="Team Member Designation" @endif
-                                                                    class="form-control my-3" type="text">
-
-                                                                <!-- Member Organization -->
-                                                                <input name="member_organization[]" required
-                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_organization'] }}" disabled
-                                                        @else
-                                                            placeholder="Team Member Organization" @endif
-                                                                    class="form-control my-3" type="text">
-
-                                                                <!-- Member Contact -->
-                                                                <input name="member_contact[]" required
-                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_contact'] }}" disabled
-                                                        @else
-                                                            placeholder="Team Member Contact" @endif
-                                                                    class="form-control my-3" type="text">
-
                                                                 <!-- Member Email -->
                                                                 <input name="member_email[]" required
                                                                     @if (Auth::user()->isUpdated) value="{{ $member['member_email'] }}" disabled
-                                                        @else
-                                                            placeholder="Team Member Email" @endif
+@else
+placeholder="Email" @endif
                                                                     class="form-control my-3" type="text">
                                                             </div>
+                                                            <!-- Member Contact -->
+                                                            <input name="member_contact[]" required
+                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_contact'] }}" disabled
+                                                        @else
+                                                            placeholder="Contact" @endif
+                                                                class="form-control my-3" type="text">
+
+
+                                                            <!-- Member Designation -->
+                                                            <input name="member_designation[]" required
+                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_designation'] }}" disabled
+                                                @else
+                                                    placeholder="Designation" @endif
+                                                                class="form-control my-3" type="text">
+
+                                                            <!-- Member Organization -->
+                                                            {{-- <input name="member_organization[]" required
+                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_organization'] }}" disabled
+                                                @else
+                                                    placeholder="Organization" @endif
+                                                                class="form-control my-3" type="text"> --}}
                                                         @endforeach
                                                     @else
-                                                        @for ($i = 0; $i < 2; $i++)
+                                                        @for ($i = 0; $i < 4; $i++)
+                                                            <!-- Adjust the loop to go up to 5 iterations -->
                                                             <div class="btn-section">
                                                                 <div class="d-flex justify-content-between">
                                                                     <b>Member {{ $i + 1 }}</b>
                                                                 </div>
 
                                                                 <!-- Member Name -->
-                                                                <input name="member_name[]" required
-                                                                    placeholder="Team Member Name"
-                                                                    class="form-control my-3" type="text">
+                                                                <input name="member_name[]"
+                                                                    @if ($i < 2) required @endif
+                                                                    placeholder="Full Name" class="form-control my-3"
+                                                                    type="text">
 
+                                                                <!-- Member Email -->
+                                                                <input name="member_email[]"
+                                                                    @if ($i < 2) required @endif
+                                                                    placeholder="Email" class="form-control my-3"
+                                                                    type="text">
+
+                                                                <!-- Member Contact -->
+                                                                <input name="member_contact[]"
+                                                                    @if ($i < 2) required @endif
+                                                                    placeholder="Phone Number"
+                                                                    class="form-control my-3" type="text">
                                                                 <!-- Member Designation -->
-                                                                <input name="member_designation[]" required
-                                                                    placeholder="Team Member Designation"
+                                                                <input name="member_designation[]"
+                                                                    @if ($i < 2) required @endif
+                                                                    placeholder="Designation"
                                                                     class="form-control my-3" type="text">
 
                                                                 <!-- Member Organization -->
-                                                                <input name="member_organization[]" required
-                                                                    placeholder="Team Member Organization"
-                                                                    class="form-control my-3" type="text">
+                                                                {{-- <input name="member_organization[]"
+                                                                    @if ($i < 2) required @endif
+                                                                    placeholder="Organization"
+                                                                    class="form-control my-3" type="text"> --}}
 
-                                                                <!-- Member Contact -->
-                                                                <input name="member_contact[]" required
-                                                                    placeholder="Team Member Contact"
-                                                                    class="form-control my-3" type="text">
 
-                                                                <!-- Member Email -->
-                                                                <input name="member_email[]" required
-                                                                    placeholder="Team Member Email"
-                                                                    class="form-control my-3" type="text">
                                                             </div>
                                                         @endfor
+
                                                     @endif
 
 
@@ -301,7 +379,8 @@
                                     </div>
                                     <div class="mt-2 text-center">
                                         @if (Auth::user()->isUpdated)
-                                            <a class="btn btn-primary" href="{{ route('form.index') }}">Go TO Submission Form</a>
+                                            <a class="btn btn-primary" href="{{ route('form.index') }}">Go TO
+                                                Submission Form</a>
                                         @else
                                             <button style="width: 120px;" type="submit"
                                                 class="btn btn-primary">Submit</button>

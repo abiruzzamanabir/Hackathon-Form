@@ -8,6 +8,7 @@ use App\Mail\NominationSubmitMail;
 use App\Models\Invoice;
 use App\Models\Nomination;
 use App\Models\Theme;
+use App\Models\User;
 use App\Notifications\Notifications\NominationSubmit;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -166,40 +167,22 @@ class NominationController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $email)
     {
-        $this->validate($request, [
-            'invoice' => 'required|numeric',
-        ]);
-        $invoice = Invoice::where('invoice', $request->invoice)->first();
-        if ($invoice) {
-            if ($invoice->trash == 1) {
-                return back()->with('warning', 'Your invoice is blocked. Please contact us to use this invoice again.');
-            } else if ($invoice->available < 1) {
-                return back()->with('danger', 'All Invoices are used');
-            } else {
-                $update_invoice = Invoice::where('invoice', $request->invoice)->first();
-                $update_date = Nomination::where('ukey', $id)->first();
-                $count = count(Nomination::where('invoice', $request->invoice)->get());
-                $used = $count;
-                $available = $update_invoice->total - $used;
-                $update_invoice->update([
-                    'used' => $used + 1,
-                    'available' => $available - 1,
-                ]);
-                $update_date->update([
-                    'invoice' => $request->invoice,
-                ]);
-                $user_data = $update_date;
-                // $user_data->notify(new PaymentNotification($user_data));
-                Mail::to($request->email)->send(new InvoicePaymentMail($user_data));
+        // Retrieve the user by email, assuming email is unique
+        $user = User::where('email', $email)->firstOrFail();
 
-                // return redirect()->route('form.index')->with('success', 'Nomination Submitted');
-                return back()->with('success', 'Nomination Submitted');
-            }
-        } else {
-            return back()->with('warning', 'Invalid Invoice Number');
-        }
+        // Update the user's data
+        $user->update([
+            'problem' => $request->problem,
+            'solution' => $request->solution,
+            'benefits' => $request->benefits,
+            'file' => $request->file,
+            'isSubmitted' => true,
+        ]);
+
+        // Redirect back with a success message
+        return redirect()->route('form.index')->with('success', 'Information Updated');
     }
 
     /**
@@ -305,6 +288,6 @@ class NominationController extends Controller
     }
     public function redirect()
     {
-        return redirect()->route('signin-signup.index');
+        return redirect()->route('login');
     }
 }

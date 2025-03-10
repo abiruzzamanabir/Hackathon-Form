@@ -21,8 +21,8 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" id="navbarDropdown"
                         role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img src="{{ Auth::user()->avatar }}" alt="User Profile Picture"
-                            class="img-fluid rounded-circle border border-info shadow-sm" width="40">
+                        {{-- <img src="{{ Auth::user()->avatar }}" alt="User Profile Picture"
+                            class="img-fluid rounded-circle border border-info shadow-sm" width="40"> --}}
                         <span class="ms-2">{{ Auth::user()->name }}</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">

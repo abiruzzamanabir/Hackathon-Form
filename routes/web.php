@@ -28,19 +28,19 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(['check.user.info'])->group(function () {
         Route::resource('/form', NominationController::class); // Only allows access if data is valid
     });
+    Route::resource('/info', InfoController::class);
 });
 
 // Middleware for unauthenticated users
 Route::middleware(['redirectIfAuthenticated'])->group(function () {
     // This will ensure that logged-in users cannot access the /signin-signup routes
     Route::resource('/signin-signup', CaseController::class);
+    Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
+    Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 });
 // If user's information is incomplete, redirect them to /info
-Route::resource('/info', InfoController::class);
-Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
 
-Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::resource('/theme', ThemeController::class);
 Route::get('/', [NominationController::class, 'redirect'])->name('form.redirect');

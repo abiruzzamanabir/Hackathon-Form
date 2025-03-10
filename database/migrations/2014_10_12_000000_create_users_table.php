@@ -25,9 +25,9 @@ return new class extends Migration
             $table->longText('members')->nullable();
             $table->string('team_name')->nullable();
             $table->string('category')->nullable();
-            $table->string('problem')->nullable();
-            $table->string('solution')->nullable();
-            $table->string('benefits')->nullable();
+            $table->longText('problem')->nullable();
+            $table->longText('solution')->nullable();
+            $table->longText('benefits')->nullable();
             $table->longText('file')->nullable();
             $table->boolean('isUpdated')->default(false);
             $table->boolean('isSubmitted')->default(false);

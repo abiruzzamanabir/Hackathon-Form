@@ -285,98 +285,50 @@
                                                 <div class="member-btn-opt-area">
                                                     @php
                                                         $members = json_decode(Auth::user()->members, true);
+                                                        $total_members = isset($members) ? count($members) : 0;
+                                                        $initial_members = max($total_members, 2); // Ensure at least 2 members
                                                     @endphp
-                                                    @if (isset($members) && $members > 0)
-                                                        @foreach ($members as $index => $member)
-                                                            <div class="btn-section">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <b>Member {{ $index + 1 }}</b>
-                                                                </div>
 
-                                                                <!-- Member Name -->
-                                                                <input name="member_name[]" required
-                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_name'] }}" disabled
-                                                        @else
-                                                            placeholder="Full Name" @endif
-                                                                    class="form-control my-3" type="text">
-                                                                <!-- Member Email -->
-                                                                <input name="member_email[]" required
-                                                                    @if (Auth::user()->isUpdated) value="{{ $member['member_email'] }}" disabled
-@else
-placeholder="Email" @endif
-                                                                    class="form-control my-3" type="text">
+                                                    @for ($i = 0; $i < $initial_members; $i++)
+                                                        @php $member = $members[$i] ?? null; @endphp
+                                                        <div class="btn-section">
+                                                            <div class="d-flex justify-content-between">
+                                                                <b>Member {{ $i + 1 }}</b>
+                                                                @if ($i >= 2)
+                                                                    <span style="cursor: pointer"
+                                                                        class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove
+                                                                        <i class="fas fa-times"></i></span>
+                                                                @endif
                                                             </div>
-                                                            <!-- Member Contact -->
+
+                                                            <input name="member_name[]" required
+                                                                class="form-control my-3" type="text"
+                                                                value="{{ $member['member_name'] ?? '' }}"
+                                                                placeholder="Full Name">
+
+                                                            <input name="member_email[]" required
+                                                                class="form-control my-3" type="text"
+                                                                value="{{ $member['member_email'] ?? '' }}"
+                                                                placeholder="Email">
+
                                                             <input name="member_contact[]" required
-                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_contact'] }}" disabled
-                                                        @else
-                                                            placeholder="Contact" @endif
-                                                                class="form-control my-3" type="text">
+                                                                class="form-control my-3" type="text"
+                                                                value="{{ $member['member_contact'] ?? '' }}"
+                                                                placeholder="Contact">
 
-
-                                                            <!-- Member Designation -->
                                                             <input name="member_designation[]" required
-                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_designation'] }}" disabled
-                                                @else
-                                                    placeholder="Designation" @endif
-                                                                class="form-control my-3" type="text">
-
-                                                            <!-- Member Organization -->
-                                                            {{-- <input name="member_organization[]" required
-                                                                @if (Auth::user()->isUpdated) value="{{ $member['member_organization'] }}" disabled
-                                                @else
-                                                    placeholder="Organization" @endif
-                                                                class="form-control my-3" type="text"> --}}
-                                                        @endforeach
-                                                    @else
-                                                        @for ($i = 0; $i < 4; $i++)
-                                                            <!-- Adjust the loop to go up to 5 iterations -->
-                                                            <div class="btn-section">
-                                                                <div class="d-flex justify-content-between">
-                                                                    <b>Member {{ $i + 1 }}</b>
-                                                                </div>
-
-                                                                <!-- Member Name -->
-                                                                <input name="member_name[]"
-                                                                    @if ($i < 2) required @endif
-                                                                    placeholder="Full Name" class="form-control my-3"
-                                                                    type="text">
-
-                                                                <!-- Member Email -->
-                                                                <input name="member_email[]"
-                                                                    @if ($i < 2) required @endif
-                                                                    placeholder="Email" class="form-control my-3"
-                                                                    type="text">
-
-                                                                <!-- Member Contact -->
-                                                                <input name="member_contact[]"
-                                                                    @if ($i < 2) required @endif
-                                                                    placeholder="Phone Number"
-                                                                    class="form-control my-3" type="text">
-                                                                <!-- Member Designation -->
-                                                                <input name="member_designation[]"
-                                                                    @if ($i < 2) required @endif
-                                                                    placeholder="Designation"
-                                                                    class="form-control my-3" type="text">
-
-                                                                <!-- Member Organization -->
-                                                                {{-- <input name="member_organization[]"
-                                                                    @if ($i < 2) required @endif
-                                                                    placeholder="Organization"
-                                                                    class="form-control my-3" type="text"> --}}
-
-
-                                                            </div>
-                                                        @endfor
-
-                                                    @endif
-
-
+                                                                class="form-control my-3" type="text"
+                                                                value="{{ $member['member_designation'] ?? '' }}"
+                                                                placeholder="Designation">
+                                                        </div>
+                                                    @endfor
                                                 </div>
-
                                             </div>
+                                            <button id="add-new-member-button" class="btn btn-primary">Add
+                                                Member</button>
                                         </div>
                                     </div>
+
                                     <div class="mt-2 text-center">
                                         @if (Auth::user()->isUpdated)
                                             <a class="btn btn-primary" href="{{ route('form.index') }}">Go TO
@@ -409,49 +361,76 @@ placeholder="Email" @endif
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" </script>
-        < script src = "https://code.jquery.com/jquery-3.6.3.slim.min.js"
-        integrity = "sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo="
-        crossorigin = "anonymous" >
-    </script>
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         $(document).ready(function() {
-
+            let initialMembers = 2;
+            let maxAdditionalMembers = 2;
             let btn_no = $(".member-btn-opt-area .btn-section").length + 1;
+
+            // Ensure initial 2 members are present
+            for (let i = $(".member-btn-opt-area .btn-section").length; i < initialMembers; i++) {
+                addNewMember();
+            }
+
+            // Check if the "Add Member" button should be visible or not
+            toggleAddMemberButton();
 
             $("#add-new-member-button").click(function(e) {
                 e.preventDefault();
-
-                $(".member-btn-opt-area").append(`
-    <div class="btn-section">
-        <div class="d-flex justify-content-between">
-            <b>Member ${btn_no}</b>
-            <span style="cursor: pointer" class="bg-danger px-2 py-1 rounded text-white remove-btn">Remove <i class="fas fa-times"></i></span>
-        </div>
-        <input name="member_name[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Name">
-                                                <input name="member_designation[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Designation">
-                                                <input name="member_organization[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Organization">
-                                                <input name="member_contact[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Contact">
-                                                <input name="member_email[]" required class="form-control my-3" type="text"
-                                                    placeholder="Team Member Email">
-    </div>
-    `);
-                btn_no++;
+                if ($(".member-btn-opt-area .btn-section").length < initialMembers + maxAdditionalMembers) {
+                    addNewMember();
+                    toggleAddMemberButton(); // Hide the button if 4 members are reached
+                }
             });
 
             $(document).on("click", ".remove-btn", function() {
-                $(this).closest(".btn-section").remove();
+                if ($(".member-btn-opt-area .btn-section").length > initialMembers) {
+                    $(this).closest(".btn-section").remove();
+                    updateMemberNumbers();
+                    toggleAddMemberButton(); // Show the button again if the member count is less than 4
+                }
+            });
+
+            function addNewMember() {
+                let memberHTML = `
+        <div class="btn-section">
+            <div class="d-flex justify-content-between">
+                <b>Member ${btn_no}</b>
+                <span class="bg-danger px-2 py-1 rounded text-white remove-btn" style="cursor: pointer;">Remove <i class="fas fa-times"></i></span>
+            </div>
+            <input name="member_name[]" required class="form-control my-3" type="text" placeholder="Full Name">
+            <input name="member_designation[]" required class="form-control my-3" type="text" placeholder="Designation">
+            <input name="member_organization[]" required class="form-control my-3" type="text" placeholder="Organization">
+            <input name="member_contact[]" required class="form-control my-3" type="text" placeholder="Contact">
+            <input name="member_email[]" required class="form-control my-3" type="text" placeholder="Email">
+        </div>`;
+
+                $(".member-btn-opt-area").append(memberHTML);
+                btn_no++;
+            }
+
+            function updateMemberNumbers() {
                 $(".member-btn-opt-area .btn-section").each(function(index) {
                     $(this).find("b:first-child").text(`Member ${index + 1}`);
                 });
                 btn_no = $(".member-btn-opt-area .btn-section").length + 1;
-            });
+            }
 
+            // Function to toggle the visibility of the "Add Member" button
+            function toggleAddMemberButton() {
+                if ($(".member-btn-opt-area .btn-section").length >= 4) {
+                    $("#add-new-member-button").hide();
+                } else {
+                    $("#add-new-member-button").show();
+                }
+            }
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             var sections = [{
                     id: "#background",
                     displayId: "#display_backgroundcount",
@@ -505,23 +484,158 @@ placeholder="Email" @endif
 
             sections.forEach(function(section) {
                 $(section.id).on('input', function() {
-                    var words = this.value.match(/\S+/g).length;
+                    var words = this.value.match(/\S+/g) ? this.value.match(/\S+/g).length : 0;
                     if (words > section.maxLength) {
                         var trimmed = $(this).val().split(/\s+/, section.maxLength).join(" ");
                         $(this).val(trimmed + " ");
                     } else {
                         $(section.displayId).text(words);
                         $(section.wordLeftId).text(section.maxLength - words);
-                        if (words > 1) {
+                        if (words > 0) {
                             $(section.countId).removeClass('d-none');
-                        } else if (words < 1) {
-                            $(section.countId).addClass('d-none');
                         } else {
                             $(section.countId).addClass('d-none');
                         }
                     }
                 });
             });
+
+            // Set timeout to fade out and remove alerts
+            window.setTimeout(function() {
+                $(".alert").fadeTo(500, 0).slideUp(500, function() {
+                    $(this).remove();
+                });
+            }, 3000);
+        });
+    </script>
+
+
+
+
+
+    {{-- <script>
+        $(document).ready(function() {
+            alert('jQuery is working');
+
+            let initialMembers = 2;
+            let maxAdditionalMembers = 2;
+            let btn_no = $(".member-btn-opt-area .btn-section").length + 1;
+
+            // Ensure initial 2 members are present
+            for (let i = $(".member-btn-opt-area .btn-section").length; i < initialMembers; i++) {
+                addNewMember();
+            }
+
+            $("#add-new-member-button").click(function(e) {
+                e.preventDefault();
+                if ($(".member-btn-opt-area .btn-section").length < initialMembers + maxAdditionalMembers) {
+                    addNewMember();
+                }
+            });
+
+            $(document).on("click", ".remove-btn", function() {
+                if ($(".member-btn-opt-area .btn-section").length > initialMembers) {
+                    $(this).closest(".btn-section").remove();
+                    updateMemberNumbers();
+                }
+            });
+
+            function addNewMember() {
+                let memberHTML = `
+            <div class="btn-section">
+                <div class="d-flex justify-content-between">
+                    <b>Member ${btn_no}</b>
+                    <span class="bg-danger px-2 py-1 rounded text-white remove-btn" style="cursor: pointer;">Remove <i class="fas fa-times"></i></span>
+                </div>
+                <input name="member_name[]" required class="form-control my-3" type="text" placeholder="Full Name">
+                <input name="member_designation[]" required class="form-control my-3" type="text" placeholder="Designation">
+                <input name="member_organization[]" required class="form-control my-3" type="text" placeholder="Organization">
+                <input name="member_contact[]" required class="form-control my-3" type="text" placeholder="Contact">
+                <input name="member_email[]" required class="form-control my-3" type="text" placeholder="Email">
+            </div>`;
+
+                $(".member-btn-opt-area").append(memberHTML);
+                btn_no++;
+            }
+
+            function updateMemberNumbers() {
+                $(".member-btn-opt-area .btn-section").each(function(index) {
+                    $(this).find("b:first-child").text(`Member ${index + 1}`);
+                });
+                btn_no = $(".member-btn-opt-area .btn-section").length + 1;
+            }
+        }
+
+        var sections = [{
+                id: "#background",
+                displayId: "#display_backgroundcount",
+                wordLeftId: "#backgroundword_left",
+                countId: "#backgroundcount",
+                maxLength: 50
+            },
+            {
+                id: "#objective",
+                displayId: "#display_objectivecount",
+                wordLeftId: "#objectiveword_left",
+                countId: "#objectivecount",
+                maxLength: 50
+            },
+            {
+                id: "#vision",
+                displayId: "#display_visioncount",
+                wordLeftId: "#visionword_left",
+                countId: "#visioncount",
+                maxLength: 50
+            },
+            {
+                id: "#idea",
+                displayId: "#display_ideacount",
+                wordLeftId: "#ideaword_left",
+                countId: "#ideacount",
+                maxLength: 150
+            },
+            {
+                id: "#execution",
+                displayId: "#display_executioncount",
+                wordLeftId: "#executionword_left",
+                countId: "#executioncount",
+                maxLength: 150
+            },
+            {
+                id: "#value_addition",
+                displayId: "#display_value_additioncount",
+                wordLeftId: "#value_additionword_left",
+                countId: "#value_additioncount",
+                maxLength: 75
+            },
+            {
+                id: "#result",
+                displayId: "#display_resultcount",
+                wordLeftId: "#resultword_left",
+                countId: "#resultcount",
+                maxLength: 100
+            }
+        ];
+
+        sections.forEach(function(section) {
+            $(section.id).on('input', function() {
+                var words = this.value.match(/\S+/g).length;
+                if (words > section.maxLength) {
+                    var trimmed = $(this).val().split(/\s+/, section.maxLength).join(" ");
+                    $(this).val(trimmed + " ");
+                } else {
+                    $(section.displayId).text(words);
+                    $(section.wordLeftId).text(section.maxLength - words);
+                    if (words > 1) {
+                        $(section.countId).removeClass('d-none');
+                    } else if (words < 1) {
+                        $(section.countId).addClass('d-none');
+                    } else {
+                        $(section.countId).addClass('d-none');
+                    }
+                }
+            });
+        });
         });
 
         window.setTimeout(function() {
@@ -529,7 +643,7 @@ placeholder="Email" @endif
                 $(this).remove();
             });
         }, 3000);
-    </script>
+    </script> --}}
     @php
         $databaseDatetime = strtotime($theme->close);
 

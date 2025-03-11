@@ -132,28 +132,7 @@
             <div class="row justify-content-center align-items-center g-2">
                 <div class="col-md-12">
                     <div class="card">
-                        <div class="card-header text-center">
-                            @if ($page == 'dashboard')
-                                <a href="{{ route('trash.index') }}" class="btn btn-sm btn-danger">Trash<span
-                                        class="badge bg-light text-dark ms-1">{{ $count }}</span></a>
-                                <a href="{{ route('paymentverified.index') }}" class="btn btn-sm btn-success">Payment
-                                    Verified<span class="badge bg-light text-dark ms-1">{{ $countpv }}</span></a>
-                            @elseif($page == 'trash')
-                                <a href="{{ route('dashboard.index') }}" class="btn btn-sm btn-info">Dashboard<span
-                                        class="badge bg-light text-dark ms-1">{{ $count }}</span></a>
-                                <a href="{{ route('paymentverified.index') }}" class="btn btn-sm btn-success">Payment
-                                    Verified<span class="badge bg-light text-dark ms-1">{{ $countpv }}</span></a>
-                            @elseif($page == 'pv')
-                                <a href="{{ route('dashboard.index') }}" class="btn btn-sm btn-info">Dashboard<span
-                                        class="badge bg-light text-dark ms-1">{{ $count }}</span></a>
-                                <a href="{{ route('trash.index') }}" class="btn btn-sm btn-danger">Trash<span
-                                        class="badge bg-light text-dark ms-1">{{ $count1 }}</span></a>
-                            @endif
-                            <a href="{{ route('invoice.index') }}" class="btn btn-sm btn-primary">Invoice<span
-                                    class="badge bg-light text-dark ms-1">{{ $invoice }}</span></a>
-                            {{-- <a style="float: right;" href="{{ route('logout') }}" class="btn btn-sm btn-danger">Logout</a> --}}
-
-                        </div>
+                        
                         <div class="card-body overflow-auto">
                             @include('validate')
                             <table style="text-align: center" id="dashboard" class="table table-striped table-bordered">
@@ -161,21 +140,19 @@
                                     <tr class="table-info">
                                         <th scope="col">#</th>
                                         <th scope="col">Date</th>
+                                        <th scope="col">Team Name</th>
+                                        <th scope="col">Category</th>
+                                        <th scope="col">Organization</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
                                         <th scope="col">Phone</th>
                                         <th scope="col">Designation</th>
-                                        <th scope="col">Organization</th>
                                         <th scope="col">Team Members</th>
                                         <th scope="col">Address</th>
-                                        <th scope="col">Comment</th>
-                                        <th scope="col">Payment Method</th>
-                                        @if ($page == 'pv')
-                                            <th scope="col">Confirmation</th>
-                                        @endif
-                                        @if ($page == 'dashboard' || $page == 'trash')
-                                            <th scope="col">Action</th>
-                                        @endif
+                                        <th scope="col">Problem</th>
+                                        <th scope="col">Solution</th>
+                                        <th scope="col">Outcomes</th>
+                                        <th scope="col">Files</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -186,12 +163,14 @@
                                         @else @endif
                                                 scope="row">{{ $loop->index + 1 }}</th>
                                             <td>{{ date('l, F j, Y, g:i A', strtotime($item->created_at)) }}</td>
+                                            <td>{{ $item->team_name }}</td>
+                                            <td>{{ $item->category }}</td>
+                                            <td>{{ $item->organization }}</td>
                                             <td class="text-capitalize">{{ $item->name }}</td>
                                             <td onclick="copyUserEmail('{{ $item->email }}')">{{ $item->email }}
                                             </td>
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->designation }}</td>
-                                            <td>{{ $item->organization }}</td>
                                             <td>
                                                 @php
                                                     $members = json_decode($item->members, true);
@@ -204,8 +183,8 @@
                                                                 <strong>Name:</strong> {{ $member['member_name'] }}<br>
                                                                 <strong>Designation:</strong>
                                                                 {{ $member['member_designation'] }}<br>
-                                                                <strong>Organization:</strong>
-                                                                {{ $member['member_organization'] }}<br>
+                                                                {{-- <strong>Organization:</strong>
+                                                                {{ $member['member_organization'] }}<br> --}}
                                                                 <strong>Contact:</strong>
                                                                 {{ $member['member_contact'] }}<br>
                                                                 <strong>Email:</strong> <a
@@ -222,150 +201,11 @@
 
 
                                             <td>{{ $item->address }}</td>
-                                            <td class="align-top">
-                                                <form action="{{ route('dashboard.update', $item->id) }}"
-                                                    method="POST">
-                                                    @csrf
-                                                    @method('PUT')
-                                                    <textarea name="comment" id="" cols="30" rows="3" placeholder="Enter Your Comment Here....">{{ $item->comment }}</textarea>
-                                                    <br>
-                                                    <button class="btn btn-info btn-sm btnsize" type="submit"><i
-                                                            class="fa fa-check" aria-hidden="true"></i></button>
-                                                    <a class="btn btn-info btn-sm btnsize"
-                                                        href="{{ route('comment.empty', $item->id) }}"><i
-                                                            class="fa fa-refresh" aria-hidden="true"></i></a>
-                                                </form>
-                                            </td>
-                                            @php
-                                                $order_details = DB::table('orders')
-                                                    ->where('transaction_id', $item->ukey)
-                                                    ->select(
-                                                        'transaction_id',
-                                                        'status',
-                                                        'currency',
-                                                        'amount',
-                                                        'card_issuer',
-                                                    )
-                                                    ->orderBy('id', 'desc')
-                                                    ->first();
-                                            @endphp
-                                            <td style="font-size: 12px">
-                                                @if (
-                                                    $item->category == 'Best Innovation in Robotics & AI' ||
-                                                        $item->category == 'Best Innovation in Software/App Solution Development' ||
-                                                        $item->category == 'Best Innovation in New Business Solutions' ||
-                                                        $item->category == 'Best Innovation in Medical/Healthcare')
-                                                    @if ($item->pv == 1)
-                                                        <p>Free<br><span class="badge bg-success">Free</span>
-                                                        </p>
-                                                        <a href="{{ route('payment.status.update', $item->ukey) }}"><span
-                                                                class="badge bg-success">Payment Verified</span></a>
-                                                    @elseif($item->pv == 0)
-                                                        <p>Free<br><span class="badge bg-success">Free</span>
-                                                        </p>
-                                                        <a href="{{ route('payment.status.update', $item->ukey) }}"><span
-                                                                class="badge bg-danger">Payment Unverified</span></a>
-                                                    @else
-                                                    @endif
-                                                @elseif ($item->payment == 2)
-                                                    <p>Paid Online<br><span
-                                                            class="badge bg-success">Online</span><br><b>{{ $order_details->card_issuer }}</b>
-                                                    </p>
-                                                @elseif ($item->invoice != null)
-                                                    @if ($item->pv == 0)
-                                                        <p class="m-0">Cheque Payment<br>Invoice : <b
-                                                                class="@if ($item->pv == 0) text-danger
-                                                @elseif($item->pv == 1)
-                                            text-success
-                                                @else @endif">{{ $item->invoice }}</b><br><a
-                                                                href="{{ route('payment.status.update', $item->ukey) }}"><span
-                                                                    class="badge bg-danger">Payment
-                                                                    Unverified</span></a>
-                                                        </p>
-                                                        {{-- <a class="text-success btnsize" style="font-size: 16px !important" href="{{ route('payment.status.update',$item->ukey) }}"><i
-                                            class="fa fa-check" aria-hidden="true"></i></a> --}}
-                                                    @else
-                                                        <p class="m-0">Cheque Payment<br>Invoice : <b
-                                                                class="@if ($item->pv == 0) text-danger
-                                                                    @elseif($item->pv == 1)
-                                            text-success
-                                            @else @endif">{{ $item->invoice }}</b><br><a
-                                                                href="{{ route('payment.status.update', $item->ukey) }}"><span
-                                                                    class="badge bg-success">Payment
-                                                                    verified</span></a>
-                                                        </p>
-                                                        {{-- <a class="text-danger btnsize" style="font-size: 16px !important" href="{{ route('payment.status.update',$item->ukey) }}"><i
-                                            class="fa fa-times" aria-hidden="true"></i></a> --}}
-                                                    @endif
-                                                @else
-                                                    <form action="{{ route('dashboard.payment') }}" method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="name" readonly
-                                                            value="{{ $item->name }}">
-                                                        <input type="hidden" name="email" readonly
-                                                            value="{{ $item->email }}">
-                                                        <input type="hidden" name="phone" readonly
-                                                            value="{{ $item->phone }}">
-                                                        <input type="hidden" name="ukey" readonly
-                                                            value="{{ $item->ukey }}">
-                                                        <button type="submit" class="btn btn-info btn-sm">Send Mail
-                                                            For
-                                                            Payment <span
-                                                                class="badge bg-success">{{ $item->confirmLinkSend }}</span></button>
-                                                    </form>
-                                                @endif
-                                            </td>
-                                            @if ($page == 'pv')
-                                                <td>
-                                                    @if ($item->payment == '2')
-                                                        <form action="{{ route('dashboard.payment.confirm') }}"
-                                                            method="POST">
-                                                            @csrf
-                                                            <input type="hidden" name="name" readonly
-                                                                value="{{ $item->name }}">
-                                                            <input type="hidden" name="email" readonly
-                                                                value="{{ $item->email }}">
-                                                            <input type="hidden" name="phone" readonly
-                                                                value="{{ $item->phone }}">
-                                                            <input type="hidden" name="ukey" readonly
-                                                                value="{{ $item->ukey }}">
-                                                            <button type="submit" class="btn btn-info btn-sm">Send
-                                                                Mail
-                                                                For
-                                                                Confirmation </button>
-                                                        </form>
-                                                    @endif
-                                                </td>
-                                            @endif
-                                            @if ($page == 'dashboard' || $page == 'trash')
-                                                <td>
-                                                    @if ($item->trash)
-                                                        <span class="d-flex">
-                                                            <a class="btn btn-sm btn-success me-1"
-                                                                href="{{ route('trash.update', $item->ukey) }}"><i
-                                                                    class="fa fa-undo" aria-hidden="true"></i></a>
-                                                            <form class="d-inline delete-form"
-                                                                action="{{ route('dashboard.destroy', $item->id) }}"
-                                                                method="POST">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                <button class="btn btn-sm btn-danger"><i
-                                                                        class="fa fa-trash"
-                                                                        aria-hidden="true"></i></button>
-                                                            </form>
-                                                        </span>
-                                                    @else
-                                                        <span class="d-flex">
-                                                            <a class="btn btn-sm btn-success me-1"
-                                                                href="{{ route('form.edit', $item->id) }}"><i
-                                                                    class="fa fa-edit" aria-hidden="true"></i></a>
-                                                            <a class="btn btn-sm btn-danger"
-                                                                href="{{ route('trash.update', $item->ukey) }}"><i
-                                                                    class="fa fa-trash" aria-hidden="true"></i></a>
-                                                        </span>
-                                                    @endif
-                                                </td>
-                                            @endif
+                                            <td>{{ $item->problem }}</td>
+                                            <td>{{ $item->solution }}</td>
+                                            <td>{{ $item->benefits }}</td>
+                                            <td>{{ $item->file }}</td>
+
 
                                         </tr>
                                     @endforeach

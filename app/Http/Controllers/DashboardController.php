@@ -6,6 +6,7 @@ use App\Mail\MakePaymentMail;
 use App\Mail\NominationSubmitMail;
 use App\Models\Invoice;
 use App\Models\Nomination;
+use App\Models\User;
 use App\Notifications\Notifications\PaymentNotification;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $nomination = Nomination::where('trash', false)->get();
+        $nomination = User::all();
         $total = Nomination::where('trash', true)->get();
         $totalpv = Nomination::where('pv', true)->get();
         $invoice = Invoice::where('trash', false)->get();

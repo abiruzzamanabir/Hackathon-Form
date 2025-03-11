@@ -115,14 +115,13 @@
                     <div class="card shadow">
                         <div class="card-header">
                             @include('partials.header')
-                            <h2 class="text-center">Thank You <span
-                                    class="text-muted text-capitalize">{{ Auth::user()->name }}</span> !</h2>
+                            <h2 class="text-center">Thank You Team <span
+                                    class="text-muted text-capitalize">{{ Auth::user()->team_name }}</span> !</h2>
                         </div>
                         <div class="card-body text-center">
                             <h4 class="mb-2 text-success">Your submission has been successfully received!</h4>
                             <p class="text-muted">We appreciate your contribution. Your submission is complete, and
-                                we
-                                will process it shortly.</p>
+                                we will review it shortly.</p>
                         </div>
 
                     </div>

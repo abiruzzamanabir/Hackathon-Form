@@ -314,12 +314,12 @@
                                                             <input name="member_contact[]" required
                                                                 class="form-control my-3" type="text"
                                                                 value="{{ $member['member_contact'] ?? '' }}"
-                                                                placeholder="Contact">
+                                                                placeholder="Phone">
 
                                                             <input name="member_designation[]" required
                                                                 class="form-control my-3" type="text"
                                                                 value="{{ $member['member_designation'] ?? '' }}"
-                                                                placeholder="Designation">
+                                                                placeholder="Role / Designation">
                                                         </div>
                                                     @endfor
                                                 </div>
@@ -363,8 +363,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
+        @if (!Auth::user()->isUpdated)
+            Swal.fire({
+                title: "Warning",
+                text: "You can update your information only once. After submission, further modifications will not be possible. Please review your details carefully before proceeding.",
+                icon: "warning"
+            });
+        @endif
+
+
         $(document).ready(function() {
             let initialMembers = 2;
             let maxAdditionalMembers = 2;
@@ -402,10 +412,10 @@
                 <span class="bg-danger px-2 py-1 rounded text-white remove-btn" style="cursor: pointer;">Remove <i class="fas fa-times"></i></span>
             </div>
             <input name="member_name[]" required class="form-control my-3" type="text" placeholder="Full Name">
-            <input name="member_designation[]" required class="form-control my-3" type="text" placeholder="Designation">
-            <input name="member_organization[]" required class="form-control my-3" type="text" placeholder="Organization">
-            <input name="member_contact[]" required class="form-control my-3" type="text" placeholder="Contact">
             <input name="member_email[]" required class="form-control my-3" type="text" placeholder="Email">
+            <input name="member_contact[]" required class="form-control my-3" type="text" placeholder="Phone">
+            <input name="member_designation[]" required class="form-control my-3" type="text" placeholder="Role / Designation">
+
         </div>`;
 
                 $(".member-btn-opt-area").append(memberHTML);

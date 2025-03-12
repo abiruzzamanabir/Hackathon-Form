@@ -169,20 +169,26 @@ class NominationController extends Controller
      */
     public function update(Request $request, $email)
     {
-        // Retrieve the user by email, assuming email is unique
+        // Retrieve the user by email
         $user = User::where('email', $email)->firstOrFail();
 
-        // Update the user's data
-        $user->update([
-            'problem' => $request->problem,
-            'solution' => $request->solution,
-            'benefits' => $request->benefits,
-            'file' => $request->file,
-            'isSubmitted' => true,
-        ]);
+        $link = trim($request->file); // Trim spaces
 
-        // Redirect back with a success message
-        return redirect()->route('form.index')->with('success', 'Information Updated');
+        // Validate the link format properly
+        if (!empty($link) && Str::contains($link, 'drive.google.com')) {
+            // Update the user's data
+            $user->update([
+                'problem' => $request->problem,
+                'solution' => $request->solution,
+                'benefits' => $request->benefits,
+                'file' => $link,
+                'isSubmitted' => true,
+            ]);
+
+            return redirect()->route('form.index')->with('success', 'Information Updated');
+        } else {
+            return back()->with('danger', 'Google Drive Link Required');
+        }
     }
 
     /**

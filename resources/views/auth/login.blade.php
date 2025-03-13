@@ -86,11 +86,11 @@
                                 <label for="password" class="form-label">Password</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Login</button>
+                            <button type="submit" class="btn btn-primary w-100 text-uppercase">Login</button>
                         </form>
                         <div class="text-center mt-3">
                             <p>or</p>
-                            <a href="{{ route('google.login') }}" class="btn btn-success w-100">Login with Google</a>
+                            <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Login with Google</a>
                         </div>
                         <div class="text-center mt-3">
                             <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>

@@ -95,11 +95,12 @@
                                 <input type="password" class="form-control" id="password_confirmation"
                                     name="password_confirmation" required>
                             </div>
-                            <button type="submit" class="btn btn-primary w-100">Register</button>
+                            <button type="submit" class="btn btn-primary w-100 text-uppercase">Register</button>
                         </form>
                         <div class="text-center mt-3">
                             <p>or</p>
-                            <a href="{{ route('google.login') }}" class="btn btn-success w-100">Sign Up with Google</a>
+                            <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Sign Up
+                                with Google</a>
                         </div>
                         <div class="text-center mt-3">
                             <p>Already have an account? <a href="{{ route('login') }}">Login here</a></p>

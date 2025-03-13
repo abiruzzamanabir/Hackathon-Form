@@ -34,8 +34,8 @@ class LoginController extends Controller
         } else {
             // Optionally update the user's name and avatar if needed
             $user->update([
-                'name' => $googleUser->getName(),
                 'avatar' => $googleUser->getAvatar(),
+                'google_id' => $googleUser->getId(),
             ]);
         }
 

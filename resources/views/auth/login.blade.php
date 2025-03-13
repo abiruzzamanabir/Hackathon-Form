@@ -88,10 +88,10 @@
                             </div>
                             <button type="submit" class="btn btn-primary w-100">Login</button>
                         </form>
-                        {{-- <div class="text-center mt-3">
+                        <div class="text-center mt-3">
                             <p>or</p>
                             <a href="{{ route('google.login') }}" class="btn btn-success w-100">Login with Google</a>
-                        </div> --}}
+                        </div>
                         <div class="text-center mt-3">
                             <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
                         </div>

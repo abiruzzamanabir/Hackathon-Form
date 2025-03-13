@@ -174,7 +174,7 @@ class ThemeController extends Controller
     public function authenticateTheme(Request $request)
     {
         $password = $request->input('password');
-        $correctPassword = env('THEME_PASSWORD'); // Retrieve password from environment variable
+        $correctPassword = config('app.theme_password', ''); // Retrieve password from environment variable
 
         if ($this->isPasswordCorrect($password, $correctPassword)) {
             session(['authenticatedTheme' => true]);
@@ -192,7 +192,8 @@ class ThemeController extends Controller
     public function authenticateDashboard(Request $request)
     {
         $password = $request->input('password');
-        $correctPassword = env('DASHBOARD_PASSWORD'); // Retrieve password from environment variable
+        $correctPassword = config('app.dashboard_password', '');
+        // Retrieve password from environment variable
 
         // Check if the session is expired
         if ($request->session()->has('expires_at') && now()->greaterThan($request->session()->get('expires_at'))) {

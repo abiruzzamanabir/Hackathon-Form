@@ -1,236 +1,236 @@
 @php
-use App\Models\Theme;
-$theme = Theme::findOrFail(1);
-$domain = Config::get('app.url');
-// $domain = 'https://bbf.digital/dma2023/nomination';
-$amount = $theme->amount;
-// $vat = $theme->amount *= 0.15;
-// $total = $amount + $vat;
-$members_array = json_decode($all_members);
-// Initialize an array to store email addresses
-$email_addresses = [];
+    use App\Models\Theme;
+    $theme = Theme::findOrFail(1);
+    $domain = Config::get('app.url');
+    // $domain = 'https://bbf.digital/dma2023/nomination';
+    $amount = $theme->amount;
+    // $vat = $theme->amount *= 0.15;
+    // $total = $amount + $vat;
+    $members_array = json_decode($all_members);
+    // Initialize an array to store email addresses
+    $email_addresses = [];
 
-$rate_2 = getenv('RATE_2');
-$rate_3 = getenv('RATE_3');
+    $rate_2 = getenv('RATE_2');
+    $rate_3 = getenv('RATE_3');
 
-// Check if decoding was successful
-if ($members_array !== null) {
-// Iterate through each member object
-foreach ($members_array as $member) {
-// Assuming each member object has an 'email' property
-if (isset($member->member_email)) {
-// Add email to the array
-$email_addresses[] = $member->member_email;
-}
-}
-}
-
-// Return array of email addresses
-$email_addresses;
-$member_count= count($email_addresses)+1;
-if ($member_count <= 3) {
-    $rate=$amount;
-    } elseif ($member_count>= 4 && $member_count <= 6) {
-        $rate=$rate_2;
-        } else {
-        $rate=$rate_3;
+    // Check if decoding was successful
+    if ($members_array !== null) {
+        // Iterate through each member object
+        foreach ($members_array as $member) {
+            // Assuming each member object has an 'email' property
+            if (isset($member->member_email)) {
+                // Add email to the array
+                $email_addresses[] = $member->member_email;
+            }
         }
-        $total_amount=$rate * $member_count;
-        $vat=$total_amount *0.15;
-        $total=$total_amount+$vat;
-        @endphp
-        <!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-        <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+    }
 
-        <head>
-            <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-            <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-            <title>Request for Payment for Nomination</title>
-            <style type="text/css">
-                body {
-                    background-image: linear-gradient(rgba(255, 255, 255, 0.9),
-                        rgb(255, 255, 255, 0.9)),
-                    url({{ $domain . '/public/assets/img/'.$theme->background }});
-                    margin: 0;
-                }
+    // Return array of email addresses
+    $email_addresses;
+    $member_count = count($email_addresses) + 1;
+    if ($member_count <= 3) {
+        $rate = $amount;
+    } elseif ($member_count >= 4 && $member_count <= 6) {
+        $rate = $rate_2;
+    } else {
+        $rate = $rate_3;
+    }
+    $total_amount = $rate * $member_count;
+    $vat = $total_amount * 0.15;
+    $total = $total_amount + $vat;
+@endphp
+<!DOCTYPE htmlPUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
 
-                table {
-                    border-spacing: 0;
-                    padding: 20px;
-                }
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Request for Payment for Nomination</title>
+    <style type="text/css">
+        body {
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9),
+                    rgb(255, 255, 255, 0.9)),
+                url({{ $domain . '/public/assets/img/' . $theme->background }});
+            margin: 0;
+        }
 
-                td {
-                    padding: 0;
-                }
+        table {
+            border-spacing: 0;
+            padding: 20px;
+        }
 
-                .main-table {
-                    max-width: 600px;
-                    background-image: linear-gradient(rgba(255, 255, 255, 0.5),
-                        rgb(255, 255, 255, 0.5)),
-                    url({{ $domain . '/public/assets/img/'.$theme->background }});
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-position: center center;
-                    padding: 10px;
-                    border-spacing: 0;
-                    margin: 0 auto;
-                }
+        td {
+            padding: 0;
+        }
 
-                .container {
-                    /* max-width: 600px; */
-                    background-color: #ffffff;
-                    background-image: linear-gradient(rgba(255, 255, 255, 0.9),
-                        rgb(255, 255, 255, 0.9)),
-                    url({{ $domain . '/public/assets/img/'.$theme->iconbg }});
-                    background-repeat: no-repeat;
-                    background-size: contain;
-                    background-position: center center;
-                }
+        .main-table {
+            max-width: 600px;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5),
+                    rgb(255, 255, 255, 0.5)),
+                url({{ $domain . '/public/assets/img/' . $theme->background }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            padding: 10px;
+            border-spacing: 0;
+            margin: 0 auto;
+        }
 
-                .logo {
-                    text-align: center;
-                    font-size: 0;
-                }
+        .container {
+            /* max-width: 600px; */
+            background-color: #ffffff;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.9),
+                    rgb(255, 255, 255, 0.9)),
+                url({{ $domain . '/public/assets/img/' . $theme->iconbg }});
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position: center center;
+        }
 
-                .logo .column {
-                    width: 100%;
-                    max-width: 300px;
-                    display: inline-block;
-                    vertical-align: middle;
-                }
+        .logo {
+            text-align: center;
+            font-size: 0;
+        }
 
-                .logo .column a {
-                    text-decoration: none;
-                    vertical-align: middle;
-                    color: tomato;
-                }
+        .logo .column {
+            width: 100%;
+            max-width: 300px;
+            display: inline-block;
+            vertical-align: middle;
+        }
 
-                .logo .column strong {
-                    vertical-align: middle;
-                    color: tomato;
-                }
+        .logo .column a {
+            text-decoration: none;
+            vertical-align: middle;
+            color: tomato;
+        }
 
-                .button {
-                    display: block;
-                    padding: 7px 20px;
-                    font-size: 16px;
-                    font-weight: bold;
-                    text-decoration: none;
-                    color: #000 !important;
-                    background-image: linear-gradient(rgba(255, 255, 255, 0.5),
-                        rgb(255, 255, 255, 0.5)),
-                    url({{ $domain . '/public/assets/img/'.$theme->background }});
-                    background-repeat: no-repeat;
-                    background-size: cover;
-                    background-position: center center;
-                    border-radius: 5px;
-                    transition: background-color 0.3s ease;
-                    margin: 20px auto;
-                    width: 20%;
-                    text-align: center;
-                }
+        .logo .column strong {
+            vertical-align: middle;
+            color: tomato;
+        }
 
-                .button:hover {
-                    background-image: linear-gradient(rgba(122, 122, 122, 0.7),
-                        rgba(122, 122, 122, 0.7)),
-                    url({{ $domain . '/public/assets/img/'.$theme->background }});
-                    /* background-color: #cdcdcd !important; */
-                    color: #fff !important;
-                }
+        .button {
+            display: block;
+            padding: 7px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-decoration: none;
+            color: #000 !important;
+            background-image: linear-gradient(rgba(255, 255, 255, 0.5),
+                    rgb(255, 255, 255, 0.5)),
+                url({{ $domain . '/public/assets/img/' . $theme->background }});
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center center;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+            margin: 20px auto;
+            width: 20%;
+            text-align: center;
+        }
 
-                .footer {
-                    /* max-width: 600px; */
-                    margin: 100px auto 0px;
-                    color: #fff;
-                    padding: 10px;
-                    text-align: center;
-                    font-size: 14px;
-                    box-shadow: 0 2px 8px rgba(71, 71, 71, 0.5);
-                    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-                    url({{ $domain . '/public/assets/img/'.$theme->background }});
-                    background-size: cover;
-                    background-position: center;
-                }
+        .button:hover {
+            background-image: linear-gradient(rgba(122, 122, 122, 0.7),
+                    rgba(122, 122, 122, 0.7)),
+                url({{ $domain . '/public/assets/img/' . $theme->background }});
+            /* background-color: #cdcdcd !important; */
+            color: #fff !important;
+        }
 
-                .footer a {
-                    color: #999999;
-                    text-decoration: none;
-                }
+        .footer {
+            /* max-width: 600px; */
+            margin: 100px auto 0px;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            font-size: 14px;
+            box-shadow: 0 2px 8px rgba(71, 71, 71, 0.5);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+                url({{ $domain . '/public/assets/img/' . $theme->background }});
+            background-size: cover;
+            background-position: center;
+        }
 
-                .footer p {
-                    text-align: center;
-                    margin: 20px 0px 5px;
-                }
+        .footer a {
+            color: #999999;
+            text-decoration: none;
+        }
 
-                .footer a:hover {
-                    color: #555555;
-                }
+        .footer p {
+            text-align: center;
+            margin: 20px 0px 5px;
+        }
 
-                .fa {
-                    padding: 7px;
-                    font-size: 13px;
-                    width: 20px;
-                    text-align: center;
-                    text-decoration: none;
-                    margin: 10px 5px;
-                    color: white !important;
-                }
+        .footer a:hover {
+            color: #555555;
+        }
 
-                .fa:hover {
-                    opacity: 0.7;
-                }
+        .fa {
+            padding: 7px;
+            font-size: 13px;
+            width: 20px;
+            text-align: center;
+            text-decoration: none;
+            margin: 10px 5px;
+            color: white !important;
+        }
 
-                .footer img {
-                    width: 36px !important;
-                    border: 0px !important;
-                    display: inline !important;
-                }
+        .fa:hover {
+            opacity: 0.7;
+        }
 
-                @media only screen and (max-width: 600px) {
-                    img {
-                        display: block;
-                        margin-left: auto;
-                        margin-right: auto;
-                        width: 50%;
-                    }
+        .footer img {
+            width: 36px !important;
+            border: 0px !important;
+            display: inline !important;
+        }
 
-                    .button {
-                        display: block;
-                        padding: 10px 15px;
-                        font-size: 14px;
-                        margin: 20px auto;
-                        width: 40%;
-                    }
+        @media only screen and (max-width: 600px) {
+            img {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                width: 50%;
+            }
 
-                    .footer a {
-                        color: #999999;
-                        text-decoration: underline;
-                        border: none;
-                    }
+            .button {
+                display: block;
+                padding: 10px 15px;
+                font-size: 14px;
+                margin: 20px auto;
+                width: 40%;
+            }
 
-                    .fa {
-                        padding: 0px;
-                        font-size: 12px;
-                        width: 20px;
-                        text-align: center;
-                        text-decoration: none;
-                        margin: 0px 5px;
-                        color: white !important;
-                    }
-                }
-            </style>
-        </head>
+            .footer a {
+                color: #999999;
+                text-decoration: underline;
+                border: none;
+            }
 
-        <body>
-            <center class="main-table">
-                <div class="container">
-                    <table width="100%">
-                        <!-- <tr>
+            .fa {
+                padding: 0px;
+                font-size: 12px;
+                width: 20px;
+                text-align: center;
+                text-decoration: none;
+                margin: 0px 5px;
+                color: white !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <center class="main-table">
+        <div class="container">
+            <table width="100%">
+                <!-- <tr>
                       <td height="8" style="background-color: rgb(94, 255, 0);"></td>
                   </tr> -->
 
-                        <!-- <tr>
+                <!-- <tr>
                       <td style="padding: 15px 0 5px;">
                           <table width="100%">
                               <tr>
@@ -255,91 +255,99 @@ if ($member_count <= 3) {
                           </table>
                       </td>
                   </tr> -->
-                        <tr>
-                            <td style="text-align: center; padding: 10px 0px">
-                                <a href="{{$theme->url}}"><img
-                                        src="{{ $domain . '/public/assets/img/'.$theme->logo }}" alt="" width="140" /></a>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td style="padding: 20px 0">
-                                <p>Hello <strong>{{ $name }}</strong>,</p>
-                                <p>
-                                    We have received your registration information from <b>{{ $organization }}</b> for <b>{{ Config::get('app.name') }}</b> successfully. To confirm your registration please make the registration payment of
-                                    <b>BDT {{number_format($total)}}</b> using the following link.
-                                </p>
-                                <a href="{{ url('/form/hosted', $ukey) }}" class="button">Make Payment</a>
-                                <p>
-                                    If you have any concerns, please do not hesitate to contact us.
-                                </p>
-                                <p>Warm regards,<br /><strong>Team {{ Config::get('app.name') }}</strong></p>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </center>
-            <table width="100%" class="footer">
                 <tr>
                     <td style="text-align: center; padding: 10px 0px">
-                        <h3>Follow our events and news on our social networks</h3>
-                        <a href="https://www.facebook.com/Official.BBF" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png" alt="Facebook"></a>
-
-                        <a href="https://twitter.com/BBFBangladesh" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png" alt="Twitter"></a>
-
-                        <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png" alt="Linkedin"></a>
-
-                        <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png" alt="Youtube"></a>
-
-                        <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png" alt="Instagram"></a><a href="https://www.facebook.com/Official.BBF" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png" alt="Facebook"></a>
-
-                        <a href="https://twitter.com/BBFBangladesh" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png" alt="Twitter"></a>
-
-                        <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png" alt="Linkedin"></a>
-
-                        <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png" alt="Youtube"></a>
-
-                        <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png" alt="Instagram"></a><a href="https://www.facebook.com/Official.BBF" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png" alt="Facebook"></a>
-
-                        <a href="https://twitter.com/BBFBangladesh" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png" alt="Twitter"></a>
-
-                        <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png" alt="Linkedin"></a>
-
-                        <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png" alt="Youtube"></a>
-
-                        <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png" alt="Instagram"></a><a href="https://www.facebook.com/Official.BBF" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png" alt="Facebook"></a>
-
-                        <a href="https://twitter.com/BBFBangladesh" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png" alt="Twitter"></a>
-
-                        <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png" alt="Linkedin"></a>
-
-                        <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png" alt="Youtube"></a>
-
-                        <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
-                                src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png" alt="Instagram"></a>
-
-                        <p>© {{ now()->year }} Bangladesh Brand Forum. All rights reserved.</p>
+                        <a href="{{ $theme->url }}"><img src="{{ $domain . '/public/assets/img/' . $theme->logo }}"
+                                alt="" width="140" /></a>
                     </td>
                 </tr>
-            </table>
-        </body>
+                <tr>
+                    <td style="padding: 20px 0">
+                        <p>Congratulations, <strong>{{ $name }}</strong>!</p>
+                        <p>
+                            Your team from <b>{{ $organization }}</b> has been successfully formed for
+                            <b>{{ Config::get('app.name') }}</b>.
+                            Your current team size is <b>{{ $member_count }}</b>. Below is the updated team
+                            information:
+                        </p>
+                        @if (count($members_array) > 0)
+                            <table width="100%" style="border-collapse: collapse;">
+                                <thead>
+                                    <tr>
+                                        <th style="border: 1px solid black; padding: 8px; background-color: #f4f4f4;">
+                                            Name</th>
+                                        <th style="border: 1px solid black; padding: 8px; background-color: #f4f4f4;">
+                                            Email</th>
+                                        <th style="border: 1px solid black; padding: 8px; background-color: #f4f4f4;">
+                                            Designation</th>
+                                        <th style="border: 1px solid black; padding: 8px; background-color: #f4f4f4;">
+                                            Contact</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td style="border: 1px solid black; padding: 8px">{{ $name }}
+                                            <strong>(Team Lead)</strong>
+                                        </td>
+                                        <td style="border: 1px solid black; padding: 8px">{{ $email }}</td>
+                                        <td style="border: 1px solid black; padding: 8px">{{ $organization }}</td>
+                                        <td style="border: 1px solid black; padding: 8px">{{ $phone }}</td>
+                                    </tr>
+                                    @foreach ($members_array as $member)
+                                        <tr>
+                                            <td style="border: 1px solid black; padding: 8px">
+                                                {{ $member->member_name }}</td>
+                                            <td style="border: 1px solid black; padding: 8px">
+                                                {{ $member->member_email }}</td>
+                                            <td style="border: 1px solid black; padding: 8px">
+                                                {{ $member->member_designation }}</td>
+                                            <td style="border: 1px solid black; padding: 8px">
+                                                {{ $member->member_contact }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        @endif
+                        <p>
+                            If you need any assistance or further modifications, feel free to reach out to us.
+                        </p>
+                        <p>Best regards,<br /><strong>Team {{ Config::get('app.name') }}</strong></p>
+                    </td>
+                </tr>
 
-        </html>
+            </table>
+        </div>
+    </center>
+    <table width="100%" class="footer">
+        <tr>
+            <td style="text-align: center; padding: 10px 0px">
+                <h3>Follow our events and news on our social networks</h3>
+                <a href="https://www.facebook.com/Official.BBF" class="fa"><img
+                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png"
+                        alt="Facebook"></a>
+
+                <a href="https://twitter.com/BBFBangladesh" class="fa"><img
+                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png"
+                        alt="Twitter"></a>
+
+                <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
+                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png"
+                        alt="Linkedin"></a>
+
+                <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
+                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png"
+                        alt="Youtube"></a>
+
+                <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
+                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png"
+                        alt="Instagram"></a><a href="https://www.facebook.com/Official.BBF" class="fa"></a>
+
+
+
+                <p>© {{ now()->year }} Bangladesh Brand Forum. All rights reserved.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -151,7 +151,7 @@
                                                     <span id="problemword_left">300</span>
                                                 </p>
                                                 <textarea name="problem" id="problem" class="form-control" cols="10" rows="5"
-                                                    placeholder="Describe the problem your AI-based solution aims to solve. (Max 300 words)" required></textarea>
+                                                    placeholder="Describe the problem your AI-based solution aims to solve. (Max 300 words)" required>{{Auth::user()->problem}}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter Problem Statement
                                                 </div>
                                             </div>
@@ -165,7 +165,7 @@
                                                     <span id="solutionword_left">500</span>
                                                 </p>
                                                 <textarea name="solution" id="solution" class="form-control" cols="10" rows="6"
-                                                    placeholder="Provide a brief explanation of your AI-based solution. (Max 500 words)" required></textarea>
+                                                    placeholder="Provide a brief explanation of your AI-based solution. (Max 500 words)" required>{{Auth::user()->solution}}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter AI-Based Solution
                                                     Brief
                                                 </div>
@@ -180,7 +180,7 @@
                                                     <span id="outcomeword_left">300</span>
                                                 </p>
                                                 <textarea name="benefits" id="benefits" class="form-control" cols="10" rows="5"
-                                                    placeholder="Describe the expected outcomes and benefits of your solution. (Max 300 words)" required></textarea>
+                                                    placeholder="Describe the expected outcomes and benefits of your solution. (Max 300 words)" required>{{Auth::user()->benefits}}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter Expected Outcomes &
                                                     Benefits</div>
                                             </div>
@@ -191,7 +191,7 @@
 
                                                 <input type="text" name="file" id="file" class="form-control"
                                                     placeholder="Paste the Google Drive Link containing all required files."
-                                                    required>
+                                                    required value="{{Auth::user()->file}}">
                                                 <p class="text-danger mt-1">Upload the necessary materials in a folder
                                                     and
                                                     share the link. The contents must include:</p>

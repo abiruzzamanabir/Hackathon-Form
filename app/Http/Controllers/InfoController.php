@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\MakePaymentMail;
 use App\Models\Invoice;
 use App\Models\Nomination;
 use App\Models\Theme;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
 class InfoController extends Controller
 {
@@ -109,6 +111,17 @@ class InfoController extends Controller
             'members' => json_encode($members), // Encode members array once
             'isUpdated' => true,
         ]);
+
+        $user_data = [
+            'name' => $request->name,
+            'email' => $request->email,
+            'phone' => $request->phone,
+            'ukey' => $request->id,
+            'organization' => $request->organization,
+            'all_members' => json_encode($members),
+        ];
+
+        Mail::to($request->email)->send(new MakePaymentMail($user_data));
 
         // Redirect back with a success message
         return redirect()->route('form.index')->with('success', 'Information Updated');

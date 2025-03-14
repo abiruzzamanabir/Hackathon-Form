@@ -29,7 +29,7 @@ class NominationSubmitMail extends Mailable implements ShouldQueue
      *
      * @return void
      */
-    public function __construct($order_information,$order_details)
+    public function __construct($order_information, $order_details)
     {
         $this->name = $order_information->name;
         $this->email = $order_information->email;
@@ -37,9 +37,6 @@ class NominationSubmitMail extends Mailable implements ShouldQueue
         $this->organization = $order_information->organization;
         $this->designation = $order_information->designation;
         $this->members_array = $order_information->members;
-        $this->transaction_id = $order_details->transaction_id;
-        $this->amount = $order_details->amount;
-
     }
 
     /**
@@ -50,7 +47,7 @@ class NominationSubmitMail extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Payment Received Mail',
+            subject: 'Case Submission Confirmation',
         );
     }
 

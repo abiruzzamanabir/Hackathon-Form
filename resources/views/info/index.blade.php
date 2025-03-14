@@ -164,12 +164,11 @@
                                                 <option value="" disabled selected>Select Your Category</option>
 
                                                 <option
-                                                    value="City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure (Only For Students)"
+                                                    value="City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure"
                                                     @if (Auth::user()->category ==
-                                                            'City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure (Only For Students)') selected @endif>
-                                                    City Problems – Traffic Congestion, Waste Management, Pollution
-                                                    Control, Smart Infrastructure (Only For Students)
-                                                </option>
+                                                            'City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure') selected @endif>City Problems –
+                                                    Traffic Congestion, Waste Management, Pollution Control, Smart
+                                                    Infrastructure</option>
 
                                                 <option
                                                     value="Manufacturing – Process Optimization, Automation, Quality Control, Supply Chain Efficiency"

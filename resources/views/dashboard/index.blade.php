@@ -153,6 +153,7 @@
                                         <th scope="col">Solution</th>
                                         <th scope="col">Outcomes</th>
                                         <th scope="col">Files</th>
+                                        <th scope="col">Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -204,7 +205,16 @@
                                             <td>{{ $item->problem }}</td>
                                             <td>{{ $item->solution }}</td>
                                             <td>{{ $item->benefits }}</td>
-                                            <td><a href="{{ $item->file }}" target="_blank">{{ $item->file }}</a></td>
+                                            <td><a href="{{ $item->file }}" target="_blank">{{ $item->file }}</a>
+                                            </td>
+                                            <td>
+                                                <a class="btn btn-sm btn-{{ $item->isBlocked ? 'success' : 'warning' }}"
+                                                    href="{{ route('user.ban', $item->id) }}">
+                                                    <i class="fa {{ $item->isBlocked ? 'fa-check' : 'fa-ban' }}"
+                                                        aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+
 
 
                                         </tr>

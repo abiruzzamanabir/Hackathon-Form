@@ -44,15 +44,21 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
-        // Debugging: Check if user exists
+        // Check if user exists
         $user = User::where('email', $request->email)->first();
+
         if (!$user) {
             return back()->withErrors(['email' => 'User does not exist.']);
         }
 
-        // Debugging: Check password match
+        // Check password match
         if (!Hash::check($request->password, $user->password)) {
             return back()->withErrors(['password' => 'Incorrect password.']);
+        }
+
+        // Check if user is blocked
+        if ($user->isBlocked) {
+            return back()->withErrors(['email' => 'Your account is currently banned. Please contact support for assistance.']);
         }
 
         // Attempt login

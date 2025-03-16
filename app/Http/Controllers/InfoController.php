@@ -139,4 +139,21 @@ class InfoController extends Controller
     {
         //
     }
+
+    public function banUser($id)
+    {
+        $data = User::findOrFail($id);
+
+
+        if ($data->isBlocked) {
+            $data->update([
+                'isBlocked' => false,
+            ]);
+        } else {
+            $data->update([
+                'isBlocked' => true,
+            ]);
+        }
+        return back()->with('success', 'Ban updated successfully');
+    }
 }

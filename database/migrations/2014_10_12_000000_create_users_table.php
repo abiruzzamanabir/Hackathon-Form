@@ -31,6 +31,7 @@ return new class extends Migration
             $table->longText('file')->nullable();
             $table->boolean('isUpdated')->default(false);
             $table->boolean('isSubmitted')->default(false);
+            $table->boolean('isBlocked')->default(false);
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->nullable();
             $table->rememberToken();

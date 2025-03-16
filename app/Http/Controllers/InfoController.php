@@ -121,7 +121,7 @@ class InfoController extends Controller
             'all_members' => json_encode($members),
         ];
 
-        Mail::to($request->email)->send(new MakePaymentMail($user_data));
+        Mail::to($request->email)->queue(new MakePaymentMail($user_data));
 
         // Redirect back with a success message
         return redirect()->route('form.index')->with('success', 'Information Updated');

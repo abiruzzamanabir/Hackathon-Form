@@ -218,6 +218,7 @@ class NominationController extends Controller
                 'designation' => $user->designation,
                 'others_email' => $email_addresses,
                 'phone' => $user->phone,
+                'team_name' => $user->team_name,
                 'problem' => $user->problem,
                 'solution' => $user->solution,
                 'benefits' => $user->benefits,
@@ -245,7 +246,7 @@ class NominationController extends Controller
                 $message->to($user_data["email"], $user_data["name"])
                     ->cc($user_data["others_email"]) // Add others_email as CC
                     ->subject('Case Submission Confirmation')
-                    ->attachData($pdf->output(), "invoice_pdf_" . $user_data["ukey"] . ".pdf");
+                    ->attachData($pdf->output(), "case_submission_pdf_" . $user_data["team_name"] . ".pdf");
             });
 
 

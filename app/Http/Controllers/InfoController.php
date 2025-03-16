@@ -156,4 +156,14 @@ class InfoController extends Controller
         }
         return back()->with('success', 'Ban updated successfully');
     }
+    public function toggleBan($id)
+    {
+        $user = User::findOrFail($id);
+
+        // Toggle the isBlocked status
+        $user->isBlocked = !$user->isBlocked;
+        $user->save();
+
+        return response()->json(['isBlocked' => $user->isBlocked]);
+    }
 }

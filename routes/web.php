@@ -30,6 +30,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::resource('/info', InfoController::class);
     Route::get('/user-ban/{id}', [InfoController::class, 'banUser'])->name('user.ban');
+    Route::post('/user/ban/{id}', [InfoController::class, 'toggleBan'])->name('user.toggle.ban');
 });
 
 // Middleware for unauthenticated users

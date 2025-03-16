@@ -207,14 +207,21 @@
                                             <td>{{ $item->benefits }}</td>
                                             <td><a href="{{ $item->file }}" target="_blank">{{ $item->file }}</a>
                                             </td>
-                                            <td>
+                                            {{-- <td>
                                                 <a class="btn btn-sm btn-{{ $item->isBlocked ? 'success' : 'warning' }}"
                                                     href="{{ route('user.ban', $item->id) }}">
                                                     <i class="fa {{ $item->isBlocked ? 'fa-check' : 'fa-ban' }}"
                                                         aria-hidden="true"></i>
                                                 </a>
+                                            </td> --}}
+                                            <td>
+                                                <a class="btn btn-sm btn-{{ $item->isBlocked ? 'success' : 'warning' }}"
+                                                    href="javascript:void(0);"
+                                                    onclick="toggleBan({{ $item->id }}, this)">
+                                                    <i class="fa {{ $item->isBlocked ? 'fa-check' : 'fa-ban' }}"
+                                                        aria-hidden="true"></i>
+                                                </a>
                                             </td>
-
 
 
                                         </tr>
@@ -276,6 +283,31 @@
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.html5.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/buttons/2.3.5/js/buttons.print.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function toggleBan(userId, button) {
+            // Send AJAX request to toggle block/unblock
+            $.ajax({
+                url: '{{ route('user.toggle.ban', ':id') }}'.replace(':id', userId),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    // Update button UI based on response
+                    if (response.isBlocked) {
+                        $(button).removeClass('btn-warning').addClass('btn-success');
+                        $(button).find('i').removeClass('fa-ban').addClass('fa-check');
+                    } else {
+                        $(button).removeClass('btn-success').addClass('btn-warning');
+                        $(button).find('i').removeClass('fa-check').addClass('fa-ban');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        }
+    </script>
 
     <script>
         var time = new Date().getTime();

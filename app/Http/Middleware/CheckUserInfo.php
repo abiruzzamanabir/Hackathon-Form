@@ -19,7 +19,7 @@ class CheckUserInfo
         $user = auth()->user();
 
         // Check if name, email, and designation are filled
-        if ($user->name != '' && $user->email != '' && $user->designation != '') {
+        if ($user->isUpdated==true) {
             // Allow the request to proceed if all fields are filled
             return $next($request);
         }

@@ -1,342 +1,179 @@
 @php
-use Rmunate\Utilities\SpellNumber;
-use App\Models\Theme;
-$theme = Theme::findOrFail(1);
-$amount = $theme->amount;
-$vat = $theme->amount *= 0.15;
-$total = $amount + $vat;
+    use Rmunate\Utilities\SpellNumber;
+    use App\Models\Theme;
+    use Barryvdh\DomPDF\Facades\Pdf;
+
+    $theme = Theme::findOrFail(1);
+    $amount = $theme->amount;
+    $vat = $theme->amount * 0.15;
+    $total = $amount + $vat;
+
+    $case_descriptions = [
+        'City Problems – Traffic Congestion, Waste Management, Pollution Control, Smart Infrastructure' =>
+            'Bangladesh’s rapid urbanization has led to significant challenges in city management,particularly in traffic congestion, inefficient waste disposal, rising pollution levels, andoutdated infrastructure. AI can revolutionize urban planning by analyzing trafficpatterns in real-time, optimizing public transportation schedules, and introducing smarttraffic light systems that adjust dynamically based on congestion levels. In wastemanagement, AI-driven automated sorting systems, route optimization for wastecollection, and predictive maintenance of disposal units can enhance efficiency. AI-based air quality monitoring and pollution prediction models can help authorities takeproactive steps in combating environmental degradation. Smart infrastructure solutionslike AI-powered energy consumption tracking, building automation, and flood riskprediction systems can lead to more sustainable and resilient cities.',
+
+        'Manufacturing – Process Optimization, Automation, Quality Control, Supply Chain Efficiency' =>
+            'Bangladesh’s manufacturing sector is one of its economic pillars, yet it facesinefficiencies in production, quality control, and supply chain management. AI-drivenpredictive maintenance can prevent unexpected machinery failures, reducing downtimeand increasing productivity. Computer vision-powered quality control systems candetect defects in real-time, ensuring higher product consistency while reducing waste.Automation using AI and robotics can enhance repetitive manufacturing processes,increasing precision and efficiency. AI-driven demand forecasting models can improveinventory management, helping businesses reduce excess stock while meeting marketdemand. Additionally, AI-powered logistics optimization can improve supply chaintransparency, minimize delays, and cut down operational costs, making Bangladesh’smanufacturing sector more competitive on a global scale.',
+
+        'Education – AI-Driven Personalized Learning, Accessibility, Content Curation, Skill Development' =>
+            'Education in Bangladesh is undergoing a transformation, with a growing need forpersonalized and accessible learning solutions. AI-powered adaptive learningplatforms can customize study plans based on students’ progress, learning speed, andweaknesses, ensuring better engagement and outcomes. AI chatbots and virtualassistants can provide 24/7 tutoring support, reducing dependency on traditionalclassroom settings. In special needs education, AI-powered speech recognition and text-to-speech tools can help students with disabilities access learning materials effectively.Automated content curation using AI can help educators create customized lessonplans, filtering out irrelevant information and focusing on contextual, high-qualitycontent. Furthermore, AI-based career guidance systems can analyze students’strengths and market trends to recommend personalized career paths and skilldevelopment programs, preparing them for the evolving job market.',
+
+        'Agriculture – Smart Farming, Predictive Analytics, Irrigation Solutions, Pest Control' =>
+            'Agriculture remains a crucial sector in Bangladesh’s economy, but climate change,resource mismanagement, and outdated farming techniques threaten its sustainability.AI can empower farmers with predictive analytics models that analyze weatherpatterns, soil quality, and crop health to optimize planting and harvesting schedules.Smart irrigation systems powered by AI can monitor soil moisture levels in real-time andautomatically regulate water distribution, reducing waste and enhancing efficiency. AI-driven pest detection and disease prediction tools can help farmers take preventivemeasures, reducing crop losses and reliance on harmful pesticides. Drone-based AImonitoring systems can provide real-time insights into large-scale farms, ensuring betterdecision-making. AI-powered market intelligence can also connect farmers directly withbuyers, ensuring fair pricing and reducing dependency on middlemen.',
+
+        'Fintech – Financial Inclusion, Fraud Detection, AI-Driven Credit Scoring, Secure Transactions' =>
+            'The fintech revolution is changing the way people access and manage their finances inBangladesh, particularly in financial inclusion, fraud prevention, and secure digitaltransactions. AI-powered credit scoring models can analyze alternative data points,such as mobile transaction history, utility bill payments, and spending behavior, toprovide credit access to unbanked and underbanked populations. AI-driven frauddetection systems use machine learning to analyze transaction patterns in real-time,identifying suspicious activities and preventing financial crimes. AI-powered chatbotscan improve customer service, enabling instant loan approvals, automated financialadvice, and seamless banking experiences. Additionally, AI-powered biometricauthentication systems, such as facial recognition and voice recognition, can enhancetransaction security, reducing the risks of fraud and cyber threats. These AI-driveninnovations have the potential to make financial services more accessible, secure, andefficient for millions in Bangladesh.',
+
+        'Healthcare – AI-Driven Diagnosis, Remote Patient Monitoring, Predictive Analytics, and Smart Healthcare Systems' =>
+            'Bangladesh’s healthcare system faces significant challenges such as limited access toquality medical care, a shortage of healthcare professionals, inefficient hospitalmanagement, and the growing burden of non-communicable diseases. AI has thepotential to revolutionize healthcare by enhancing diagnosis, treatment planning, andpatient care. AI-powered medical imaging analysis can help detect diseases like cancer,tuberculosis, and diabetic retinopathy at an early stage with higher accuracy thantraditional methods. AI-driven chatbots and virtual assistants can provide 24/7 medicalconsultations, offering primary healthcare guidance to remote or underservedpopulations. In telemedicine, AI can assist doctors by automatically analyzing patientsymptoms and medical history, suggesting possible diagnoses, and recommendingtreatment options. Remote patient monitoring (RPM) systems integrated with AI cantrack vital signs like blood pressure, heart rate, and glucose levels in real-time, alertingdoctors to potential health risks before they become critical.AI-powered predictive analytics models can analyze large-scale patient data to forecastdisease outbreaks, helping governments and healthcare providers take proactivemeasures to control the spread of infectious diseases like dengue, COVID-19, andcholera. In hospital management, AI-driven automated scheduling systems can optimizedoctor appointments, reduce patient waiting times, and improve resource allocation.AI-enabled robotic-assisted surgeries are also emerging as a transformative innovation,increasing precision and reducing human error. Additionally, AI-driven drug discoverycan accelerate the development of new medicines, addressing Bangladesh’s need foraffordable and effective treatments.AI-powered electronic health record (EHR) systems can streamline medical datamanagement, reducing paperwork and enhancing interoperability between hospitals,clinics, and pharmacies. Personalized healthcare solutions powered by AI can tailortreatment plans based on a patient’s genetic makeup, lifestyle, and previous healthconditions, improving treatment efficacy. AI can also combat medical fraud by detectingirregular insurance claims and identifying counterfeit medicines. By integrating AI intoBangladesh’s healthcare system, access to quality medical care can be improved,operational efficiencies can be enhanced, and overall patient outcomes can besignificantly strengthened, ultimately leading to a healthier and more resilient nation.',
+    ];
+
+    $case_description = $case_descriptions[$category] ?? 'No description available.';
 @endphp
+
 <!DOCTYPE html>
 <html>
 
 <head>
-    <title>Invoice</title>
+    <title>Case Submission Answerscript</title>
+    <style type="text/css">
+        body {
+            font-family: 'DejaVu Sans', sans-serif;
+            color: #333;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 100%;
+            margin: 5px auto;
+            padding: 10px;
+            background: #ffffff;
+            border: 1px solid #ccc;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            font-size: 28px;
+            color: #222;
+            text-align: center;
+            font-weight: bold;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #ccc;
+        }
+
+        .header-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #f8f8f8;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+        }
+
+        .header-info div {
+            font-weight: bold;
+            flex: 1;
+            text-align: center;
+        }
+
+        .team-members {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .team-member {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #ddd;
+            width: calc(50% - 10px);
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .content-section {
+            margin-bottom: 30px;
+        }
+
+        .section-header {
+            font-size: 20px;
+            color: #444;
+            margin-bottom: 10px;
+            text-align: center;
+            font-weight: bold;
+            padding: 8px;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .section-content {
+            font-size: 16px;
+            line-height: 1.6;
+            padding: 15px;
+            border: 1px solid #ccc;
+            background: #f9f9f9;
+            border-radius: 6px;
+            text-align: justify;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            font-size: 12px;
+            border-top: 1px solid #ccc;
+            margin-top: 20px;
+        }
+    </style>
 </head>
-<style type="text/css">
-    @page {
-        margin: 0cm 0cm;
-    }
-
-    body {
-        font-family: 'Roboto Condensed', sans-serif;
-        margin-top: 1cm;
-        margin-bottom: 1cm;
-        margin-left: 1cm;
-        margin-right: 1cm;
-    }
-
-    .m-0 {
-        margin: 0px;
-    }
-
-    .p-0 {
-        padding: 0px;
-    }
-
-    .pt-5 {
-        padding-top: 5px;
-    }
-
-    .pb-5 {
-        padding-bottom: 5px;
-    }
-
-    .mt-10 {
-        margin-top: 10px;
-    }
-
-    .mb-10 {
-        margin-bottom: 10px;
-    }
-
-    .text-center {
-        text-align: center !important;
-    }
-
-    .w-100 {
-        width: 100%;
-    }
-
-    .w-50 {
-        width: 50%;
-    }
-
-    .w-55 {
-        width: 55%;
-    }
-
-    .w-45 {
-        width: 45%;
-    }
-
-    .w-85 {
-        width: 85%;
-    }
-
-    .w-15 {
-        width: 15%;
-    }
-
-    .logo img {
-        width: auto;
-        height: 60px;
-    }
-
-    .gray-color {
-        color: #5D5D5D;
-    }
-
-    .text-bold {
-        font-weight: bold;
-    }
-
-    .border {
-        border: 1px solid black;
-    }
-
-    table tr,
-    th,
-    td {
-        border: 1px solid #d2d2d2;
-        border-collapse: collapse;
-        padding: 7px 8px;
-    }
-
-    table tr th {
-        background: #F4F4F4;
-        font-size: 15px;
-    }
-
-    table tr td {
-        font-size: 13px;
-    }
-
-    table {
-        border-collapse: collapse;
-    }
-
-    .box-text p {
-        line-height: 20px;
-    }
-
-    .float-left {
-        float: left;
-    }
-
-    .total-part {
-        font-size: 16px;
-        line-height: 12px;
-    }
-
-    .total-right p {
-        padding-right: 20px;
-    }
-
-    .text-upper {
-        text-transform: uppercase;
-    }
-
-    footer {
-        border: 1px solid #d2d2d2;
-        margin-top: 20px;
-        padding: 5px 0;
-        background-color: #F4F4F4;
-
-    }
-</style>
 
 <body>
-    <div class="head-title">
-        <h1 class="text-center m-0 p-0">Invoice</h1>
-    </div>
-    <div class="add-detail mt-10">
-        <div class="w-55 float-left mt-10">
-            <!-- <p class="m-0 pt-5 text-bold w-100">Order Id - <span class="gray-color">#1</span></p>
-        <p class="m-0 pt-5 text-bold w-100">Invoice Number - <span class="gray-color">AB123456A</span></p>
-        <p class="m-0 pt-5 text-bold w-100">Date - <span class="gray-color">22-01-2023</span></p> -->
-            <table>
-                {{-- <tr>
-                    <th style="text-align: left;">Order Id</th>
-                    <td>{{ $id }}</td>
-                </tr> --}}
-                <tr>
-                    <th style="text-align: left;">Invoice Number</th>
-                    <td>{{ $ukey }}</td>
-                </tr>
-                <tr>
-                    <th style="text-align: left;">Date</th>
-                    <td>{{ date('l, F j, Y, g:i A', strtotime($tran_date)) }}</td>
-                </tr>
-                <tr>
-                    <th style="text-align: left;">Type</th>
-                    <!-- <td style="color: red;">UNPAID</td> -->
-                    <td style="color: green;font-weight: bold;">PAID</td>
-                </tr>
-                <!-- <tr>
-              <th></th>
-              <td style="color: red;">UNPAID</td>
-              <td style="color: green;">PAID</td>
-            </tr> -->
-            </table>
+    <div class="container">
+        <h1>Case Submission Answerscript</h1>
+
+        <div class="header-info">
+            <div>Team Leader: {{ $name }}</div>
+            <div>Designation: {{ $designation }}</div>
+            <div>Organization: {{ $organization }}</div>
         </div>
-        <div class="w-45 float-left logo mt-10">
-            <img style="float: right !important;"
-                src="https://brandzealconsultancy.com/wp-content/uploads/2022/11/Brandzeal-Consultancy-Ltd.png"
-                alt="Logo">
-        </div>
-        <div style="clear: both;"></div>
-    </div>
-    <div class="table-section bill-tbl w-100 mt-10">
-        <table class="table w-100 mt-10">
-            <tr>
-                <th class="w-50">From</th>
-                <th class="w-50">To</th>
-            </tr>
-            <tr>
-                <td>
-                    <div class="box-text">
-                        <p><b style="line-height: 20px !important;">Brandzeal, </b>Apartment No-9/A (level-9), House #30
-                            CWN (A), Road #42/43,</p>
-                        <p>Gulshan-2, Dhaka-1212, Bangladesh.</p>
-                        <p>Contact: +88 02 58815318</p>
-                    </div>
-                </td>
-                <td>
-                    <div class="box-text">
-                        <p style="line-height: 20px !important;"><b
-                                style="line-height: 20px !important;">{{ $organization }}, </b>{{ $address }}</p>
-                        <p>Email: {{ $email }}</p>
-                        <p>Contact: {{ $phone }}</p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div class="table-section bill-tbl w-100 mt-10">
-        <table class="table w-100 mt-10">
-            <tr>
-                <th class="w-50">Payment Method</th>
-            </tr>
-            <tr>
-                <td>Online Payment @if ($card_issuer != '')
-                    Through <b>{{ $card_issuer }}
-                        @endif
-                    </b></td>
-            </tr>
-        </table>
-    </div>
 
-    <div class="table-section bill-tbl w-100 mt-10">
-        <table class="table w-100 mt-10">
-            <thead>
-                <tr>
-                    <th class="w-50">Description</th>
-                    <th class="w-50">Qty</th>
-                    <th class="w-50">Rate</th>
-                    <th class="w-50">Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr align="center">
-                    <td><b>"{{ Config::get('app.name') }} {{ now()->year }}"</b><br>Registration Fee</td>
-                    <td>{{$member_count}}</td>
-                    @php
-                    $rate_2 = getenv('RATE_2');
-                    $rate_3 = getenv('RATE_3');
-                    if ($member_count <= 3) {
-                        $rate=$amount;
-                        } elseif ($member_count>= 4 && $member_count <= 6) {
-                            $rate=$rate_2;
-                            } else {
-                            $rate=$rate_3;
-                            }
-                            $amount_total=$rate * $member_count;
-                            @endphp
-                            <td>BDT {{ number_format($rate) }}</td>
-                            <td>BDT {{ number_format($amount_total) }}</td>
-                </tr>
-            </tbody>
-            <tfoot>
-                <tr>
-                    <td colspan="4">
-                        <div class="total-part">
-                            <table style="float: right;">
-                                <tr>
-                                    <th style="text-align: left;">Sub Total</th>
-                                    <td style="text-align: right;">{{ number_format($amount_total) }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Vat (15%)</th>
-                                    <td style="text-align: right;">{{ number_format($amount_total * 0.15) }}</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Due</th>
-                                    <td style="text-align: right;">0</td>
-                                </tr>
-                                <tr>
-                                    <th style="text-align: left;">Total</th>
-                                    <td style="text-align: right;">{{ number_format($amount_total * 1.15) }}</td>
-                                </tr>
-                            </table>
-                            <div style="clear: both;"></div>
-                            <p style="font-size:13px;"><b>In Words:</b> {{ SpellNumber::value((int)($amount_total * 1.15))->toLetters() }} Taka Only.</p>
-                        </div>
-                    </td>
-                </tr>
-            </tfoot>
-        </table>
-    </div>
-
-    <div class="table-section bill-tbl w-100 mt-10">
-        @if (count($members_array) > 0)
-        <table class="table w-100 mt-10">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Designation</th>
-                    <th>Organizaion</th>
-                    <th>Contact</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="text-align: center;">{{ $name }}</td>
-                    <td style="text-align: center;">{{ $designation }}</td>
-                    <td style="text-align: center;">{{ $organization }}</td>
-                    <td style="text-align: center;">{{ $phone }}</td>
-                </tr>
-                @foreach ($members_array as $member)
-                <tr>
-                    <td style="text-align: center">{{ $member->member_name }}</td>
-                    <td style="text-align: center">{{ $member->member_designation }}</td>
-                    <td style="text-align: center">{{ $member->member_organization }}</td>
-                    <td style="text-align: center">{{ $member->member_contact }}</td>
-                </tr>
-                @endforeach
-            </tbody>
-        </table>
-        @endif
-    </div>
-
-    <div class="table-section bill-tbl w-100 mt-10">
-        <table class="table w-100 mt-10">
-            <tr>
-                <div style="text-align: center;margin: 10px 0px;font-size: 14px;line-height: 10px;">
-                    <p>If you have any queries about this invoice, please contact</p>
-                    <p>+880 174 383 6608, +880 183 585 8601 , registration@commward.com</p>
+        <div class="team-members">
+            @foreach ($members_array as $member)
+                <div class="team-member">
+                    <div><strong>Team Member: {{ $member->member_name }}</strong></div>
+                    <div>Designation: {{ $member->member_designation }}</div>
                 </div>
-                <!--<p style="color: red;font-size:12px;text-align: center">This is system generated invoice</p>-->
-            </tr>
-        </table>
-    </div>
-    <footer>
-        <div style="text-align: center;font-size: 12px;line-height: 5px;letter-spacing: 1px;">
-            <p><b>Brandzeal: </b>Apartment No-9/A (level-9), House #30 CWN (A), Road #42/43</p>
-            <p>Gulshan-2, Dhaka-1212, Bangladesh | Phone: +88 02 58815318</p>
-            <p>Email: info@bangladeshbrandforum.com | Blog: <a href="https://bbf.digital">BBF.DIGITAL</a></p>
+            @endforeach
         </div>
+
+        <div class="content-section">
+            <div class="section-header">Case</div>
+            <div class="section-content">{{ $case_description }}</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">Problem</div>
+            <div class="section-content">{{ $problem }}</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">Solution</div>
+            <div class="section-content">{{ $solution }}</div>
+        </div>
+
+        <div class="content-section">
+            <div class="section-header">Benefits</div>
+            <div class="section-content">{{ $benefits }}</div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; {{ date('Y') }} {{ Config::get('app.name') }}. All Rights Reserved.</p>
     </footer>
-    <p style="color: red;font-size:12px;text-align: center">NOTE : This is system generated invoice and does not require physical signature.</p>
 </body>
 
 </html>

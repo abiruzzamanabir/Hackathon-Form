@@ -45,7 +45,7 @@ class MakePaymentMail extends Mailable implements ShouldQueue
     public function envelope()
     {
         return new Envelope(
-            subject: 'Secure Your Registration',
+            subject: 'Congratulations on Forming Your Team!',
         );
     }
 

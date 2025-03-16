@@ -9,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Nomination Form | {{ $theme->title }}</title>
+    <title>Case Submission Form | {{ $theme->title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -151,7 +151,7 @@
                                                     <span id="problemword_left">300</span>
                                                 </p>
                                                 <textarea name="problem" id="problem" class="form-control" cols="10" rows="5"
-                                                    placeholder="Describe the problem your AI-based solution aims to solve. (Max 300 words)" required></textarea>
+                                                    placeholder="Describe the problem your AI-based solution aims to solve. (Max 300 words)" required>{{ Auth::user()->problem }}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter Problem Statement
                                                 </div>
                                             </div>
@@ -165,7 +165,7 @@
                                                     <span id="solutionword_left">500</span>
                                                 </p>
                                                 <textarea name="solution" id="solution" class="form-control" cols="10" rows="6"
-                                                    placeholder="Provide a brief explanation of your AI-based solution. (Max 500 words)" required></textarea>
+                                                    placeholder="Provide a brief explanation of your AI-based solution. (Max 500 words)" required>{{ Auth::user()->solution }}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter AI-Based Solution
                                                     Brief
                                                 </div>
@@ -180,7 +180,7 @@
                                                     <span id="outcomeword_left">300</span>
                                                 </p>
                                                 <textarea name="benefits" id="benefits" class="form-control" cols="10" rows="5"
-                                                    placeholder="Describe the expected outcomes and benefits of your solution. (Max 300 words)" required></textarea>
+                                                    placeholder="Describe the expected outcomes and benefits of your solution. (Max 300 words)" required>{{ Auth::user()->benefits }}</textarea>
                                                 <div class="invalid-feedback text-uppercase">Enter Expected Outcomes &
                                                     Benefits</div>
                                             </div>
@@ -191,7 +191,7 @@
 
                                                 <input type="text" name="file" id="file" class="form-control"
                                                     placeholder="Paste the Google Drive Link containing all required files."
-                                                    required>
+                                                    required value="{{ Auth::user()->file }}">
                                                 <p class="text-danger mt-1">Upload the necessary materials in a folder
                                                     and
                                                     share the link. The contents must include:</p>
@@ -238,8 +238,8 @@
                             @else
                                 <div class="card-body">
                                     <h3 class="text-center text-danger">
-                                        Nomination submission window is now closed.
-                                    </h3>
+                                        @include('partials.header')
+                                        The case submission window is now officially closed. </h3>
                                 </div>
                             @endif
                         @endif

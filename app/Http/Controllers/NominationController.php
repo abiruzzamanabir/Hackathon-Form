@@ -185,6 +185,71 @@ class NominationController extends Controller
                 'isSubmitted' => true,
             ]);
 
+
+            // Assuming $members_data is your JSON string
+            $members_data = $user->members;
+
+            // Decode JSON string into an array of objects
+            $members_array = json_decode($members_data);
+            // Initialize an array to store email addresses
+            $email_addresses = [];
+
+            // Check if decoding was successful
+            if ($members_array !== null) {
+                // Iterate through each member object
+                foreach ($members_array as $member) {
+                    // Assuming each member object has an 'email' property
+                    if (isset($member->member_email)) {
+                        // Add email to the array
+                        $email_addresses[] = $member->member_email;
+                    }
+                }
+            }
+
+            // Return array of email addresses
+            $email_addresses;
+            $member_count = count($email_addresses) + 1;
+
+            $user_data = [
+                'id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'category' => $user->category,
+                'designation' => $user->designation,
+                'others_email' => $email_addresses,
+                'phone' => $user->phone,
+                'team_name' => $user->team_name,
+                'problem' => $user->problem,
+                'solution' => $user->solution,
+                'benefits' => $user->benefits,
+                'member_count' => $member_count,
+                'member_countt' => $member_count,
+                'members_array' => $members_array,
+                'ukey' => $user->id,
+                'address' => $user->address,
+                'organization' => $user->organization,
+            ];
+
+            // $user_data["name"] = $request->name;
+            // $user_data["email"] = $request->email;
+            // $user_data["phone"] = $request->phone;
+            // $user_data["ukey"] = $ukey;
+            // $user_data["title"] = $request->title;
+            // $user_data["category"] = $request->category;
+            // $user_data["organization"] = $request->organization_name;
+            // Mail::to($request->email)->send(new NominationSubmitMail($data));
+            // $user_data->notify(new PaymentNotification($user_data));
+            // Mail::to($request->email)->send(new MakePaymentMail($user_data));
+            $pdf = PDF::loadView('invoice_pdf', $user_data)->setPaper('a4', 'potrait')->set_option('marginTop', '1px')->set_option('marginLeft', '1px')->set_option('marginRight', '1px')->set_option('marginBottom', '1px');
+
+            Mail::send('email.nomination', $user_data, function ($message) use ($user_data, $pdf) {
+                $message->to($user_data["email"], $user_data["name"])
+                    ->cc($user_data["others_email"]) // Add others_email as CC
+                    ->subject('Case Submission Confirmation')
+                    ->attachData($pdf->output(), "case_submission_pdf_" . $user_data["team_name"] . ".pdf");
+            });
+
+
             return redirect()->route('form.index')->with('success', 'Information Updated');
         } else {
             return back()->with('danger', 'Google Drive Link Required');

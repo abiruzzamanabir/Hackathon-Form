@@ -132,7 +132,7 @@
             <div class="row justify-content-center align-items-center g-2">
                 <div class="col-md-12">
                     <div class="card">
-                        
+
                         <div class="card-body overflow-auto">
                             @include('validate')
                             <table style="text-align: center" id="dashboard" class="table table-striped table-bordered">
@@ -204,7 +204,7 @@
                                             <td>{{ $item->problem }}</td>
                                             <td>{{ $item->solution }}</td>
                                             <td>{{ $item->benefits }}</td>
-                                            <td>{{ $item->file }}</td>
+                                            <td><a href="{{ $item->file }}" target="_blank">{{ $item->file }}</a></td>
 
 
                                         </tr>
@@ -227,8 +227,7 @@
                     <div class="card shadow">
                         <div class="card-body">
                             @include('validate')
-                            <form action="{{ route('authenticate.dashboard') }}" method="POST"
-                                class="was-validated">
+                            <form action="{{ route('authenticate.dashboard') }}" method="POST" class="was-validated">
                                 @csrf
                                 <div class="border p-3 shadow my-3">
                                     <div class="mb-2">
@@ -240,8 +239,7 @@
                                     </div>
                                 </div>
                                 <div class="mt-2 text-center">
-                                    <button style="width: 120px;" type="submit"
-                                        class="btn btn-primary">Submit</button>
+                                    <button style="width: 120px;" type="submit" class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

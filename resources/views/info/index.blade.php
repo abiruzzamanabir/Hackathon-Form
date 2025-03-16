@@ -11,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Registration Form | {{ $theme->title }}</title>
+    <title>Case Submission Form | {{ $theme->title }}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
@@ -345,8 +345,8 @@
                         @else
                             <div class="card-body">
                                 <h3 class="text-center text-danger">
-                                    Nomination submission window is now closed.
-                                </h3>
+                                    @include('partials.header')
+                                    The case submission window is now officially closed. </h3>
                             </div>
                         @endif
                     @endif

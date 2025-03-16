@@ -58,8 +58,8 @@ return [
 
     'url' => env('APP_URL', 'http://localhost'),
 
-    // 'asset_url' => env('ASSET_URL', 'https://innovationconclavebd.com/ai-hackathon/submission/public'),
-    'asset_url' => env('ASSET_URL', 'http://localhost/Hackathon-Form/public'),
+    'asset_url' => env('ASSET_URL', 'https://innovationconclavebd.com/ai-hackathon/submission/public'),
+    // 'asset_url' => env('ASSET_URL', 'http://localhost/Hackathon-Form/public'),
 
     /*
     |--------------------------------------------------------------------------

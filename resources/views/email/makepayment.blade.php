@@ -311,6 +311,12 @@
                         <p>
                             If you need any assistance or further modifications, feel free to reach out to us.
                         </p>
+                        <p>
+                            <strong>EMAIL: </strong>reach@innovationconclavebd.com
+                        </p>
+                        <p>
+                            <strong>MOBILE: </strong>+880 1953-991665, +880 1835-858601
+                        </p>
                         <p>Best regards,<br /><strong>Team {{ Config::get('app.name') }}</strong></p>
                     </td>
                 </tr>
@@ -322,25 +328,17 @@
         <tr>
             <td style="text-align: center; padding: 10px 0px">
                 <h3>Follow our events and news on our social networks</h3>
-                <a href="https://www.facebook.com/Official.BBF" class="fa"><img
+                <a href="https://www.facebook.com/aihackathonbd/" class="fa"><img
                         src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180519/facebook.png"
                         alt="Facebook"></a>
 
-                <a href="https://twitter.com/BBFBangladesh" class="fa"><img
-                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180517/twitter.png"
-                        alt="Twitter"></a>
-
-                <a href="https://www.linkedin.com/company/bangladesh-brand-forum/mycompany/" class="fa"><img
+                <a href="https://www.linkedin.com/company/ai-hackathon" class="fa"><img
                         src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180515/linkedin.png"
                         alt="Linkedin"></a>
 
-                <a href="https://www.youtube.com/@BangladeshBrandForum" class="fa"><img
-                        src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180523/youtube.png"
-                        alt="Youtube"></a>
-
-                <a href="https://www.instagram.com/bangladesh_brand_forum/" class="fa"><img
+                <a href="https://www.instagram.com/bdinnovationconclave/" class="fa"><img
                         src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png"
-                        alt="Instagram"></a><a href="https://www.facebook.com/Official.BBF" class="fa"></a>
+                        alt="Instagram"></a>
 
 
 

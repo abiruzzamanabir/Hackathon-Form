@@ -321,7 +321,7 @@
                         src="https://cdn.bbf.digital/wp-content/uploads/2024/09/22180521/instagram.png"
                         alt="Instagram"></a>
 
-                <p>© {{ now()->year }} Bangladesh Brand Forum. All rights reserved.</p>
+                <p>© {{ now()->year }} Bangladesh Innovation Conclave. All rights reserved.</p>
             </td>
         </tr>
     </table>

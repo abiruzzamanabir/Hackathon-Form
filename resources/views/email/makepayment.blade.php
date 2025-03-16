@@ -342,7 +342,7 @@
 
 
 
-                <p>© {{ now()->year }} Bangladesh Brand Forum. All rights reserved.</p>
+                <p>© {{ now()->year }} Bangladesh Innovation Conclave. All rights reserved.</p>
             </td>
         </tr>
     </table>

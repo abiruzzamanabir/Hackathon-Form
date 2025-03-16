@@ -197,7 +197,7 @@
                                                     share the link. The contents must include:</p>
                                                 <ul>
                                                     <li>Presentation Deck (given format)</li>
-                                                    <li>Valid Photo ID card of Each Participant</li>
+                                                    <li>Valid Photo ID (NID / Passport / Driving License) of Each Participant</li>
                                                 </ul>
                                             </div>
 

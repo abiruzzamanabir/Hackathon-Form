@@ -12,8 +12,8 @@
     <title>
         @if ($page == 'dashboard')
             Dashboard
-        @elseif($page == 'trash')
-            Trash
+        @elseif($page == 'block')
+            Blocked User
         @else
             Payment Verified
         @endif

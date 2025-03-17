@@ -50,6 +50,7 @@ Route::get('/form/hosted/{ukey?}', [NominationController::class, 'hosted'])->nam
 Route::post('/form/updateinfo/{id}', [NominationController::class, 'updateinfo'])->name('form.updateinfo');
 Route::get('/thank-you/{ukey?}', [NominationController::class, 'thanks'])->name('form.thank');
 Route::get('/thanks/{ukey?}', [NominationController::class, 'free'])->name('form.thank.free');
+Route::get('/block-user', [DashboardController::class, 'blockUser'])->name('block.user');
 Route::resource('/dashboard', DashboardController::class);
 Route::post('/dashboard/payment', [DashboardController::class, 'makePayment'])->name('dashboard.payment');
 Route::post('/dashboard/payment/confirm', [DashboardController::class, 'paymentConfirmation'])->name('dashboard.payment.confirm');

@@ -131,6 +131,18 @@
         <div class="container-fluid">
             <div class="row justify-content-center align-items-center g-2">
                 <div class="col-md-12">
+                    <div class="card-header">
+                        @if ($page == 'dashboard')
+                            <a href="{{ route('block.user') }}" class="btn btn-primary">
+                                Block user <span class="badge bg-light text-dark">{{ $count }} </span>
+                            </a>
+                        @else
+                            <a href="{{ route('dashboard.index') }}" class="btn btn-primary">
+                                Dashboard <span class="badge bg-light text-dark">{{ $count }}</span>
+                            </a>
+                        @endif
+                    </div>
+
                     <div class="card">
 
                         <div class="card-body overflow-auto">

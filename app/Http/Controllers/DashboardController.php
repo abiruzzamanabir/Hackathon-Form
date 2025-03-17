@@ -23,11 +23,25 @@ class DashboardController extends Controller
     public function index()
     {
         $nomination = User::all();
-        $total = Nomination::where('trash', true)->get();
+        $total = User::where('isBlocked', true)->get();
         $totalpv = Nomination::where('pv', true)->get();
         $invoice = Invoice::where('trash', false)->get();
         return view('dashboard.index', [
             'page' => 'dashboard',
+            'count' => count($total),
+            'countpv' => count($totalpv),
+            'invoice' => count($invoice),
+            'all_nomination' => $nomination,
+        ]);
+    }
+    public function blockUser()
+    {
+        $nomination = User::where('isBlocked', true)->get();
+        $total = User::all();
+        $totalpv = Nomination::where('pv', true)->get();
+        $invoice = Invoice::where('trash', false)->get();
+        return view('dashboard.index', [
+            'page' => 'block',
             'count' => count($total),
             'countpv' => count($totalpv),
             'invoice' => count($invoice),

@@ -29,8 +29,10 @@ Route::middleware(['auth'])->group(function () {
         Route::resource('/form', NominationController::class); // Only allows access if data is valid
     });
     Route::resource('/info', InfoController::class);
-    Route::get('/user-ban/{id}', [InfoController::class, 'banUser'])->name('user.ban');
+    // Route::get('/user-ban/{id}', [InfoController::class, 'banUser'])->name('user.ban');
     Route::post('/user/ban/{id}', [InfoController::class, 'toggleBan'])->name('user.toggle.ban');
+    Route::post('/user/reset/{id}', [InfoController::class, 'resetIsUpdated'])->name('user.reset.isupdated');
+    Route::post('/user/submit/reset/{id}', [InfoController::class, 'resetIsSubmitted'])->name('user.reset.issubmitted');
 });
 
 // Middleware for unauthenticated users

@@ -226,8 +226,21 @@
                                                         aria-hidden="true"></i>
                                                 </a>
                                             </td> --}}
-                                            <td>
-                                                <a class="btn btn-sm btn-{{ $item->isBlocked ? 'success' : 'warning' }}"
+                                            <td class="d-flex gap-1">
+                                                @if ($item->isUpdated)
+                                                    <a class="btn btn-sm btn-success" href="javascript:void(0);"
+                                                        onclick="resetIsUpdated({{ $item->id }})">
+                                                        <i class="fa fa-undo" aria-hidden="true"></i>
+                                                    </a>
+                                                @endif
+                                                @if ($item->isSubmitted)
+                                                    <a class="btn btn-sm btn-warning" href="javascript:void(0);"
+                                                        onclick="resetIsSubmitted({{ $item->id }})">
+                                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                    </a>
+                                                @endif
+
+                                                <a class="btn btn-sm btn-{{ $item->isBlocked ? 'success' : 'danger' }}"
                                                     href="javascript:void(0);"
                                                     onclick="toggleBan({{ $item->id }}, this)">
                                                     <i class="fa {{ $item->isBlocked ? 'fa-check' : 'fa-ban' }}"
@@ -312,6 +325,46 @@
                     } else {
                         $(button).removeClass('btn-success').addClass('btn-warning');
                         $(button).find('i').removeClass('fa-check').addClass('fa-ban');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        }
+
+        function resetIsUpdated(userId) {
+            $.ajax({
+                url: '{{ route('user.reset.isupdated', ':id') }}'.replace(':id', userId),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Updated successfully!');
+                    } else {
+                        alert('Failed to update.');
+                    }
+                },
+                error: function() {
+                    alert('An error occurred while processing your request.');
+                }
+            });
+        }
+
+        function resetIsSubmitted(userId) {
+            $.ajax({
+                url: '{{ route('user.reset.issubmitted', ':id') }}'.replace(':id', userId),
+                type: 'POST',
+                data: {
+                    _token: '{{ csrf_token() }}',
+                },
+                success: function(response) {
+                    if (response.success) {
+                        alert('Updated successfully!');
+                    } else {
+                        alert('Failed to update.');
                     }
                 },
                 error: function() {

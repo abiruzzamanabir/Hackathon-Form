@@ -166,4 +166,30 @@ class InfoController extends Controller
 
         return response()->json(['isBlocked' => $user->isBlocked]);
     }
+    public function resetIsUpdated($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+
+        $user->isUpdated = false;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
+    public function resetIsSubmitted($id)
+    {
+        $user = User::find($id);
+
+        if (!$user) {
+            return response()->json(['success' => false, 'message' => 'User not found.'], 404);
+        }
+
+        $user->isSubmitted = false;
+        $user->save();
+
+        return response()->json(['success' => true]);
+    }
 }

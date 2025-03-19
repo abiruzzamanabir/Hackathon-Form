@@ -181,6 +181,9 @@
                                             <td>{{ $item->organization }}</td>
                                             <td class="text-capitalize">{{ $item->name }}</td>
                                             <td onclick="copyUserEmail('{{ $item->email }}')">{{ $item->email }}
+                                            @if ($item->google_id)
+                                            <img style="width: 15px" src="{{ asset('assets/img/google_icon.png') }}" alt="icon">
+                                            @endif
                                             </td>
                                             <td>{{ $item->phone }}</td>
                                             <td>{{ $item->designation }}</td>
@@ -281,7 +284,8 @@
                                     </div>
                                 </div>
                                 <div class="mt-2 text-center">
-                                    <button style="width: 120px;" type="submit" class="btn btn-primary">Submit</button>
+                                    <button style="width: 120px;" type="submit"
+                                        class="btn btn-primary">Submit</button>
                                 </div>
                             </form>
                         </div>

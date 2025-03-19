@@ -197,7 +197,8 @@
                                                     share the link. The contents must include:</p>
                                                 <ul>
                                                     <li>Presentation Deck (given format)</li>
-                                                    <li>Valid Photo ID (NID / Passport / Driving License) of Each Participant</li>
+                                                    <li>Valid Photo ID (NID / Passport / Driving License) of Each
+                                                        Participant</li>
                                                 </ul>
                                             </div>
 
@@ -249,7 +250,7 @@
                     </div>
                 @endif
 
-                <div class="card-footer text-muted text-center">
+                <div class="text-muted text-center pt-3">
                     @include('footer')
                 </div>
             </div>

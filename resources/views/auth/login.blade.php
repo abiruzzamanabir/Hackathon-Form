@@ -90,14 +90,15 @@
                         </form>
                         <div class="text-center mt-3">
                             <p>or</p>
-                            <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Login with Google</a>
+                            <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Login
+                                with Google</a>
                         </div>
                         <div class="text-center mt-3">
                             <p>Don't have an account? <a href="{{ route('register') }}">Register here</a></p>
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-muted text-center">
+                <div class="text-muted text-center pt-3">
                     @include('footer')
                 </div>
             </div>

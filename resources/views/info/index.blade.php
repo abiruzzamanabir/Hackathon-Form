@@ -354,7 +354,7 @@
                         {{-- @include('nomination.edit') --}}
                     @endif
                 </div>
-                <div class="card-footer text-muted text-center">
+                <div class="text-muted text-center pt-3">
                     @include('footer')
                 </div>
             </div>
@@ -666,7 +666,7 @@
             var timeRemaining = ' . $timeRemaining . ';
         </script>';
     @endphp
-    {{-- @include('kill') --}}
+    @include('kill')
     <script>
         // Receive the time remaining value from the server-side code
         var timeRemaining = <?php echo $timeRemaining; ?>;

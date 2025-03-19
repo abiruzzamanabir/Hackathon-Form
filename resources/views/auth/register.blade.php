@@ -107,7 +107,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card-footer text-muted text-center">
+                <div class="text-muted text-center pt-3">
                     @include('footer')
                 </div>
             </div>

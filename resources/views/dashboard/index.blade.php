@@ -361,7 +361,7 @@
                     if (response.success) {
                         alert('Updated successfully!');
                     } else {
-                        alert('Failed to update.'+ response);
+                        alert('Failed to update.' + response);
                     }
                 },
                 error: function() {

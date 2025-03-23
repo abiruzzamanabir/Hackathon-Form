@@ -115,6 +115,7 @@
                     <div class="card shadow">
                         <div class="card-header">
                             @include('partials.header')
+                            @include('validate')
                             <h2 class="text-center">Thank You Team <span
                                     class="text-muted text-capitalize">{{ Auth::user()->team_name }}</span> !</h2>
                         </div>

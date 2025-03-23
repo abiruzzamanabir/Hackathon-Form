@@ -357,15 +357,20 @@
                 data: {
                     _token: '{{ csrf_token() }}',
                 },
+                dataType: 'json', // Ensure the response is JSON
                 success: function(response) {
                     if (response.success) {
                         alert('Updated successfully!');
                     } else {
-                        alert('Failed to update.' + response);
+                        alert('Failed to update: ' + (response.message || 'Unknown error'));
                     }
                 },
-                error: function() {
-                    alert('An error occurred while processing your request.');
+                error: function(xhr, status, error) {
+                    // Log the error for better debugging
+                    console.error('Error Status:', status);
+                    console.error('Error Message:', error);
+                    console.error('Response:', xhr.responseText);
+                    alert('An error occurred while processing your request. Please try again.');
                 }
             });
         }
@@ -377,15 +382,20 @@
                 data: {
                     _token: '{{ csrf_token() }}',
                 },
+                dataType: 'json', // Ensure the response is JSON
                 success: function(response) {
                     if (response.success) {
                         alert('Updated successfully!');
                     } else {
-                        alert('Failed to update.' + response);
+                        alert('Failed to update: ' + (response.message || 'Unknown error'));
                     }
                 },
-                error: function() {
-                    alert('An error occurred while processing your request.');
+                error: function(xhr, status, error) {
+                    // Log the error for better debugging
+                    console.error('Error Status:', status);
+                    console.error('Error Message:', error);
+                    console.error('Response:', xhr.responseText);
+                    alert('An error occurred while processing your request. Please try again.');
                 }
             });
         }

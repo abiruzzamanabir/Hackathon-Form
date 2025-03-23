@@ -244,7 +244,7 @@
                                                 @endif
 
                                                 @if ($item->isUpdated)
-                                                    <a class="btn btn-sm btn-success" href="javascript:void(0);"
+                                                    <a class="btn btn-sm btn-primary" href="javascript:void(0);"
                                                         onclick="resetIsUpdated({{ $item->id }})">
                                                         <i class="fa fa-undo" aria-hidden="true"></i>
                                                     </a>

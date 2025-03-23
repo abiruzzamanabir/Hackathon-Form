@@ -290,7 +290,7 @@
                                             <strong>(Team Lead)</strong>
                                         </td>
                                         <td style="border: 1px solid black; padding: 8px">{{ $email }}</td>
-                                        <td style="border: 1px solid black; padding: 8px">{{ $organization }}</td>
+                                        <td style="border: 1px solid black; padding: 8px">{{ $designation }}</td>
                                         <td style="border: 1px solid black; padding: 8px">{{ $phone }}</td>
                                     </tr>
                                     @foreach ($members_array as $member)

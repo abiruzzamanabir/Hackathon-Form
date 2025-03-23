@@ -10,6 +10,7 @@ use App\Http\Controllers\NominationController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SslCommerzPaymentController;
 use App\Http\Controllers\ThemeController;
+use App\Http\Controllers\WhatsAppController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,10 @@ Route::middleware(['redirectIfAuthenticated'])->group(function () {
     Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
     Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 });
+
+Route::get('/whatsapp/{phone?}/{name?}', [WhatsAppController::class, 'sendMessage'])->name('whatsapp.message');
+
+
 // If user's information is incomplete, redirect them to /info
 Route::post('/register', [AuthController::class, 'register']);
 

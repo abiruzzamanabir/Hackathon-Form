@@ -235,6 +235,14 @@
                                                 </a>
                                             </td> --}}
                                             <td class="d-flex gap-1">
+                                                <a class="btn btn-sm btn-success"
+                                                    href="{{ route('whatsapp.message', ['phone' => $item->phone, 'name' => $item->name]) }}"
+                                                    target="_blank">
+                                                    <i class="fa fa-whatsapp" aria-hidden="true"></i>
+                                                </a>
+
+
+
                                                 @if ($item->isUpdated)
                                                     <a class="btn btn-sm btn-success" href="javascript:void(0);"
                                                         onclick="resetIsUpdated({{ $item->id }})">

@@ -18,6 +18,7 @@ class MakePaymentMail extends Mailable implements ShouldQueue
     public $ukey;
     public $email;
     public $phone;
+    public $designation;
     public $organization;
     public $all_members;
 
@@ -34,6 +35,7 @@ class MakePaymentMail extends Mailable implements ShouldQueue
         $this->phone = $user_data['phone'];
         $this->ukey = $user_data['ukey'];
         $this->organization = $user_data['organization'];
+        $this->designation = $user_data['designation'];
         $this->all_members = $user_data['all_members'];
     }
 

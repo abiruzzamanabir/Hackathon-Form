@@ -117,6 +117,7 @@ class InfoController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'ukey' => $request->id,
+            'designation' => $request->designation,
             'organization' => $request->organization,
             'all_members' => json_encode($members),
         ];

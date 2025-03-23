@@ -32,11 +32,6 @@
                         <li><a class="dropdown-item" href="{{ route('google.logout') }}">Logout</a></li>
                     </ul>
                 </li>
-            @else
-                <!-- Optionally, you can add a login link if the user is not authenticated -->
-                <li class="nav-item">
-                    <a class="nav-link" href="{{ route('case.index') }}">Login</a>
-                </li>
             @endif
         </ul>
     </div>

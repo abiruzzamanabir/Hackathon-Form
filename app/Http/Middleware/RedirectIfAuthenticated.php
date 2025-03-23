@@ -21,8 +21,8 @@ class RedirectIfAuthenticated
     {
         // If the user is authenticated and tries to visit /hackathon/ticket/case
         if (Auth::check()) {
-            // Redirect authenticated users to the /hackathon/ticket/form page
-            return redirect()->route('form.index');
+            // Redirect authenticated users to the /hackathon/ticket/form page with an error message
+            return redirect()->route('form.index')->withErrors(['error' => 'You are already authenticated and cannot access this page.']);
         }
 
         return $next($request);

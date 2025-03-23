@@ -366,13 +366,18 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <script>
-        @if (!Auth::user()->isUpdated)
-            Swal.fire({
-                title: "Warning",
-                text: "You can update your information only once. After submission, further modifications will not be possible. Please review your details carefully before proceeding.",
-                icon: "warning"
-            });
+        @if (Auth::user())
+            {
+                @if (!Auth::user()->isUpdated)
+                    Swal.fire({
+                        title: "Warning",
+                        text: "You can update your information only once. After submission, further modifications will not be possible. Please review your details carefully before proceeding.",
+                        icon: "warning"
+                    });
+                @endif
+            }
         @endif
+
 
 
         $(document).ready(function() {

@@ -19,12 +19,12 @@ class CheckUserInfo
         $user = auth()->user();
 
         // Check if name, email, and designation are filled
-        if ($user->isUpdated==true) {
+        if ($user->isUpdated == true) {
             // Allow the request to proceed if all fields are filled
             return $next($request);
         }
 
-        // Redirect to the info page if any field is empty
-        return redirect()->route('info.index');
+        // Redirect to the info page with an error message if any field is empty
+        return redirect()->route('info.index')->withErrors(['error' => 'Please complete your profile before proceeding.']);
     }
 }

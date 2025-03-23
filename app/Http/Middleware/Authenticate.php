@@ -18,14 +18,15 @@ class Authenticate
     public function handle(Request $request, Closure $next)
     {
         // Check if user is authenticated
-        if (Auth::check()) {
-            // Check if the user is blocked
-            $user = Auth::user();
-            if ($user->isBlocked) {
-                // Logout the user and redirect them with a message
-                Auth::logout();
-                return redirect()->route('login')->withErrors(['email' => 'Your account is currently banned. Please contact support for assistance.']);
-            }
+        if (!Auth::check()) {
+            return redirect()->route('login')->withErrors(['email' => 'You must log in to access this page.']);
+        }
+
+        // Check if the user is blocked
+        $user = Auth::user();
+        if ($user->isBlocked) {
+            Auth::logout();
+            return redirect()->route('login')->withErrors(['email' => 'Your account is currently banned. Please contact support for assistance.']);
         }
 
         return $next($request);

@@ -171,7 +171,7 @@
                                 <tbody>
                                     @foreach ($all_nomination as $item)
                                         <tr>
-                                            <th onclick="copyUserId('{{ $item->ukey }}')"
+                                            <th onclick="copyUserId('{{ $item->id }}')"
                                                 @if (!empty($item->comment)) style="background-color: #fadbd8"
                                         @else @endif
                                                 scope="row">{{ $loop->index + 1 }}</th>

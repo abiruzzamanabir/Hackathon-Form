@@ -31,9 +31,7 @@ Route::middleware(['auth'])->group(function () {
     });
     Route::resource('/info', InfoController::class);
     // Route::get('/user-ban/{id}', [InfoController::class, 'banUser'])->name('user.ban');
-    Route::post('/user/ban/{id}', [InfoController::class, 'toggleBan'])->name('user.toggle.ban');
-    Route::post('/user/reset/{id}', [InfoController::class, 'resetIsUpdated'])->name('user.reset.isupdated');
-    Route::post('/user/submit/reset/{id}', [InfoController::class, 'resetIsSubmitted'])->name('user.reset.issubmitted');
+
 });
 
 // Middleware for unauthenticated users
@@ -45,6 +43,10 @@ Route::middleware(['redirectIfAuthenticated'])->group(function () {
 });
 
 Route::get('/whatsapp/{phone?}/{name?}', [WhatsAppController::class, 'sendMessage'])->name('whatsapp.message');
+
+Route::post('/user/ban/{id}', [InfoController::class, 'toggleBan'])->name('user.toggle.ban');
+Route::post('/user/reset/{id}', [InfoController::class, 'resetIsUpdated'])->name('user.reset.isupdated');
+Route::post('/user/submit/reset/{id}', [InfoController::class, 'resetIsSubmitted'])->name('user.reset.issubmitted');
 
 
 // If user's information is incomplete, redirect them to /info

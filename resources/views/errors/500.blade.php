@@ -137,10 +137,10 @@
     <div id="notfound">
         <div class="notfound">
             <div class="notfound-404">
-                <h1>404</h1>
+                <h1>500</h1>
             </div>
-            <h2>We are sorry, Page not found!</h2>
-            <p>The page you are looking for might have been removed or is temporarily unavailable.</p>
+            <h2>Something went wrong!</h2>
+            <p>The server encountered an internal error. Please try again later.</p>
             <a href="{{ route('login') }}">Back To Homepage</a>
         </div>
     </div>

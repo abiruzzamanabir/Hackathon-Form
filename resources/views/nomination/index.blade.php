@@ -197,7 +197,9 @@
                                                     and
                                                     share the link. The contents must include:</p>
                                                 <ul>
-                                                    <li>Presentation Deck (given format)</li>
+                                                    <li>Presentation Deck ( <b><a
+                                                                href="https://innovationconclavebd.com/ai-hackathon/wp-content/uploads/2025/03/AI-Hackathon-PPT.pptx"
+                                                                target="_blank">given format</a></b> )</li>
                                                     <li>Valid Photo ID (NID / Passport / Driving License) of Each
                                                         Participant</li>
                                                 </ul>

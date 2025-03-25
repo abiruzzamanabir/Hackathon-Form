@@ -67,45 +67,61 @@
     <div class="container shadow">
         <div class="row justify-content-center align-items-center">
             <div class="col-md-12">
+                @php
+                    use Carbon\Carbon;
+                    $time = Carbon::parse($theme->close);
+                    $close = $time;
+                @endphp
                 <div class="card-header text-center">
                     <a href="{{ $theme->url }}">
                         <img width="150px" src="{{ asset('assets/img/' . $theme->logo) }}" alt="">
                     </a>
-                    <h3 class="mt-3">Register</h3>
+                    @if (Carbon::now() <= $close)
+                        <h3 class="mt-3">Register</h3>
+                    @endif
                 </div>
                 <div class="card shadow">
-                    <div class="card-body">
-                        @include('validate')
-                        <form action="{{ route('register') }}" method="POST">
-                            @csrf
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Full Name</label>
-                                <input type="text" class="form-control" id="name" name="name" required>
+                    @if (Carbon::now() <= $close)
+                        <div class="card-body">
+                            @include('validate')
+                            <form action="{{ route('register') }}" method="POST">
+                                @csrf
+                                <div class="mb-3">
+                                    <label for="name" class="form-label">Full Name</label>
+                                    <input type="text" class="form-control" id="name" name="name" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email Address</label>
+                                    <input type="email" class="form-control" id="email" name="email" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password_confirmation" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="password_confirmation"
+                                        name="password_confirmation" required>
+                                </div>
+                                <button type="submit" class="btn btn-primary w-100 text-uppercase">Register</button>
+                            </form>
+                            <div class="text-center mt-3">
+                                <p>or</p>
+                                <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Sign
+                                    Up
+                                    with Google</a>
                             </div>
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                            <div class="text-center mt-3">
+                                <p>Already have an account? <a href="{{ route('login') }}">Login here</a></p>
                             </div>
-                            <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" name="password" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="password_confirmation" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="password_confirmation"
-                                    name="password_confirmation" required>
-                            </div>
-                            <button type="submit" class="btn btn-primary w-100 text-uppercase">Register</button>
-                        </form>
-                        <div class="text-center mt-3">
-                            <p>or</p>
-                            <a href="{{ route('google.login') }}" class="btn btn-success w-100 text-uppercase">Sign Up
-                                with Google</a>
                         </div>
-                        <div class="text-center mt-3">
-                            <p>Already have an account? <a href="{{ route('login') }}">Login here</a></p>
+                    @else
+                        <div class="card-body">
+                            <h3 class="text-center text-danger">
+                                The case submission window is now officially closed. </h3>
                         </div>
-                    </div>
+                    @endif
+
                 </div>
                 <div class="text-muted text-center pt-3">
                     @include('footer')
@@ -117,7 +133,7 @@
 
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
         integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
-        @include('kill')
+    @include('kill')
 </body>
 
 </html>

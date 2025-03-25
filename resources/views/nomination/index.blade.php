@@ -198,8 +198,8 @@
                                                     share the link. The contents must include:</p>
                                                 <ul>
                                                     <li>Presentation Deck ( <b><a
-                                                                href="https://innovationconclavebd.com/ai-hackathon/wp-content/uploads/2025/03/AI-Hackathon-PPT.pptx"
-                                                                target="_blank">given format</a></b> )</li>
+                                                                href="https://innovationconclavebd.com/ai-hackathon/wp-content/uploads/2025/03/AI-Hackathon-PPT.pptx">given
+                                                                format</a></b> )</li>
                                                     <li>Valid Photo ID (NID / Passport / Driving License) of Each
                                                         Participant</li>
                                                 </ul>
@@ -264,7 +264,20 @@
 
     <script src="https://code.jquery.com/jquery-3.6.3.slim.min.js"
         integrity="sha256-ZwqZIVdD3iXNyGHbSYdsmWP//UBokj2FHAxKuSBKDSo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
     <script>
+        @if (Auth::user())
+            {
+                @if (!Auth::user()->isSubmitted)
+                    Swal.fire({
+                        title: "Important Notice",
+                        text: "Submit your presentation deck in the required format. Download the PPT template from the website menu. Upload the file to your drive, and provide the link on our website.",
+                        icon: "info"
+                    });
+                @endif
+            }
+        @endif
         $(document).ready(function() {
             var sections = [{
                     id: "#problem",
